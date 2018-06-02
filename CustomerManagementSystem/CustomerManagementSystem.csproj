@@ -206,6 +206,10 @@
     <Compile Include="Migrations\201806050954361_Added Business Accounts.Designer.cs">
       <DependentUpon>201806050954361_Added Business Accounts.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201806060717366_Adding business views.cs" />
+    <Compile Include="Migrations\201806060717366_Adding business views.Designer.cs">
+      <DependentUpon>201806060717366_Adding business views.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\BusinessAccount.cs" />
@@ -251,9 +255,6 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\About.cshtml" />
-    <Content Include="Views\Home\Contact.cshtml" />
-    <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
     <Content Include="Views\Account\ConfirmEmail.cshtml" />
     <Content Include="Views\Account\ExternalLoginConfirmation.cshtml" />
@@ -274,10 +275,13 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\BusinessAccount\Details.cshtml" />
+    <Content Include="Views\BusinessAccount\Edit.cshtml" />
     <Content Include="Views\BusinessAccount\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Home\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -298,6 +302,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201806050954361_Added Business Accounts.resx">
       <DependentUpon>201806050954361_Added Business Accounts.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201806060717366_Adding business views.resx">
+      <DependentUpon>201806060717366_Adding business views.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

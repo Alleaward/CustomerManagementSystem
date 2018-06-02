@@ -10,6 +10,7 @@ namespace CustomerManagementSystem.Models
     {
         [Key]
         public int InvoiceNumber { get; set; }
+        public int BusinessNumber { get; set; }
         public string BusinessName { get; set; }
         public string BusinessOwner { get; set; }
         public string PhoneNumber { get; set; }
@@ -24,6 +25,8 @@ namespace CustomerManagementSystem.Models
         public string Notes { get; set; }
 
         public virtual ICollection<Item> Items { get; set; }
+
+        public int Tax { get; set; }
         public int SubTotal { get; set; }
         public int TotalCost { get; set; }
     }
