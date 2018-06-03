@@ -10,6 +10,7 @@ namespace CustomerManagementSystem.Models
     {
         [Key]
         public int BusinessNumber { get; set; }
+        public string UserAccount { get; set; }
         public string BusinessName { get; set; }
         public string BusinessOwner { get; set; }
         public string PhoneNumber { get; set; }

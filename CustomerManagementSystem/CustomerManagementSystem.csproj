@@ -210,6 +210,10 @@
     <Compile Include="Migrations\201806060717366_Adding business views.Designer.cs">
       <DependentUpon>201806060717366_Adding business views.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201806070650265_Added user account to business acount.cs" />
+    <Compile Include="Migrations\201806070650265_Added user account to business acount.Designer.cs">
+      <DependentUpon>201806070650265_Added user account to business acount.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\BusinessAccount.cs" />
@@ -278,6 +282,7 @@
     <Content Include="Views\BusinessAccount\Details.cshtml" />
     <Content Include="Views\BusinessAccount\Edit.cshtml" />
     <Content Include="Views\BusinessAccount\Index.cshtml" />
+    <Content Include="Views\BusinessAccount\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -305,6 +310,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201806060717366_Adding business views.resx">
       <DependentUpon>201806060717366_Adding business views.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201806070650265_Added user account to business acount.resx">
+      <DependentUpon>201806070650265_Added user account to business acount.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Microsoft.AspNet.Identity;
 
 namespace CustomerManagementSystem.Controllers
 {
@@ -15,6 +16,8 @@ namespace CustomerManagementSystem.Controllers
             using (CustomerManagementSystemContext context = new CustomerManagementSystemContext())
             {
                 var list = context.BusinessAccounts.OrderBy(x => x.BusinessNumber).ToList();
+                ViewBag.userId = User.Identity.GetUserId();
+                //var list = context.BusinessAccounts.OrderBy(x => x.UserAccount.Equals(User.Identity.Name)).ToList();
                 return View(list);
             }
         }
@@ -28,6 +31,7 @@ namespace CustomerManagementSystem.Controllers
         // GET: BusinessAccount/Create
         public ActionResult Create()
         {
+            ViewBag.userId = User.Identity.GetUserId();
             return View();
         }
 

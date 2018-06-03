@@ -73,3 +73,4 @@ C:\xampp\htdocs\~Development\Misc\C# Display App\CustomerManagementSystem\obj\De
 C:\xampp\htdocs\~Development\Misc\C# Display App\CustomerManagementSystem\obj\Debug\CustomerManagementSystem.csproj.GenerateResource.Cache
 C:\xampp\htdocs\~Development\Misc\C# Display App\CustomerManagementSystem\obj\Debug\CustomerManagementSystem.Migrations.AddedBusinessAccounts.resources
 C:\xampp\htdocs\~Development\Misc\C# Display App\CustomerManagementSystem\obj\Debug\CustomerManagementSystem.Migrations.Addingbusinessviews.resources
+C:\xampp\htdocs\~Development\Misc\C# Display App\CustomerManagementSystem\obj\Debug\CustomerManagementSystem.Migrations.Addeduseraccounttobusinessacount.resources
