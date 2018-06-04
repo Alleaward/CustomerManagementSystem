@@ -13,13 +13,21 @@ namespace CustomerManagementSystem.Controllers
         // GET: BusinessAccount
         public ActionResult Index()
         {
-            using (CustomerManagementSystemContext context = new CustomerManagementSystemContext())
+            if (User.Identity.IsAuthenticated)
             {
-                var list = context.BusinessAccounts.OrderBy(x => x.BusinessNumber).ToList();
-                ViewBag.userId = User.Identity.GetUserId();
-                //var list = context.BusinessAccounts.OrderBy(x => x.UserAccount.Equals(User.Identity.Name)).ToList();
-                return View(list);
+                using (CustomerManagementSystemContext context = new CustomerManagementSystemContext())
+                {
+                    var userId = User.Identity.GetUserId();
+                    ViewBag.userId = userId;
+                    var list = context.BusinessAccounts.Where(x => x.UserAccount == userId).OrderBy(x => x.BusinessName).ToList();
+                    return View(list);
+                }
             }
+            else
+            {
+                return RedirectToAction("Login", "Account");
+            }
+
         }
 
         // GET: BusinessAccount/Details/5
