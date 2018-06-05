@@ -12,8 +12,6 @@ namespace CustomerManagementSystem.Models
         public int ItemNumber { get; set; }
         public string ItemName { get; set; }
         public string ItemDescription { get; set; }
-        public int Quantity { get; set; }
-        public int CostPerUnit { get; set; }
-        public int TotalCost { get; set; }        
+        public int Cost { get; set; }
     }
 }

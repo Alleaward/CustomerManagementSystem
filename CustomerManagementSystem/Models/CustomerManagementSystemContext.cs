@@ -24,6 +24,7 @@ namespace CustomerManagementSystem.Models
         public virtual DbSet<Item> Items { get; set; }
         public virtual DbSet<Invoice> Invoices { get; set; }
         public virtual DbSet<BusinessAccount> BusinessAccounts { get; set; }
+        public virtual DbSet<Customer> Customers { get; set; }
     }
 
     //public class MyEntity

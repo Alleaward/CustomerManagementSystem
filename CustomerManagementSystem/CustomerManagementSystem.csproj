@@ -214,9 +214,14 @@
     <Compile Include="Migrations\201806070650265_Added user account to business acount.Designer.cs">
       <DependentUpon>201806070650265_Added user account to business acount.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201806120522269_Adding Items and Customers.cs" />
+    <Compile Include="Migrations\201806120522269_Adding Items and Customers.Designer.cs">
+      <DependentUpon>201806120522269_Adding Items and Customers.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\BusinessAccount.cs" />
+    <Compile Include="Models\Customer.cs" />
     <Compile Include="Models\CustomerManagementSystemContext.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\Invoice.cs" />
@@ -313,6 +318,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201806070650265_Added user account to business acount.resx">
       <DependentUpon>201806070650265_Added user account to business acount.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201806120522269_Adding Items and Customers.resx">
+      <DependentUpon>201806120522269_Adding Items and Customers.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

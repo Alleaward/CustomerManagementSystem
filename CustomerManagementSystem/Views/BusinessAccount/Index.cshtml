@@ -6,10 +6,10 @@
     var userID = ViewBag.userId;
 }
 
-<h2>Index</h2>
+<h2>Select a business to manage.</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Add a business", "Create")
 </p>
 <table class="table">
     <p>Your userID is: @userID</p>
@@ -65,8 +65,8 @@
                     @Html.DisplayFor(modelItem => item.ABN)
                 </td>
                 <td>
-                    @Html.ActionLink("Edit", "Edit", new { id = item.BusinessNumber }) |
-                    @Html.ActionLink("Details", "Details", new { id = item.BusinessNumber }) |
+                    @Html.ActionLink("Select", "Edit", new { id = item.BusinessNumber }) 
+                    |
                     @Html.ActionLink("Remove", "Delete", new { id = item.BusinessNumber })
                 </td>
             </tr>
