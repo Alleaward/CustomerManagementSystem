@@ -6,70 +6,45 @@
     var userID = ViewBag.userId;
 }
 
-<h2>Select a business to manage.</h2>
+<h2 id="business-edit-title">Select a business to manage.</h2>
 
-<p>
-    @Html.ActionLink("Add a business", "Create")
-</p>
-<table class="table">
-    <p>Your userID is: @userID</p>
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.BusinessName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.BusinessOwner)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.PhoneNumber)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Email)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Website)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Logo)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ABN)
-        </th>
-        <th></th>
-    </tr>
+<a href="@Url.Action("Create", "BusinessAccount")"><p>Add a new business</p></a>
 
+<section id="business-list">
+    <p id="userId">Your userID is: @userID</p>
     @if (Model != null)
     {
         foreach (var item in Model)
         {
-            <tr>
-                <td>
+            <div class="business">
+                <p class="options">
+                    <a href="@Url.Action("Edit/"+ @item.BusinessNumber, "BusinessAccount")" class="select"><i class='fa fa-plus' aria-hidden='true'></i></a>
+                    <a href="@Url.Action("Delete/"+ @item.BusinessNumber, "BusinessAccount")" class="remove"><i class='fa fa-minus' aria-hidden='true'></i></a>
+                </p>
+                <p class="business-title">
                     @Html.DisplayFor(modelItem => item.BusinessName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.BusinessOwner)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.PhoneNumber)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Email)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Website)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Logo)
-                </td>
-                <td>
+                </p>
+                <p>
+                    ABN: 
                     @Html.DisplayFor(modelItem => item.ABN)
-                </td>
-                <td>
-                    @Html.ActionLink("Select", "Edit", new { id = item.BusinessNumber }) 
-                    |
-                    @Html.ActionLink("Remove", "Delete", new { id = item.BusinessNumber })
-                </td>
-            </tr>
+                </p>
+                <p>
+                    <i class="fa fa-user" aria-hidden="true"></i> 
+                    @Html.DisplayFor(modelItem => item.BusinessOwner)
+                </p>
+                <p>
+                    <i class="fa fa-phone-square" aria-hidden="true"></i> 
+                    @Html.DisplayFor(modelItem => item.PhoneNumber)
+                </p>
+                <p>
+                    <i class="fa fa-envelope" aria-hidden="true"></i> 
+                    @Html.DisplayFor(modelItem => item.Email)
+                </p>
+                <p>
+                    <i class="fa fa-external-link-square" aria-hidden="true"></i> 
+                    @Html.DisplayFor(modelItem => item.Website)
+                </p>
+            </div>
+            }
         }
-    }
-</table>
+</section>
