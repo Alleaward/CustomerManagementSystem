@@ -288,6 +288,7 @@
     <Content Include="Views\BusinessAccount\Edit.cshtml" />
     <Content Include="Views\BusinessAccount\Index.cshtml" />
     <Content Include="Views\BusinessAccount\Create.cshtml" />
+    <Content Include="Views\BusinessAccount\Manage.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

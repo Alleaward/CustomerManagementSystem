@@ -18,8 +18,9 @@
         {
             <div class="business">
                 <p class="options">
-                    <a href="@Url.Action("Edit/"+ @item.BusinessNumber, "BusinessAccount")" class="select"><i class='fa fa-plus' aria-hidden='true'></i></a>
-                    <a href="@Url.Action("Delete/"+ @item.BusinessNumber, "BusinessAccount")" class="remove"><i class='fa fa-minus' aria-hidden='true'></i></a>
+                    <a href="@Url.Action("Edit/"+ @item.BusinessNumber, "BusinessAccount")" class="select">Edit Business Details</a>
+                    <a href="@Url.Action("Manage/"+ @item.BusinessNumber, "BusinessAccount")" class="select">Manage Invoices</a>
+                    <a href="@Url.Action("Delete/"+ @item.BusinessNumber, "BusinessAccount")" class="remove">Delete Business</a>
                 </p>
                 <p class="business-title">
                     @Html.DisplayFor(modelItem => item.BusinessName)
@@ -42,7 +43,7 @@
                 </p>
                 <p>
                     <i class="fa fa-external-link-square" aria-hidden="true"></i> 
-                    @Html.DisplayFor(modelItem => item.Website)
+                    <a href="@item.Website">@Html.DisplayFor(modelItem => item.Website)</a>
                 </p>
             </div>
             }

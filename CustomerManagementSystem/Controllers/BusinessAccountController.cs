@@ -13,18 +13,21 @@ namespace CustomerManagementSystem.Controllers
         // GET: BusinessAccount
         public ActionResult Index()
         {
+            //check user is logged in
             if (User.Identity.IsAuthenticated)
             {
                 using (CustomerManagementSystemContext context = new CustomerManagementSystemContext())
                 {
                     var userId = User.Identity.GetUserId();
                     ViewBag.userId = userId;
+                    //retrieve only businesses associated with this user account
                     var list = context.BusinessAccounts.Where(x => x.UserAccount == userId).OrderBy(x => x.BusinessName).ToList();
                     return View(list);
                 }
             }
             else
             {
+                //Upon failure redirect to home page
                 return RedirectToAction("Login", "Account");
             }
 
@@ -62,7 +65,19 @@ namespace CustomerManagementSystem.Controllers
         // GET: BusinessAccount/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            try
+            {
+                using (CustomerManagementSystemContext context = new CustomerManagementSystemContext())
+                {
+                    var userId = User.Identity.GetUserId();
+                    var item = context.BusinessAccounts.Where(x => x.BusinessNumber == id && x.UserAccount == userId).ToList();
+                    return View(item);
+                }
+            }
+            catch
+            {
+                return View();
+            }
         }
 
         // POST: BusinessAccount/Edit/5
@@ -71,9 +86,11 @@ namespace CustomerManagementSystem.Controllers
         {
             try
             {
-                // TODO: Add update logic here
-
-                return RedirectToAction("Index");
+                using (CustomerManagementSystemContext context = new CustomerManagementSystemContext())
+                {
+                    var item = context.BusinessAccounts.Where(x => x.BusinessNumber == id).ToList();
+                    return View(item);
+                }
             }
             catch
             {
@@ -94,13 +111,23 @@ namespace CustomerManagementSystem.Controllers
             try
             {
                 // TODO: Add delete logic here
-
                 return RedirectToAction("Index");
             }
             catch
             {
                 return View();
             }
+        }
+        // GET: BusinessAccount/Manage/5
+        public ActionResult Manage(int id)
+        {
+            return RedirectToAction("Login", "Account");
+        }
+        // POST: BusinessAccount/Manage/5
+        [HttpPost]
+        public ActionResult Manage(int id, FormCollection collection)
+        {
+            return RedirectToAction("Login", "Account");
         }
     }
 }
