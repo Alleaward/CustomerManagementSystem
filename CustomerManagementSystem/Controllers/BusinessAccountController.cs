@@ -65,7 +65,7 @@ namespace CustomerManagementSystem.Controllers
         // GET: BusinessAccount/Edit/5
         public ActionResult Edit(int id)
         {
-            try
+            if (User.Identity.IsAuthenticated)
             {
                 using (CustomerManagementSystemContext context = new CustomerManagementSystemContext())
                 {
@@ -74,9 +74,9 @@ namespace CustomerManagementSystem.Controllers
                     return View(item);
                 }
             }
-            catch
+            else
             {
-                return View();
+                return RedirectToAction("Login", "Account");
             }
         }
 
@@ -84,18 +84,8 @@ namespace CustomerManagementSystem.Controllers
         [HttpPost]
         public ActionResult Edit(int id, FormCollection collection)
         {
-            try
-            {
-                using (CustomerManagementSystemContext context = new CustomerManagementSystemContext())
-                {
-                    var item = context.BusinessAccounts.Where(x => x.BusinessNumber == id).ToList();
-                    return View(item);
-                }
-            }
-            catch
-            {
-                return View();
-            }
+            //add database update logic here
+            return View();
         }
 
         // GET: BusinessAccount/Delete/5
@@ -121,7 +111,19 @@ namespace CustomerManagementSystem.Controllers
         // GET: BusinessAccount/Manage/5
         public ActionResult Manage(int id)
         {
-            return RedirectToAction("Login", "Account");
+            if (User.Identity.IsAuthenticated)
+            {
+                using (CustomerManagementSystemContext context = new CustomerManagementSystemContext())
+                {
+                    var userId = User.Identity.GetUserId();
+                    var item = context.BusinessAccounts.Where(x => x.BusinessNumber == id && x.UserAccount == userId).ToList();
+                    return View(item);
+                }
+            }
+            else
+            {
+                return RedirectToAction("Login", "Account");
+            }
         }
         // POST: BusinessAccount/Manage/5
         [HttpPost]
