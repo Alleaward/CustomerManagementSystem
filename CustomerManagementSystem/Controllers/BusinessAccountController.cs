@@ -10,7 +10,7 @@ namespace CustomerManagementSystem.Controllers
 {
     public class BusinessAccountController : Controller
     {
-        // GET: BusinessAccount
+        // GET: BusinessAccount~
         public ActionResult Index()
         {
             //check user is logged in
@@ -33,13 +33,7 @@ namespace CustomerManagementSystem.Controllers
 
         }
 
-        // GET: BusinessAccount/Details/5
-        public ActionResult Details(int id)
-        {
-            return View();
-        }
-
-        // GET: BusinessAccount/Create
+        // GET: BusinessAccount/Create~
         public ActionResult Create()
         {
             ViewBag.userId = User.Identity.GetUserId();
@@ -50,15 +44,30 @@ namespace CustomerManagementSystem.Controllers
         [HttpPost]
         public ActionResult Create(FormCollection collection)
         {
-            try
+            if (User.Identity.IsAuthenticated)
             {
-                // TODO: Add insert logic here
-
+                using (CustomerManagementSystemContext context = new CustomerManagementSystemContext())
+                {
+                    var userId = User.Identity.GetUserId();
+                    var newBusinessAccount = new BusinessAccount
+                    {
+                        BusinessName = Request.Form["BusinessName"],
+                        BusinessOwner = Request.Form["BusinessOwner"],
+                        PhoneNumber = Request.Form["PhoneNumber"],
+                        Email = Request.Form["Email"],
+                        Website = Request.Form["Website"],
+                        Logo = Request.Form["Logo"],
+                        ABN = Request.Form["ABN"],
+                        UserAccount = userId,
+                    };
+                    context.BusinessAccounts.Add(newBusinessAccount);
+                    context.SaveChanges();
+                }
                 return RedirectToAction("Index");
             }
-            catch
+            else
             {
-                return View();
+                return RedirectToAction("Login", "Account");
             }
         }
 
@@ -84,32 +93,25 @@ namespace CustomerManagementSystem.Controllers
         [HttpPost]
         public ActionResult Edit(int id, FormCollection collection)
         {
-            //add database update logic here
-            return View();
+            if (User.Identity.IsAuthenticated)
+            {
+                using (CustomerManagementSystemContext context = new CustomerManagementSystemContext())
+                {
+                    var userId = User.Identity.GetUserId();
+                    var item = context.BusinessAccounts.Where(x => x.BusinessNumber == id && x.UserAccount == userId).ToList();
+                    TryUpdateModel(item);
+                    context.SaveChanges();
+                }
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                return RedirectToAction("Login", "Account");
+            }
         }
 
         // GET: BusinessAccount/Delete/5
         public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: BusinessAccount/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add delete logic here
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
-        // GET: BusinessAccount/Manage/5
-        public ActionResult Manage(int id)
         {
             if (User.Identity.IsAuthenticated)
             {
@@ -125,6 +127,60 @@ namespace CustomerManagementSystem.Controllers
                 return RedirectToAction("Login", "Account");
             }
         }
+
+        // POST: BusinessAccount/Delete/5
+        [HttpPost]
+        public ActionResult Delete(int id, FormCollection collection)
+        {
+            if (User.Identity.IsAuthenticated)
+            {
+                try
+                {
+                    using (CustomerManagementSystemContext context = new CustomerManagementSystemContext())
+                    {
+                        var userId = User.Identity.GetUserId();
+                        var item = context.BusinessAccounts.Where(x => x.BusinessNumber == id && x.UserAccount == userId).ToList();
+                        context.Entry(item).State = System.Data.Entity.EntityState.Deleted;
+                        context.SaveChanges();
+                        return RedirectToAction("Index", "Account");
+                    }
+                }
+                catch
+                {
+                    return RedirectToAction("Index", "Account");
+                }
+            }
+            else
+            {
+                return RedirectToAction("Login", "Account");
+            }
+        }
+
+        // GET: BusinessAccount/Manage/5
+        public ActionResult Manage(int id)
+        {
+            if (User.Identity.IsAuthenticated)
+            {
+                try
+                {
+                    using (CustomerManagementSystemContext context = new CustomerManagementSystemContext())
+                    {
+                        var userId = User.Identity.GetUserId();
+                        var item = context.BusinessAccounts.Where(x => x.BusinessNumber == id && x.UserAccount == userId).ToList();
+                        return View(item);
+                    }
+                }
+                catch
+                {
+                    return RedirectToAction("Index", "Account");
+                }
+            }
+            else
+            {
+                return RedirectToAction("Login", "Account");
+            }
+        }
+
         // POST: BusinessAccount/Manage/5
         [HttpPost]
         public ActionResult Manage(int id, FormCollection collection)

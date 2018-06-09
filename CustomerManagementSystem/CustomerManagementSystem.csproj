@@ -284,11 +284,11 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
-    <Content Include="Views\BusinessAccount\Details.cshtml" />
     <Content Include="Views\BusinessAccount\Edit.cshtml" />
     <Content Include="Views\BusinessAccount\Index.cshtml" />
     <Content Include="Views\BusinessAccount\Create.cshtml" />
     <Content Include="Views\BusinessAccount\Manage.cshtml" />
+    <Content Include="Views\BusinessAccount\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
