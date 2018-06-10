@@ -138,16 +138,16 @@ namespace CustomerManagementSystem.Controllers
                 {
                     using (CustomerManagementSystemContext context = new CustomerManagementSystemContext())
                     {
-                        var userId = User.Identity.GetUserId();
-                        var item = context.BusinessAccounts.Where(x => x.BusinessNumber == id && x.UserAccount == userId).ToList();
-                        context.Entry(item).State = System.Data.Entity.EntityState.Deleted;
+                        var business = new BusinessAccount { BusinessNumber = id };
+                        context.BusinessAccounts.Attach(business);
+                        context.BusinessAccounts.Remove(business);
                         context.SaveChanges();
-                        return RedirectToAction("Index", "Account");
+                        return RedirectToAction("Index", "BusinessAccount");
                     }
                 }
                 catch
                 {
-                    return RedirectToAction("Index", "Account");
+                    return RedirectToAction("Index", "BusinessAccount");
                 }
             }
             else
@@ -172,7 +172,7 @@ namespace CustomerManagementSystem.Controllers
                 }
                 catch
                 {
-                    return RedirectToAction("Index", "Account");
+                    return RedirectToAction("Index", "BusinessAccount");
                 }
             }
             else
