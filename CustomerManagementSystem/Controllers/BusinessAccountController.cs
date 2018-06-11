@@ -40,7 +40,7 @@ namespace CustomerManagementSystem.Controllers
             return View();
         }
 
-        // POST: BusinessAccount/Create
+        // POST: BusinessAccount/Create~
         [HttpPost]
         public ActionResult Create(FormCollection collection)
         {
@@ -71,7 +71,7 @@ namespace CustomerManagementSystem.Controllers
             }
         }
 
-        // GET: BusinessAccount/Edit/5
+        // GET: BusinessAccount/Edit/5~
         public ActionResult Edit(int id)
         {
             if (User.Identity.IsAuthenticated)
@@ -98,8 +98,37 @@ namespace CustomerManagementSystem.Controllers
                 using (CustomerManagementSystemContext context = new CustomerManagementSystemContext())
                 {
                     var userId = User.Identity.GetUserId();
-                    var item = context.BusinessAccounts.Where(x => x.BusinessNumber == id && x.UserAccount == userId).ToList();
-                    TryUpdateModel(item);
+                    var item = context.BusinessAccounts.Where(x => x.BusinessNumber == id && x.UserAccount == userId).First();
+
+                    if (Request.Form["item.BusinessName"] != null)
+                    {
+                        item.BusinessName = Request.Form["item.BusinessName"];
+                    }
+                    if (Request.Form["item.BusinessOwner"] != null)
+                    {
+                        item.BusinessOwner = Request.Form["item.BusinessOwner"];
+                    }
+                    if (Request.Form["item.PhoneNumber"] != null)
+                    {
+                        item.PhoneNumber = Request.Form["item.PhoneNumber"];
+                    }
+                    if (Request.Form["item.Email"] != null)
+                    {
+                        item.Email = Request.Form["item.Email"];
+                    }
+                    if (Request.Form["item.Website"] != null)
+                    {
+                        item.Website = Request.Form["item.Website"];
+                    }
+                    if (Request.Form["item.Logo"] != null)
+                    {
+                        item.Logo = Request.Form["item.Logo"];
+                    }
+                    if (Request.Form["item.ABN"] != null)
+                    {
+                        item.ABN = Request.Form["item.ABN"];
+                    }
+
                     context.SaveChanges();
                 }
                 return RedirectToAction("Index");
@@ -110,7 +139,7 @@ namespace CustomerManagementSystem.Controllers
             }
         }
 
-        // GET: BusinessAccount/Delete/5
+        // GET: BusinessAccount/Delete/5~
         public ActionResult Delete(int id)
         {
             if (User.Identity.IsAuthenticated)
@@ -128,7 +157,7 @@ namespace CustomerManagementSystem.Controllers
             }
         }
 
-        // POST: BusinessAccount/Delete/5
+        // POST: BusinessAccount/Delete/5~
         [HttpPost]
         public ActionResult Delete(int id, FormCollection collection)
         {
