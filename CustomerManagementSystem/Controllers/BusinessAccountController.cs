@@ -216,5 +216,18 @@ namespace CustomerManagementSystem.Controllers
         {
             return RedirectToAction("Login", "Account");
         }
+
+        //GET: BusinessAccount/AddInvoice
+        public ActionResult AddInvoice(int id)
+        {
+            return View();
+        }
+
+        //POST: BusinessAccount/AddInvoice
+        [HttpPost]
+        public ActionResult AddInvoice(int id, FormCollection collection)
+        {
+            return RedirectToAction("Index", "Account");
+        }
     }
 }

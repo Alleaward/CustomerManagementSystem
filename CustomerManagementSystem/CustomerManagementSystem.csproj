@@ -218,6 +218,10 @@
     <Compile Include="Migrations\201806120522269_Adding Items and Customers.Designer.cs">
       <DependentUpon>201806120522269_Adding Items and Customers.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201806171117205_Adding Customer Email and Phone.cs" />
+    <Compile Include="Migrations\201806171117205_Adding Customer Email and Phone.Designer.cs">
+      <DependentUpon>201806171117205_Adding Customer Email and Phone.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\BusinessAccount.cs" />
@@ -289,6 +293,7 @@
     <Content Include="Views\BusinessAccount\Create.cshtml" />
     <Content Include="Views\BusinessAccount\Manage.cshtml" />
     <Content Include="Views\BusinessAccount\Delete.cshtml" />
+    <Content Include="Views\BusinessAccount\AddInvoice.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -322,6 +327,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201806120522269_Adding Items and Customers.resx">
       <DependentUpon>201806120522269_Adding Items and Customers.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201806171117205_Adding Customer Email and Phone.resx">
+      <DependentUpon>201806171117205_Adding Customer Email and Phone.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
