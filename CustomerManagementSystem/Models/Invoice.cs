@@ -29,7 +29,7 @@ namespace CustomerManagementSystem.Models
         public string CustomerEmail { get; set; }
         public string Notes { get; set; }
 
-        public virtual ICollection<Item> Items { get; set; }
+        public virtual ICollection<InvoiceItem> InvoiceItem { get; set; }
 
         public int Tax { get; set; }
         public int SubTotal { get; set; }
