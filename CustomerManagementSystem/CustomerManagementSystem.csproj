@@ -308,6 +308,7 @@
     <Content Include="Views\BusinessAccount\Delete.cshtml" />
     <Content Include="Views\BusinessAccount\AddInvoice.cshtml" />
     <Content Include="Views\BusinessAccount\View.cshtml" />
+    <Content Include="Views\BusinessAccount\AddCustomer.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

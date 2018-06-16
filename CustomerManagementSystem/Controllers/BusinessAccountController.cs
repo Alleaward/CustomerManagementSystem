@@ -222,37 +222,75 @@ namespace CustomerManagementSystem.Controllers
         //GET: BusinessAccount/AddInvoice
         public ActionResult AddInvoice(int id)
         {
-            return View();
+            using (CustomerManagementSystemContext context = new CustomerManagementSystemContext())
+            {
+                var userId = User.Identity.GetUserId();
+                var item = context.Invoices.Where(x => x.BusinessNumber == id).First();
+                return View(item);
+            }
         }
 
         //POST: BusinessAccount/AddInvoice
         [HttpPost]
         public ActionResult AddInvoice(int id, FormCollection collection)
         {
-            var newInvoice = new Invoice
+            using (CustomerManagementSystemContext context = new CustomerManagementSystemContext())
             {
-                InvoiceNumber = Int32.Parse(Request.Form["InvoiceNumber"]),
-                CreationDate = DateTime.Now,
-                BusinessNumber = Int32.Parse(Request.Form["BusinessNumber"]),
-                BusinessName = Request.Form["BusinessName"],
-                BusinessOwner = Request.Form["BusinessOwner"],
-                PhoneNumber = Request.Form["PhoneNumber"],
-                Email = Request.Form["Email"],
-                Website = Request.Form["Website"],
-                Logo = Request.Form["Logo"],
-                ABN = Request.Form["ABN"],
-                CustomerId = Int32.Parse(Request.Form["CustomerId"]),
-                CustomerName = Request.Form["CustomerName"],
-                CustomerAddress = Request.Form["CustomerAddress"],
-                CustomerPhone = Request.Form["CustomerPhone"],
-                CustomerEmail = Request.Form["CustomerEmail"],
-                Notes = Request.Form["Notes"],
-                SubTotal = Decimal.Parse(Request.Form["SubTotal"]),
-                Tax = Decimal.Parse(Request.Form["Tax"]),
-                TotalCost = Decimal.Parse(Request.Form["TotalCost"]),
-            };
-            
-            return RedirectToAction("Manage/" + id, "BusinessAccount");
+                var item = context.BusinessAccounts.Where(x => x.BusinessNumber == id).First();
+
+                var newInvoice = new Invoice
+                {
+                    CreationDate = DateTime.Now,
+
+                    BusinessNumber = item.BusinessNumber,
+                    BusinessName = item.BusinessName,
+                    BusinessOwner = item.BusinessOwner,
+                    PhoneNumber = item.PhoneNumber,
+                    Email = item.Email,
+                    Website = item.Website,
+                    Logo = item.Logo,
+                    ABN = item.ABN,
+
+                    CustomerId = Int32.Parse(Request.Form["CustomerId"]),
+                    CustomerName = Request.Form["CustomerName"],
+                    CustomerAddress = Request.Form["CustomerAddress"],
+                    CustomerPhone = Request.Form["CustomerPhone"],
+                    CustomerEmail = Request.Form["CustomerEmail"],
+
+                    Notes = Request.Form["Notes"],
+                    SubTotal = Decimal.Parse(Request.Form["SubTotal"]),
+                    Tax = Decimal.Parse(Request.Form["Tax"]),
+                    TotalCost = Decimal.Parse(Request.Form["TotalCost"]),
+                };
+                context.Invoices.Add(newInvoice);
+                context.SaveChanges();
+                return RedirectToAction("Manage/" + id, "BusinessAccount");
+            }
+        }
+        //GET: BusinessAccount/AddCustomer
+        public ActionResult AddCustomer(int id)
+        {
+            return View();
+        }
+
+        //POST: BusinessAccount/AddCustomer
+        [HttpPost]
+        public ActionResult AddCustomer(int id, FormCollection collection)
+        {
+            using (CustomerManagementSystemContext context = new CustomerManagementSystemContext())
+            {
+                var newCustomer = new Customer
+                {
+                    BusinessNumber = id,
+                    CustomerName = Request.Form["CustomerName"],
+                    CustomerAddress = Request.Form["CustomerAddress"],
+                    CustomerPhoneNumber = Request.Form["CustomerPhoneNumber"],
+                    CustomerEmail = Request.Form["CustomerEmail"],
+                };
+                context.Customers.Add(newCustomer);
+                context.SaveChanges();
+                return RedirectToAction("AddInvoice/" + id, "BusinessAccount");
+            }
         }
     }
 }

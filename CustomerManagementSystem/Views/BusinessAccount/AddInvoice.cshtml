@@ -20,6 +20,8 @@
 
     <p>New Customer</p>
 
+    <a href="@Url.Action("AddCustomer/" + @Model.BusinessNumber, "BusinessAccount")" class="">Add a new customer</a>
+
     <div class="form-group">
         @Html.LabelFor(model => model.CustomerName, "Customer Name:", htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
