@@ -195,7 +195,9 @@ namespace CustomerManagementSystem.Controllers
                     using (CustomerManagementSystemContext context = new CustomerManagementSystemContext())
                     {
                         var userId = User.Identity.GetUserId();
-                        var item = context.BusinessAccounts.Where(x => x.BusinessNumber == id && x.UserAccount == userId).ToList();
+                        //pass invoices instead of business model?
+                        //var item = context.BusinessAccounts.Where(x => x.BusinessNumber == id && x.UserAccount == userId).ToList();
+                        var item = context.Invoices.Where(x => x.BusinessNumber == id).ToList();
                         return View(item);
                     }
                 }
@@ -227,7 +229,30 @@ namespace CustomerManagementSystem.Controllers
         [HttpPost]
         public ActionResult AddInvoice(int id, FormCollection collection)
         {
-            return RedirectToAction("Index", "Account");
+            var newInvoice = new Invoice
+            {
+                InvoiceNumber = Int32.Parse(Request.Form["InvoiceNumber"]),
+                CreationDate = DateTime.Now,
+                BusinessNumber = Int32.Parse(Request.Form["BusinessNumber"]),
+                BusinessName = Request.Form["BusinessName"],
+                BusinessOwner = Request.Form["BusinessOwner"],
+                PhoneNumber = Request.Form["PhoneNumber"],
+                Email = Request.Form["Email"],
+                Website = Request.Form["Website"],
+                Logo = Request.Form["Logo"],
+                ABN = Request.Form["ABN"],
+                CustomerId = Int32.Parse(Request.Form["CustomerId"]),
+                CustomerName = Request.Form["CustomerName"],
+                CustomerAddress = Request.Form["CustomerAddress"],
+                CustomerPhone = Request.Form["CustomerPhone"],
+                CustomerEmail = Request.Form["CustomerEmail"],
+                Notes = Request.Form["Notes"],
+                SubTotal = Decimal.Parse(Request.Form["SubTotal"]),
+                Tax = Decimal.Parse(Request.Form["Tax"]),
+                TotalCost = Decimal.Parse(Request.Form["TotalCost"]),
+            };
+            
+            return RedirectToAction("Manage/" + id, "BusinessAccount");
         }
     }
 }

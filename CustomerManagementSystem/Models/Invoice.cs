@@ -31,8 +31,8 @@ namespace CustomerManagementSystem.Models
 
         public virtual ICollection<InvoiceItem> InvoiceItem { get; set; }
 
-        public int Tax { get; set; }
-        public int SubTotal { get; set; }
-        public int TotalCost { get; set; }
+        public decimal Tax { get; set; }
+        public decimal SubTotal { get; set; }
+        public decimal TotalCost { get; set; }
     }
 }

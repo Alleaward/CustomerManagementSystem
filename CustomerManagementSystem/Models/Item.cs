@@ -12,6 +12,6 @@ namespace CustomerManagementSystem.Models
         public int ItemNumber { get; set; }
         public string ItemName { get; set; }
         public string ItemDescription { get; set; }
-        public int Cost { get; set; }
+        public decimal Cost { get; set; }
     }
 }

@@ -230,6 +230,10 @@
     <Compile Include="Migrations\.Designer.cs">
       <DependentUpon>.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201806181047318_Changed money values to decimals.cs" />
+    <Compile Include="Migrations\201806181047318_Changed money values to decimals.Designer.cs">
+      <DependentUpon>201806181047318_Changed money values to decimals.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\BusinessAccount.cs" />
@@ -303,6 +307,7 @@
     <Content Include="Views\BusinessAccount\Manage.cshtml" />
     <Content Include="Views\BusinessAccount\Delete.cshtml" />
     <Content Include="Views\BusinessAccount\AddInvoice.cshtml" />
+    <Content Include="Views\BusinessAccount\View.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -345,6 +350,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\.resx">
       <DependentUpon>.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201806181047318_Changed money values to decimals.resx">
+      <DependentUpon>201806181047318_Changed money values to decimals.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -78,3 +78,4 @@ C:\xampp\htdocs\~Development\Misc\C# Display App\CustomerManagementSystem\obj\De
 C:\xampp\htdocs\~Development\Misc\C# Display App\CustomerManagementSystem\obj\Debug\CustomerManagementSystem.Migrations.AddingCustomerEmailandPhone.resources
 C:\xampp\htdocs\~Development\Misc\C# Display App\CustomerManagementSystem\obj\Debug\CustomerManagementSystem.Migrations.Begundatabasenormalisation.resources
 C:\xampp\htdocs\~Development\Misc\C# Display App\CustomerManagementSystem\obj\Debug\CustomerManagementSystem.Migrations.Begundatabasenormalisation2.resources
+C:\xampp\htdocs\~Development\Misc\C# Display App\CustomerManagementSystem\obj\Debug\CustomerManagementSystem.Migrations.Changedmoneyvaluestodecimals.resources
