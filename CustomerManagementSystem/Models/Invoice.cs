@@ -10,6 +10,8 @@ namespace CustomerManagementSystem.Models
     {
         [Key]
         public int InvoiceNumber { get; set; }
+        public DateTime CreationDate { get; set; }
+
         //foriegn key
         public int BusinessNumber { get; set; }
         public string BusinessName { get; set; }
@@ -20,7 +22,6 @@ namespace CustomerManagementSystem.Models
         public string Logo { get; set; }
         public string ABN { get; set; }
 
-        public DateTime CreationDate { get; set; }
         //foreign key
         public int CustomerId { get; set; }
         public string CustomerName { get; set; }

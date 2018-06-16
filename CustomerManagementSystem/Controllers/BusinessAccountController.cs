@@ -5,6 +5,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
+using CustomerManagementSystem.ViewModels;
 
 namespace CustomerManagementSystem.Controllers
 {
@@ -225,8 +226,22 @@ namespace CustomerManagementSystem.Controllers
             using (CustomerManagementSystemContext context = new CustomerManagementSystemContext())
             {
                 var userId = User.Identity.GetUserId();
-                var item = context.Invoices.Where(x => x.BusinessNumber == id).First();
-                return View(item);
+                var invoice = new InvoiceDisplay();
+
+                //Get the right business
+                var business = context.BusinessAccounts.Where(x => x.BusinessNumber == id).First();
+                invoice.BusinessNumber = business.BusinessNumber;
+                invoice.BusinessName = business.BusinessName;
+                invoice.BusinessOwner = business.BusinessOwner;
+                invoice.PhoneNumber = business.PhoneNumber;
+                invoice.Email = business.Email;
+                invoice.Website = business.Website;
+                invoice.Logo = business.Logo;
+                invoice.ABN = business.ABN;
+                //Fill Customers up
+                invoice.Customers = context.Customers.Where(x => x.BusinessNumber == id).ToList();
+
+                return View(invoice);
             }
         }
 

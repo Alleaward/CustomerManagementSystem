@@ -1,0 +1,2 @@
+C:\xampp\htdocs\~Development\Misc\C# Display App\CustomerManagementSystem.Tests\obj\Debug\CustomerManagementSystem.Tests.csprojResolveAssemblyReference.cache
+C:\xampp\htdocs\~Development\Misc\C# Display App\CustomerManagementSystem.Tests\obj\Debug\CustomerManagementSystem.Tests.csproj.CoreCompileInputs.cache

@@ -1,4 +1,4 @@
-﻿@model CustomerManagementSystem.Models.Invoice
+﻿@model CustomerManagementSystem.ViewModels.InvoiceDisplay
 
 @{
     ViewBag.Title = "AddInvoice";
@@ -17,47 +17,19 @@
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
     <!-- Get the business number from the URL and display it as readonly  "Business Number: # (Business Name here)" -->
-
-    <p>New Customer</p>
-
-    <a href="@Url.Action("AddCustomer/" + @Model.BusinessNumber, "BusinessAccount")" class="">Add a new customer</a>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.CustomerName, "Customer Name:", htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.CustomerName, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.CustomerName, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.CustomerAddress, "Customer Address:", htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.CustomerAddress, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.CustomerAddress, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.CustomerPhone, "Customer Phone:", htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.CustomerPhone, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.CustomerPhone, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.CustomerEmail, "Customer Email:", htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.CustomerEmail, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.CustomerEmail, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-    <p>-------------------------------------------------------------------</p>
+    <p>Business Number: #@Html.DisplayFor(model => model.BusinessNumber) (@Html.DisplayFor(model => model.BusinessName))</p>
+    <p>
+        <a href="@Url.Action("AddCustomer/" + @Model.BusinessNumber, "BusinessAccount")" class="">Add a new customer</a>
+    </p>
+    <p>OR</p>
     <p>Returning Customer?</p>
-    <!-- Make this a drop down list of previous customers + ability to add new-->
-    <p>DROP DOWN LIST OF EXISTING CUSTOMERS</p>
+    <select>
+        @foreach (var item in Model.Customers)
+        {
+            <option>@item.CustomerName</option>
+        }
+    </select>
+
 
     <p>-------------------------------------------------------------------</p>
 
