@@ -307,5 +307,47 @@ namespace CustomerManagementSystem.Controllers
                 return RedirectToAction("AddInvoice/" + id, "BusinessAccount");
             }
         }
+        //GET: BusinessAccount/AddInvoiceItem/id
+        public ActionResult AddInvoiceItem(int id)
+        {
+            using (CustomerManagementSystemContext context = new CustomerManagementSystemContext())
+            {
+                ViewBag.BusinessNumber = id;
+                var item = context.Items.ToList();
+                return View(item);
+            }
+        }
+        //Post: BusinessAccount/AddInvoiceItem/id
+        [HttpPost]
+        public ActionResult AddInvoiceItem(int id, FormCollection collection)
+        {
+            using (CustomerManagementSystemContext context = new CustomerManagementSystemContext())
+            {
+                ViewBag.BusinessNumber = id;
+                return RedirectToAction("AddInvoiceItem/" + id, "BusinessAccount");
+            }
+        }
+        //GET: BusinessAccount/AddItem/id
+        public ActionResult AddItem(int id)
+        {
+            return View();
+        }
+
+        //POST: BusinessAccount/AddItem/id
+        [HttpPost]
+        public ActionResult AddItem(int id, FormCollection collection)
+        {
+            using (CustomerManagementSystemContext context = new CustomerManagementSystemContext())
+            {
+                var newItem = new Item{
+                    ItemName = Request.Form["ItemName"],
+                    ItemDescription = Request.Form["ItemDescription"],
+                    Cost = Decimal.Parse(Request.Form["Cost"]),
+                };
+                context.Items.Add(newItem);
+                context.SaveChanges();
+                return RedirectToAction("AddInvoiceItem/" + id, "BusinessAccount");
+            }
+        }
     }
 }
