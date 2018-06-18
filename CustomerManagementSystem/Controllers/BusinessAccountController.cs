@@ -241,6 +241,8 @@ namespace CustomerManagementSystem.Controllers
                 //Fill Customers up
                 invoice.Customers = context.Customers.Where(x => x.BusinessNumber == id).ToList();
 
+                invoice.Items = context.Items.Where(x => x.BusinessNumber == id).ToList();
+
                 return View(invoice);
             }
         }
@@ -279,9 +281,20 @@ namespace CustomerManagementSystem.Controllers
                 };
                 context.Invoices.Add(newInvoice);
                 context.SaveChanges();
+
                 return RedirectToAction("Manage/" + id, "BusinessAccount");
             }
         }
+
+        public ActionResult AddInvoiceItemPartial(int id)
+        {
+            using (CustomerManagementSystemContext context = new CustomerManagementSystemContext())
+            {
+                var cvm = context.Items.Where(x => x.BusinessNumber == id).ToList();
+                return PartialView("_AddInvoiceItem", cvm);
+            }
+        }
+
         //GET: BusinessAccount/AddCustomer
         public ActionResult AddCustomer(int id)
         {
@@ -323,8 +336,13 @@ namespace CustomerManagementSystem.Controllers
         {
             using (CustomerManagementSystemContext context = new CustomerManagementSystemContext())
             {
-                ViewBag.BusinessNumber = id;
-                return RedirectToAction("AddInvoiceItem/" + id, "BusinessAccount");
+                var newInvoiceItem = new InvoiceItem
+                {
+                    ItemId = Int32.Parse(Request.Form["ItemNumber"]),
+                    ItemQuantity = Int32.Parse(Request.Form["ItemQuantity"]),
+                };
+
+                return View("AddInvoiceItem/" + id, "BusinessAccount");
             }
         }
         //GET: BusinessAccount/AddItem/id
@@ -340,13 +358,14 @@ namespace CustomerManagementSystem.Controllers
             using (CustomerManagementSystemContext context = new CustomerManagementSystemContext())
             {
                 var newItem = new Item{
+                    BusinessNumber = id,
                     ItemName = Request.Form["ItemName"],
                     ItemDescription = Request.Form["ItemDescription"],
                     Cost = Decimal.Parse(Request.Form["Cost"]),
                 };
                 context.Items.Add(newItem);
                 context.SaveChanges();
-                return RedirectToAction("AddInvoiceItem/" + id, "BusinessAccount");
+                return RedirectToAction("AddInvoice/" + id, "BusinessAccount");
             }
         }
     }

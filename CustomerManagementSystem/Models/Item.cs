@@ -8,6 +8,8 @@ namespace CustomerManagementSystem.Models
 {
     public class Item
     {
+        public int BusinessNumber { get; set; }
+
         [Key]
         public int ItemNumber { get; set; }
         public string ItemName { get; set; }

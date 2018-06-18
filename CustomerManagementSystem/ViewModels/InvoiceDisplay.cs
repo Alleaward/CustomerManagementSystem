@@ -26,6 +26,8 @@ namespace CustomerManagementSystem.ViewModels
 
         public virtual List<InvoiceItem> InvoiceItem { get; set; }
 
+        public virtual List<Item> Items { get; set; }
+
         public decimal Tax { get; set; }
         public decimal SubTotal { get; set; }
         public decimal TotalCost { get; set; }

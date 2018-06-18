@@ -17,15 +17,24 @@
     <hr />
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-    <select>
+    <select name="ItemNumber">
         @foreach (var item in Model)
         {
-            <option>@item.ItemName</option>
+            <option value=@item.ItemNumber>@item.ItemName</option>
         }
     </select>
+
+    <div class="form-group">
+        <div class="col-md-10">
+            <p>Quantity:</p>
+            <input name="ItemQuantity" type="number" />
+        </div>
+    </div>
+    
     <p>
         <a href="@Url.Action("AddItem/" + @businessNumber, "BusinessAccount")" class="">Add a new item</a>
     </p>
+    
     <div class="form-group">
         <div class="col-md-offset-2 col-md-10">
             <input type="submit" value="Create" class="btn btn-default" />
