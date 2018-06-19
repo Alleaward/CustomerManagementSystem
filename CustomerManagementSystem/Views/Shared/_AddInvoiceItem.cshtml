@@ -1,14 +1,12 @@
 ﻿@model IEnumerable<CustomerManagementSystem.Models.Item>
 
-
 <div id="" class="form-horizontal add-item">
-    <h4>InvoiceItem</h4>
-    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-    <select name="ItemNumber">
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <select name="ItemNumber" id="item-list">
         @foreach (var item in Model)
         {
-            <option value=@item.ItemNumber>@item.ItemName</option>
+            <option value=@item.ItemNumber>@item.ItemName | $@item.Cost | @item.ItemDescription</option>
         }
     </select>
 
@@ -21,7 +19,9 @@
 
     <div class="form-group">
         <div class="col-md-offset-2 col-md-10">
-            <input type="button" value="+" class="btn btn-default" onclick="addNewItem()"/>
+            <input id="loadPartialView" type="button" value="+" class="btn btn-default" />
         </div>
     </div>
 </div>
+
+

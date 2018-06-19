@@ -5,79 +5,91 @@
 }
 
 <h2>AddInvoice</h2>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#loadPartialView").click(function () {
 
+            //Option one is to take the values i need (item Id and quantity) and add a form element to hold them.
 
-@using (Html.BeginForm()) 
+            //Option two is to add a new partial with each click format div to add here -- its gotta be a form element that can be looped through
+            $.get('@Url.Action("AddInvoiceItemPartial/" + Model.BusinessNumber)', {}, function (response) {
+                $("#Display").append(response);
+            });
+        });
+    });
+</script>
+
+@using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
-<div class="form-horizontal">
-    <h4>Invoice</h4>
-    <hr />
-    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-    <!-- Get the business number from the URL and display it as readonly  "Business Number: # (Business Name here)" -->
-    <p>Business Number: #@Html.DisplayFor(model => model.BusinessNumber) (@Html.DisplayFor(model => model.BusinessName))</p>
-    <p>
-        <a href="@Url.Action("AddCustomer/" + @Model.BusinessNumber, "BusinessAccount")" class="">Add a new customer</a>
-    </p>
-    <p>OR</p>
-    <p>Returning Customer?</p>
-    <select>
-        @foreach (var item in Model.Customers)
-        {
-            <option>@item.CustomerName</option>
-        }
-    </select>
+    <div class="form-horizontal">
+        <h4>Invoice</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
+        <!-- Get the business number from the URL and display it as readonly  "Business Number: # (Business Name here)" -->
+        <p>Business Number: #@Html.DisplayFor(model => model.BusinessNumber) (@Html.DisplayFor(model => model.BusinessName))</p>
+        <p>
+            <a href="@Url.Action("AddCustomer/" + @Model.BusinessNumber, "BusinessAccount")" class="">Add a new customer</a>
+        </p>
+        <p>OR</p>
+        <p>Returning Customer?</p>
+        <select>
+            @foreach (var item in Model.Customers)
+            {
+                <option>@item.CustomerName</option>
+            }
+        </select>
+        <div id="Display"></div>
 
-    <p>-------------------------------------------------------------------</p>
+        <p>-------------------------------------------------------------------</p>
 
-    @Html.Action("AddInvoiceItemPartial")
+        @Html.Action("AddInvoiceItemPartial")
 
-    <p>
-        <a href="@Url.Action("AddItem/" + @Model.BusinessNumber, "BusinessAccount")" class="">Add a new item</a>
-    </p>
-    <p>-------------------------------------------------------------------</p>
+        <p>
+            <a href="@Url.Action("AddItem/" + @Model.BusinessNumber, "BusinessAccount")" class="">Add a new item</a>
+        </p>
+        <p>-------------------------------------------------------------------</p>
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.Notes, "Notes:", htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.Notes, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.Notes, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.Notes, "Notes:", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Notes, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Notes, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.SubTotal, "Subtotal:", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.SubTotal, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.SubTotal, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Tax, "Tax: ", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Tax, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Tax, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.TotalCost, "Total Cost:", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.TotalCost, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.TotalCost, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
         </div>
     </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.SubTotal, "Subtotal:", htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.SubTotal, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.SubTotal, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.Tax, "Tax: ", htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.Tax, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.Tax, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.TotalCost, "Total Cost:", htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.TotalCost, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.TotalCost, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-    <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            <input type="submit" value="Create" class="btn btn-default" />
-        </div>
-    </div>
-</div>
 }
 
 <div>
