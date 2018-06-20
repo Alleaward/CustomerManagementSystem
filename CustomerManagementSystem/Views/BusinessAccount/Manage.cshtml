@@ -4,6 +4,7 @@
     /**/
 
     ViewBag.Title = "Manage";
+    var businessNumber = ViewBag.BusinessNumber;
 }
 
 <h2>Manage</h2>
@@ -11,8 +12,7 @@
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-
-    if (Model != null)
+    if (Model != null && Model.Count() != 0)
     {
         <div class="business">
             <p class="options">
@@ -55,34 +55,7 @@
         <table class="table">
             <tr>
                 <th>
-                    @Html.DisplayNameFor(model => model.BusinessNumber)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.BusinessName)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.BusinessOwner)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.PhoneNumber)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Email)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Website)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Logo)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.ABN)
-                </th>
-                <th>
                     @Html.DisplayNameFor(model => model.CreationDate)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.CustomerId)
                 </th>
                 <th>
                     @Html.DisplayNameFor(model => model.CustomerName)
@@ -100,12 +73,6 @@
                     @Html.DisplayNameFor(model => model.Notes)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Tax)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.SubTotal)
-                </th>
-                <th>
                     @Html.DisplayNameFor(model => model.TotalCost)
                 </th>
                 <th></th>
@@ -114,34 +81,7 @@
             {
                 <tr>
                     <td>
-                        @Html.DisplayFor(modelItem => item2.BusinessNumber)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item2.BusinessName)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item2.BusinessOwner)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item2.PhoneNumber)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item2.Email)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item2.Website)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item2.Logo)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item2.ABN)
-                    </td>
-                    <td>
                         @Html.DisplayFor(modelItem => item2.CreationDate)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item2.CustomerId)
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item2.CustomerName)
@@ -159,12 +99,6 @@
                         @Html.DisplayFor(modelItem => item2.Notes)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item2.Tax)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item2.SubTotal)
-                    </td>
-                    <td>
                         @Html.DisplayFor(modelItem => item2.TotalCost)
                     </td>
                     <td>
@@ -175,6 +109,12 @@
                 </tr>
             }
         </table>
+    }
+    else
+    {
+        <h3>You do not have any invoices.</h3>
+        <!-- Insert Invoice management here-->
+        <a href="@Url.Action("AddInvoice/" + businessNumber, "BusinessAccount")">Add an invoice.</a>
     }
 }
 

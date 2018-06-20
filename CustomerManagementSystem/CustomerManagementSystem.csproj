@@ -238,6 +238,10 @@
     <Compile Include="Migrations\201806201033126_Adjusting models for invoicing.Designer.cs">
       <DependentUpon>201806201033126_Adjusting models for invoicing.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201806210646012_Added completed flag for invoice.cs" />
+    <Compile Include="Migrations\201806210646012_Added completed flag for invoice.Designer.cs">
+      <DependentUpon>201806210646012_Added completed flag for invoice.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\BusinessAccount.cs" />
@@ -365,6 +369,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201806201033126_Adjusting models for invoicing.resx">
       <DependentUpon>201806201033126_Adjusting models for invoicing.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201806210646012_Added completed flag for invoice.resx">
+      <DependentUpon>201806210646012_Added completed flag for invoice.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

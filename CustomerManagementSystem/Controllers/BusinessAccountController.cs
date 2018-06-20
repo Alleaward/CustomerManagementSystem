@@ -99,7 +99,7 @@ namespace CustomerManagementSystem.Controllers
                 using (CustomerManagementSystemContext context = new CustomerManagementSystemContext())
                 {
                     var userId = User.Identity.GetUserId();
-                    var item = context.BusinessAccounts.Where(x => x.BusinessNumber == id && x.UserAccount == userId).First();
+                    var item = context.BusinessAccounts.Where(x => x.BusinessNumber == id && x.UserAccount == userId).FirstOrDefault();
 
                     if (Request.Form["item.BusinessName"] != null)
                     {
@@ -195,9 +195,7 @@ namespace CustomerManagementSystem.Controllers
                 {
                     using (CustomerManagementSystemContext context = new CustomerManagementSystemContext())
                     {
-                        var userId = User.Identity.GetUserId();
-                        //pass invoices instead of business model?
-                        //var item = context.BusinessAccounts.Where(x => x.BusinessNumber == id && x.UserAccount == userId).ToList();
+                        ViewBag.BusinessNumber = id;
                         var item = context.Invoices.Where(x => x.BusinessNumber == id).ToList();
                         return View(item);
                     }
@@ -229,7 +227,8 @@ namespace CustomerManagementSystem.Controllers
                 var invoice = new InvoiceDisplay();
 
                 //Get the right business
-                var business = context.BusinessAccounts.Where(x => x.BusinessNumber == id).First();
+
+                var business = context.BusinessAccounts.Where(x => x.BusinessNumber == id).FirstOrDefault();
                 invoice.BusinessNumber = business.BusinessNumber;
                 invoice.BusinessName = business.BusinessName;
                 invoice.BusinessOwner = business.BusinessOwner;
@@ -238,10 +237,13 @@ namespace CustomerManagementSystem.Controllers
                 invoice.Website = business.Website;
                 invoice.Logo = business.Logo;
                 invoice.ABN = business.ABN;
+                
                 //Fill Customers up
                 invoice.Customers = context.Customers.Where(x => x.BusinessNumber == id).ToList();
 
-                invoice.Items = context.Items.Where(x => x.BusinessNumber == id).ToList();
+                //invoice.Items = context.Items.Where(x => x.BusinessNumber == id).ToList();
+
+                var item = context.BusinessAccounts.Where(x => x.BusinessNumber == id).FirstOrDefault();
 
                 return View(invoice);
             }
@@ -253,36 +255,41 @@ namespace CustomerManagementSystem.Controllers
         {
             using (CustomerManagementSystemContext context = new CustomerManagementSystemContext())
             {
-                var item = context.BusinessAccounts.Where(x => x.BusinessNumber == id).First();
+                var business = context.BusinessAccounts.Where(x => x.BusinessNumber == id).FirstOrDefault();
+                var CustomerId = Int32.Parse(Request.Form["CustomerNumber"]);
+                var customer = context.Customers.Where(x => x.CustomerId == CustomerId).FirstOrDefault();
 
                 var newInvoice = new Invoice
                 {
                     CreationDate = DateTime.Now,
 
-                    BusinessNumber = item.BusinessNumber,
-                    BusinessName = item.BusinessName,
-                    BusinessOwner = item.BusinessOwner,
-                    PhoneNumber = item.PhoneNumber,
-                    Email = item.Email,
-                    Website = item.Website,
-                    Logo = item.Logo,
-                    ABN = item.ABN,
+                    BusinessNumber = business.BusinessNumber,
+                    BusinessName = business.BusinessName,
+                    BusinessOwner = business.BusinessOwner,
+                    PhoneNumber = business.PhoneNumber,
+                    Email = business.Email,
+                    Website = business.Website,
+                    Logo = business.Logo,
+                    ABN = business.ABN,
+                    CustomerId = CustomerId,
 
-                    CustomerId = Int32.Parse(Request.Form["CustomerId"]),
-                    CustomerName = Request.Form["CustomerName"],
-                    CustomerAddress = Request.Form["CustomerAddress"],
-                    CustomerPhone = Request.Form["CustomerPhone"],
-                    CustomerEmail = Request.Form["CustomerEmail"],
-
+                    CustomerName = customer.CustomerName,
+                    CustomerAddress = customer.CustomerAddress,
+                    CustomerPhone = customer.CustomerPhoneNumber,
+                    CustomerEmail = customer.CustomerEmail,
+                    /*
                     Notes = Request.Form["Notes"],
                     SubTotal = Decimal.Parse(Request.Form["SubTotal"]),
                     Tax = Decimal.Parse(Request.Form["Tax"]),
                     TotalCost = Decimal.Parse(Request.Form["TotalCost"]),
+                     */
                 };
                 context.Invoices.Add(newInvoice);
                 context.SaveChanges();
 
-                return RedirectToAction("Manage/" + id, "BusinessAccount");
+                var invoiceNumber = newInvoice.InvoiceNumber;
+
+                return RedirectToAction("AddInvoiceItem/" + invoiceNumber, "BusinessAccount");
             }
         }
 

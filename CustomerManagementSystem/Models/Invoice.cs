@@ -11,6 +11,7 @@ namespace CustomerManagementSystem.Models
         [Key]
         public int InvoiceNumber { get; set; }
         public DateTime CreationDate { get; set; }
+        public bool invoiceComplete { get; set; }
 
         //foriegn key
         public int BusinessNumber { get; set; }
