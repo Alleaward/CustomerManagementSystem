@@ -289,7 +289,7 @@ namespace CustomerManagementSystem.Controllers
 
                 var invoiceNumber = newInvoice.InvoiceNumber;
 
-                return RedirectToAction("AddInvoiceItem/" + invoiceNumber, "BusinessAccount");
+                return RedirectToAction("AddInvoiceItem/" + business.BusinessNumber + "/" + invoiceNumber, "BusinessAccount");
             }
         }
 
@@ -328,28 +328,38 @@ namespace CustomerManagementSystem.Controllers
             }
         }
         //GET: BusinessAccount/AddInvoiceItem/id
-        public ActionResult AddInvoiceItem(int id)
+        public ActionResult AddInvoiceItem(int id, int option)
         {
             using (CustomerManagementSystemContext context = new CustomerManagementSystemContext())
             {
+                var vm = new InvoiceItemVM();
+
+                vm.Items = context.Items.Where(x => x.BusinessNumber == id).ToList();
+
+                //convert to display a list of items ordered
+                vm.Ordered = context.InvoiceItems.Where(x => x.InvoiceId == option).ToList();
+
                 ViewBag.BusinessNumber = id;
-                var item = context.Items.ToList();
-                return View(item);
+                ViewBag.InvoiceNumber = option;
+                return View(vm);
             }
         }
         //Post: BusinessAccount/AddInvoiceItem/id
         [HttpPost]
-        public ActionResult AddInvoiceItem(int id, FormCollection collection)
+        public ActionResult AddInvoiceItem(int id, int option, FormCollection collection)
         {
             using (CustomerManagementSystemContext context = new CustomerManagementSystemContext())
             {
                 var newInvoiceItem = new InvoiceItem
                 {
+                    InvoiceId = option,
                     ItemId = Int32.Parse(Request.Form["ItemNumber"]),
                     ItemQuantity = Int32.Parse(Request.Form["ItemQuantity"]),
                 };
+                context.InvoiceItems.Add(newInvoiceItem);
+                context.SaveChanges();
 
-                return View("AddInvoiceItem/" + id, "BusinessAccount");
+                return RedirectToAction("AddInvoiceItem/" + id + "/" + option, "BusinessAccount");
             }
         }
         //GET: BusinessAccount/AddItem/id
@@ -360,7 +370,7 @@ namespace CustomerManagementSystem.Controllers
 
         //POST: BusinessAccount/AddItem/id
         [HttpPost]
-        public ActionResult AddItem(int id, FormCollection collection)
+        public ActionResult AddItem(int id, int option, FormCollection collection)
         {
             using (CustomerManagementSystemContext context = new CustomerManagementSystemContext())
             {
@@ -372,7 +382,7 @@ namespace CustomerManagementSystem.Controllers
                 };
                 context.Items.Add(newItem);
                 context.SaveChanges();
-                return RedirectToAction("AddInvoice/" + id, "BusinessAccount");
+                return RedirectToAction("AddInvoiceItem/" + id + "/" + option, "BusinessAccount");
             }
         }
     }
