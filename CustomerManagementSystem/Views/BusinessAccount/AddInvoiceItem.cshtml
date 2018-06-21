@@ -13,42 +13,52 @@
 {
     @Html.AntiForgeryToken()
 
-    <div class="form-horizontal">
-        <h4>InvoiceItem</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <h5>Ordered Items:</h5>
-        <ol>
-            @foreach (var item in Model.Ordered)
-            {
-                <li>Item ID: @item.ItemId | Item Name: | Quantity: @item.ItemQuantity</li>
-            }
-        </ol>
+<div class="form-horizontal">
+    <h4>InvoiceItem</h4>
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <h5>Ordered Items:</h5>
+    <ol>
+        @foreach (var item in Model.Ordered)
+        {
+            <li>Item ID: @item.ItemId | Item Name: | Quantity: @item.ItemQuantity</li>
+        }
+    </ol>
 
-        <select name="ItemNumber">
-            @foreach (var item in Model.Items)
-            {
-                <option value=@item.ItemNumber>@item.ItemName</option>
-            }
-        </select>
+    <select name="ItemNumber">
+        @foreach (var item in Model.Items)
+        {
+            <option value=@item.ItemNumber>@item.ItemName</option>
+        }
+    </select>
 
-        <div class="form-group">
-            <div class="col-md-10">
-                <p>Quantity:</p>
-                <input name="ItemQuantity" type="number" />
-            </div>
-        </div>
-
-        <p>
-            <a href="@Url.Action("AddItem/" + @businessNumber + "/" + invoiceNumber, "BusinessAccount")" class="">Add a new item</a>
-        </p>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
-            </div>
+    <div class="form-group">
+        <div class="col-md-10">
+            <p>Quantity / Hours:</p>
+            <input name="ItemQuantity" type="number" />
         </div>
     </div>
+
+    <p>
+        <a href="@Url.Action("AddItem/" + @businessNumber + "/" + invoiceNumber, "BusinessAccount")" class="">Add a new item to your database.</a>
+    </p>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input name="submit" type="submit" value="Add Item to Order." class="btn btn-default" />
+        </div>
+    </div>
+
+    <p>Notes: </p>
+    <textarea name="Notes" value=""></textarea>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input name="submit" type="submit" value="Create" class="btn btn-default" />
+        </div>
+    </div>
+
+</div>
 }
 
 <div>

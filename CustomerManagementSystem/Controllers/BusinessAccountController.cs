@@ -293,15 +293,6 @@ namespace CustomerManagementSystem.Controllers
             }
         }
 
-        public ActionResult AddInvoiceItemPartial(int id)
-        {
-            using (CustomerManagementSystemContext context = new CustomerManagementSystemContext())
-            {
-                var cvm = context.Items.Where(x => x.BusinessNumber == id).ToList();
-                return PartialView("_AddInvoiceItem", cvm);
-            }
-        }
-
         //GET: BusinessAccount/AddCustomer
         public ActionResult AddCustomer(int id)
         {
@@ -350,20 +341,31 @@ namespace CustomerManagementSystem.Controllers
         {
             using (CustomerManagementSystemContext context = new CustomerManagementSystemContext())
             {
-                var newInvoiceItem = new InvoiceItem
-                {
-                    InvoiceId = option,
-                    ItemId = Int32.Parse(Request.Form["ItemNumber"]),
-                    ItemQuantity = Int32.Parse(Request.Form["ItemQuantity"]),
-                };
-                context.InvoiceItems.Add(newInvoiceItem);
-                context.SaveChanges();
+                if(Request.Form["Submit"] == "Add Item to Order."){
 
-                return RedirectToAction("AddInvoiceItem/" + id + "/" + option, "BusinessAccount");
+                    var newInvoiceItem = new InvoiceItem
+                    {
+                        InvoiceId = option,
+                        ItemId = Int32.Parse(Request.Form["ItemNumber"]),
+                        ItemQuantity = Int32.Parse(Request.Form["ItemQuantity"]),
+                    };
+
+                    context.InvoiceItems.Add(newInvoiceItem);
+                    context.SaveChanges();
+                    return RedirectToAction("AddInvoiceItem/" + id + "/" + option, "BusinessAccount");
+                }else if (Request.Form["Submit"] == "Create"){
+                    var notes = Request.Form["Notes"];
+                    var invoice = context.Invoices.Where(x => x.InvoiceNumber == option).FirstOrDefault();
+                    invoice.Notes = notes;
+                    context.SaveChanges();
+                    return RedirectToAction("Manage/" + id + "/" + option, "BusinessAccount");
+                }else{
+                    return RedirectToAction("AddInvoiceItem/" + id + "/" + option, "BusinessAccount");
+                }
             }
         }
         //GET: BusinessAccount/AddItem/id
-        public ActionResult AddItem(int id)
+        public ActionResult AddItem(int id, int option)
         {
             return View();
         }
