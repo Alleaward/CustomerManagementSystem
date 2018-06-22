@@ -14,9 +14,13 @@ namespace CustomerManagementSystem.Models
 
         [Key]
         public int CustomerId { get; set; }
+        [Required]
         public string CustomerName { get; set; }
+        [Required]
         public string CustomerAddress { get; set; }
+        [Required]
         public string CustomerPhoneNumber { get; set; }
+        [Required]
         public string CustomerEmail { get; set; }
     }
 }

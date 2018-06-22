@@ -355,8 +355,6 @@ namespace CustomerManagementSystem.Controllers
                     context.InvoiceItems.Add(newInvoiceItem);
                     context.SaveChanges();
 
-                    //Update the bill
-                    //Get all order items with a matching invoice id.
                     var orderItems = context.InvoiceItems.Where(x => x.InvoiceId == option).ToList();
 
                     var subtotal = (decimal)0.00;
@@ -374,12 +372,6 @@ namespace CustomerManagementSystem.Controllers
                     var invoice = context.Invoices.Where(x => x.InvoiceNumber == option).FirstOrDefault();
                     invoice.SubTotal = subtotal;
 
-                    System.Diagnostics.Debug.WriteLine("Subtotal Is:");
-                    System.Diagnostics.Debug.WriteLine(subtotal);
-
-                    //ViewData["Subtotal"] = subtotal;
-                    //System.Diagnostics.Debug.WriteLine("ViewData['Subtotal'] = " + ViewData["Subtotal"]);
-
                     TempData["Subtotal"] = subtotal;
 
                     //calculate and save total/tax
@@ -391,8 +383,6 @@ namespace CustomerManagementSystem.Controllers
                     invoice.TotalCost = total;
 
                     TempData["Total"] = total;
-
-                    System.Diagnostics.Debug.WriteLine("TempData['Subtotal'] = " + TempData["Subtotal"]);
 
                     context.SaveChanges();
                     return RedirectToAction("AddInvoiceItem/" + id + "/" + option, "BusinessAccount");

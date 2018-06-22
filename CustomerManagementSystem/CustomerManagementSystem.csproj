@@ -242,6 +242,10 @@
     <Compile Include="Migrations\201806210646012_Added completed flag for invoice.Designer.cs">
       <DependentUpon>201806210646012_Added completed flag for invoice.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201806221233123_Added verification for some classes.cs" />
+    <Compile Include="Migrations\201806221233123_Added verification for some classes.Designer.cs">
+      <DependentUpon>201806221233123_Added verification for some classes.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\BusinessAccount.cs" />
@@ -373,6 +377,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201806210646012_Added completed flag for invoice.resx">
       <DependentUpon>201806210646012_Added completed flag for invoice.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201806221233123_Added verification for some classes.resx">
+      <DependentUpon>201806221233123_Added verification for some classes.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
