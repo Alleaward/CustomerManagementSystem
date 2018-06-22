@@ -334,6 +334,7 @@ namespace CustomerManagementSystem.Controllers
                 ViewBag.BusinessNumber = id;
                 ViewBag.InvoiceNumber = option;
                 ViewBag.Subtotal = TempData["Subtotal"];
+                ViewBag.Total = TempData["Total"];
                 return View(vm);
             }
         }
@@ -367,8 +368,8 @@ namespace CustomerManagementSystem.Controllers
                         System.Diagnostics.Debug.WriteLine(itemCost);
                         var quantity = item.ItemQuantity;
                         var cost = itemCost.Cost;
-                        var total = cost * quantity;
-                        subtotal += total;
+                        var totalCost = cost * quantity;
+                        subtotal += totalCost;
                     }
                     var invoice = context.Invoices.Where(x => x.InvoiceNumber == option).FirstOrDefault();
                     invoice.SubTotal = subtotal;
@@ -378,7 +379,19 @@ namespace CustomerManagementSystem.Controllers
 
                     //ViewData["Subtotal"] = subtotal;
                     //System.Diagnostics.Debug.WriteLine("ViewData['Subtotal'] = " + ViewData["Subtotal"]);
+
                     TempData["Subtotal"] = subtotal;
+
+                    //calculate and save total/tax
+                    var tax = (decimal)0.00;
+                        tax = Decimal.Parse(Request.Form["taxRate"]);
+                    invoice.Tax = tax;
+
+                    var total = subtotal + ((subtotal/100)*tax);
+                    invoice.TotalCost = total;
+
+                    TempData["Total"] = total;
+
                     System.Diagnostics.Debug.WriteLine("TempData['Subtotal'] = " + TempData["Subtotal"]);
 
                     context.SaveChanges();

@@ -5,6 +5,7 @@
     var businessNumber = ViewBag.BusinessNumber;
     var invoiceNumber = ViewBag.InvoiceNumber;
     var subtotal = ViewData["Subtotal"];
+    var total = ViewData["Total"];
 }
 
 <h2>AddInvoiceItem</h2>
@@ -40,7 +41,8 @@
         </div>
     </div>
 
-    <p>Total Price: $@subtotal</p>
+    <p>Subtotal: $@subtotal</p>
+    <p>Total: $@total (with Tax)</p>
 
     <p>
         <a href="@Url.Action("AddItem/" + @businessNumber + "/" + invoiceNumber, "BusinessAccount")" class="">Add a new item to your database.</a>
@@ -55,6 +57,9 @@
     <p>Notes: </p>
     <textarea name="Notes" value=""></textarea>
 
+    <p>GST:</p>
+    <input type="number" name="taxRate" value="3" placeholder="3"/>
+
     <div class="form-group">
         <div class="col-md-offset-2 col-md-10">
             <input name="submit" type="submit" value="Create" class="btn btn-default" />
@@ -63,10 +68,6 @@
 
 </div>
 }
-
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
