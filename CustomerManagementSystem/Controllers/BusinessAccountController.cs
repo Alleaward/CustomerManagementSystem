@@ -6,6 +6,7 @@ using System.Web;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using CustomerManagementSystem.ViewModels;
+using System.Globalization;
 
 namespace CustomerManagementSystem.Controllers
 {
@@ -196,7 +197,7 @@ namespace CustomerManagementSystem.Controllers
                     using (CustomerManagementSystemContext context = new CustomerManagementSystemContext())
                     {
                         ViewBag.BusinessNumber = id;
-                        var item = context.Invoices.Where(x => x.BusinessNumber == id).ToList();
+                        var item = context.Invoices.Where(x => x.BusinessNumber == id && x.invoiceComplete == true).ToList();
                         return View(item);
                     }
                 }
@@ -332,6 +333,7 @@ namespace CustomerManagementSystem.Controllers
 
                 ViewBag.BusinessNumber = id;
                 ViewBag.InvoiceNumber = option;
+                ViewBag.Subtotal = TempData["Subtotal"];
                 return View(vm);
             }
         }
@@ -349,16 +351,47 @@ namespace CustomerManagementSystem.Controllers
                         ItemId = Int32.Parse(Request.Form["ItemNumber"]),
                         ItemQuantity = Int32.Parse(Request.Form["ItemQuantity"]),
                     };
-
                     context.InvoiceItems.Add(newInvoiceItem);
                     context.SaveChanges();
+
+                    //Update the bill
+                    //Get all order items with a matching invoice id.
+                    var orderItems = context.InvoiceItems.Where(x => x.InvoiceId == option).ToList();
+
+                    var subtotal = (decimal)0.00;
+                    foreach(var item in orderItems)
+                    {
+                        //returning nothing?
+                        var itemCost = context.Items.Where(x => x.ItemNumber == item.ItemId).First();
+                        System.Diagnostics.Debug.WriteLine("Item Is:");
+                        System.Diagnostics.Debug.WriteLine(itemCost);
+                        var quantity = item.ItemQuantity;
+                        var cost = itemCost.Cost;
+                        var total = cost * quantity;
+                        subtotal += total;
+                    }
+                    var invoice = context.Invoices.Where(x => x.InvoiceNumber == option).FirstOrDefault();
+                    invoice.SubTotal = subtotal;
+
+                    System.Diagnostics.Debug.WriteLine("Subtotal Is:");
+                    System.Diagnostics.Debug.WriteLine(subtotal);
+
+                    //ViewData["Subtotal"] = subtotal;
+                    //System.Diagnostics.Debug.WriteLine("ViewData['Subtotal'] = " + ViewData["Subtotal"]);
+                    TempData["Subtotal"] = subtotal;
+                    System.Diagnostics.Debug.WriteLine("TempData['Subtotal'] = " + TempData["Subtotal"]);
+
+                    context.SaveChanges();
                     return RedirectToAction("AddInvoiceItem/" + id + "/" + option, "BusinessAccount");
+
                 }else if (Request.Form["Submit"] == "Create"){
                     var notes = Request.Form["Notes"];
                     var invoice = context.Invoices.Where(x => x.InvoiceNumber == option).FirstOrDefault();
                     invoice.Notes = notes;
+                    invoice.invoiceComplete = true;
                     context.SaveChanges();
                     return RedirectToAction("Manage/" + id + "/" + option, "BusinessAccount");
+
                 }else{
                     return RedirectToAction("AddInvoiceItem/" + id + "/" + option, "BusinessAccount");
                 }

@@ -4,6 +4,7 @@
     ViewBag.Title = "AddInvoiceItem";
     var businessNumber = ViewBag.BusinessNumber;
     var invoiceNumber = ViewBag.InvoiceNumber;
+    var subtotal = ViewData["Subtotal"];
 }
 
 <h2>AddInvoiceItem</h2>
@@ -38,6 +39,8 @@
             <input name="ItemQuantity" type="number" />
         </div>
     </div>
+
+    <p>Total Price: $@subtotal</p>
 
     <p>
         <a href="@Url.Action("AddItem/" + @businessNumber + "/" + invoiceNumber, "BusinessAccount")" class="">Add a new item to your database.</a>
