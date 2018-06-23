@@ -18,9 +18,9 @@
         {
             <div class="business">
                 <p class="options">
-                    <a href="@Url.Action("Edit/"+ @item.BusinessNumber, "BusinessAccount")" class="select">Edit Business Details</a>
-                    <a href="@Url.Action("Manage/"+ @item.BusinessNumber, "BusinessAccount")" class="select">Manage Invoices</a>
-                    <a href="@Url.Action("Delete/"+ @item.BusinessNumber, "BusinessAccount")" class="remove">Delete Business</a>
+                    <a href="@Url.Action("Edit/" + @item.BusinessNumber, "BusinessAccount")" class="select">Edit Business Details</a>
+                    <a href="@Url.Action("Manage/" + @item.BusinessNumber, "BusinessAccount")" class="select">Manage Invoices</a>
+                    <a href="@Url.Action("Delete/" + @item.BusinessNumber, "BusinessAccount")" class="remove">Delete Business</a>
                 </p>
                 <p class="business-title">
                     @Html.DisplayFor(modelItem => item.BusinessName)
@@ -46,6 +46,11 @@
                     <a href="@item.Website">@Html.DisplayFor(modelItem => item.Website)</a>
                 </p>
             </div>
-            }
         }
+    }
+    
+    @if(Model.Count() == 0)
+    {
+        <h2>You do not currently have any businesses. Add one above.</h2>
+    }
 </section>

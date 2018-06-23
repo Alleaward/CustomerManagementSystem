@@ -10,33 +10,33 @@
 {
     @Html.AntiForgeryToken()
 
-    <div class="form-horizontal">
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+<div class="form-horizontal">
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-        <!-- Get the business number from the URL and display it as readonly  "Business Number: # (Business Name here)" -->
-        <p>Business Number: #@Html.DisplayFor(model => model.BusinessNumber) (@Html.DisplayFor(model => model.BusinessName))</p>
-        <p>
-            <a href="@Url.Action("AddCustomer/" + @Model.BusinessNumber, "BusinessAccount")" class="">Add a new customer</a>
-        </p>
+    <!-- Get the business number from the URL and display it as readonly  "Business Number: # (Business Name here)" -->
+    <p>Business Number: #@Html.DisplayFor(model => model.BusinessNumber) (@Html.DisplayFor(model => model.BusinessName))</p>
+    <p>
+        <a href="@Url.Action("AddCustomer/" + @Model.BusinessNumber, "BusinessAccount")" class="">Add a new customer</a>
+    </p>
+    @if (Model.Customers.Count() > 0)
+    {
         <p>OR</p>
         <p>Returning Customer?</p>
         <select name="CustomerNumber" id="item-list">
             @foreach (var item in Model.Customers)
             {
-                <option value="@item.CustomerId">@item.CustomerName</option>
+                <option value="@item.CustomerId">@item.CustomerName | @item.CustomerAddress</option>
             }
         </select>
+    }
 
-        <p>-------------------------------------------------------------------</p>
-
-        
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
-            </div>
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Create" class="btn btn-default" />
         </div>
     </div>
+</div>
 }
 
 <div>
