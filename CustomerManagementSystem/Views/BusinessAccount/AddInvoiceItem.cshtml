@@ -34,6 +34,10 @@
         }
     </select>
 
+    <p>
+        <a href="@Url.Action("AddItem/" + @businessNumber + "/" + invoiceNumber, "BusinessAccount")" class="">Add a new item to your database.</a>
+    </p>
+
     <div class="form-group">
         <div class="col-md-10">
             <p>Quantity / Hours:</p>
@@ -42,11 +46,11 @@
     </div>
 
     <p>Subtotal: $@subtotal</p>
+
     <p>Total: $@total (with Tax)</p>
 
-    <p>
-        <a href="@Url.Action("AddItem/" + @businessNumber + "/" + invoiceNumber, "BusinessAccount")" class="">Add a new item to your database.</a>
-    </p>
+    <p>GST:</p>
+    <input type="number" name="taxRate" value="3" placeholder="3" />
 
     <div class="form-group">
         <div class="col-md-offset-2 col-md-10">
@@ -56,9 +60,6 @@
 
     <p>Notes: </p>
     <textarea name="Notes" value=""></textarea>
-
-    <p>GST:</p>
-    <input type="number" name="taxRate" value="3" placeholder="3"/>
 
     <div class="form-group">
         <div class="col-md-offset-2 col-md-10">

@@ -32,7 +32,6 @@ namespace CustomerManagementSystem.Controllers
                 //Upon failure redirect to home page
                 return RedirectToAction("Login", "Account");
             }
-
         }
 
         // GET: BusinessAccount/Create~
