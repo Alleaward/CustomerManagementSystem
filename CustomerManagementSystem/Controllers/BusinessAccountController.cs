@@ -330,6 +330,12 @@ namespace CustomerManagementSystem.Controllers
                 //convert to display a list of items ordered
                 vm.Ordered = context.InvoiceItems.Where(x => x.InvoiceId == option).ToList();
 
+                foreach(var order in vm.Ordered)
+                {
+                    var item = context.Items.Where(x => x.ItemNumber == order.ItemId).First();
+                    order.ItemName = item.ItemName;
+                }
+
                 ViewBag.BusinessNumber = id;
                 ViewBag.InvoiceNumber = option;
                 ViewBag.Subtotal = TempData["Subtotal"];
@@ -345,11 +351,15 @@ namespace CustomerManagementSystem.Controllers
             {
                 if(Request.Form["Submit"] == "Add Item to Order."){
 
+                    var formItemNumber = Int32.Parse(Request.Form["ItemNumber"]);
+                    var itemForName = context.Items.Where(x => x.ItemNumber == formItemNumber).First();
+
                     var newInvoiceItem = new InvoiceItem
                     {
                         InvoiceId = option,
                         ItemId = Int32.Parse(Request.Form["ItemNumber"]),
                         ItemQuantity = Int32.Parse(Request.Form["ItemQuantity"]),
+                        ItemName = itemForName.ItemName,
                     };
                     context.InvoiceItems.Add(newInvoiceItem);
                     context.SaveChanges();

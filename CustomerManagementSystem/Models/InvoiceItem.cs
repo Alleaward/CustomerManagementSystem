@@ -11,6 +11,7 @@ namespace CustomerManagementSystem.Models
         [Key]
         public int InvoiceItemId { get; set; }
         public int InvoiceId { get; set; }
+        public string ItemName { get; set; }
         public int ItemId { get; set; }
         public int ItemQuantity { get; set; }
     }

@@ -25,7 +25,7 @@
         <ol>
             @foreach (var item in Model.Ordered)
             {
-                <li>Item ID: @item.ItemId | Item Name: | Quantity: @item.ItemQuantity</li>
+                <li>@item.ItemQuantity x @item.ItemName</li>
             }
         </ol>
     }

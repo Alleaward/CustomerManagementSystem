@@ -246,6 +246,10 @@
     <Compile Include="Migrations\201806221233123_Added verification for some classes.Designer.cs">
       <DependentUpon>201806221233123_Added verification for some classes.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201806240737490_Added name field to invoice item.cs" />
+    <Compile Include="Migrations\201806240737490_Added name field to invoice item.Designer.cs">
+      <DependentUpon>201806240737490_Added name field to invoice item.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\BusinessAccount.cs" />
@@ -380,6 +384,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201806221233123_Added verification for some classes.resx">
       <DependentUpon>201806221233123_Added verification for some classes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201806240737490_Added name field to invoice item.resx">
+      <DependentUpon>201806240737490_Added name field to invoice item.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
