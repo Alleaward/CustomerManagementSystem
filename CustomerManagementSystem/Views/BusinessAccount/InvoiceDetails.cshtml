@@ -1,4 +1,4 @@
-﻿@model CustomerManagementSystem.Models.Invoice
+﻿@model CustomerManagementSystem.ViewModels.InvoiceDetails
 
 <div>
     <h4>Invoice</h4>
@@ -132,6 +132,15 @@
         <dd>
             @Html.DisplayFor(model => model.CustomerEmail)
         </dd>
+
+        <dt>
+            Ordered Items
+        </dt>
+
+        @foreach (var order in Model.InvoiceItem)
+        {
+            <dd>@order.ItemQuantity x @order.ItemName</dd>
+        }
 
         <dt>
             @Html.DisplayNameFor(model => model.Notes)
