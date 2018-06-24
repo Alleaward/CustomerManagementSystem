@@ -19,13 +19,16 @@
     <h4>InvoiceItem</h4>
     <hr />
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-    <h5>Ordered Items:</h5>
-    <ol>
-        @foreach (var item in Model.Ordered)
-        {
-            <li>Item ID: @item.ItemId | Item Name: | Quantity: @item.ItemQuantity</li>
-        }
-    </ol>
+    @if (Model.Ordered.Count() != 0)
+    {
+        <h5>Ordered Items:</h5>
+        <ol>
+            @foreach (var item in Model.Ordered)
+            {
+                <li>Item ID: @item.ItemId | Item Name: | Quantity: @item.ItemQuantity</li>
+            }
+        </ol>
+    }
 
     <select name="ItemNumber">
         @foreach (var item in Model.Items)

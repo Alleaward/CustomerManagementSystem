@@ -55,79 +55,80 @@
 
         foreach (var item2 in Model)
         {
-            <table class="invoiceTable">
-                <tr>
-                    <th>
-                        @Html.DisplayNameFor(model => model.CreationDate)
-                    </th>
-                    <td>
-                        @Html.DisplayFor(modelItem => item2.CreationDate)
-                    </td>
-                </tr>
-                <tr>
-                    <th>
-                        @Html.DisplayNameFor(model => model.InvoiceNumber)
-                    </th>
-                    <th>
-                        @Html.DisplayFor(modelItem => item2.InvoiceNumber)
-                    </th>
-                </tr>
-                <tr>
-                    <th>
-                        @Html.DisplayNameFor(model => model.CustomerName)
-                    </th>
-                    <td>
-                        @Html.DisplayFor(modelItem => item2.CustomerName)
-                    </td>
-                </tr>
-                <tr>
-                    <th>
-                        @Html.DisplayNameFor(model => model.CustomerAddress)
-                    </th>
-                    <td>
-                        @Html.DisplayFor(modelItem => item2.CustomerAddress)
-                    </td>
-                </tr>
-                <tr>
-                    <th>
-                        @Html.DisplayNameFor(model => model.CustomerPhone)
-                    </th>
-                    <td>
-                        @Html.DisplayFor(modelItem => item2.CustomerPhone)
-                    </td>
-                </tr>
-                <tr>
-                    <th>
-                        @Html.DisplayNameFor(model => model.CustomerEmail)
-                    </th>
-                    <td>
-                        @Html.DisplayFor(modelItem => item2.CustomerEmail)
-                    </td>
-                </tr>
-                <tr>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Notes)
-                    </th>
-                    <td>
-                        @Html.DisplayFor(modelItem => item2.Notes)
-                    </td>
-                </tr>
-                <tr>
-                    <th>
-                        @Html.DisplayNameFor(model => model.TotalCost)
-                    </th>
-                    <td>
-                        @Html.DisplayFor(modelItem => item2.TotalCost)
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        @Html.ActionLink("Edit", "Edit", new { id = item2.InvoiceNumber }) |
-                        @Html.ActionLink("Details", "Details", new { id = item2.InvoiceNumber }) |
-                        @Html.ActionLink("Delete", "Delete", new { id = item2.InvoiceNumber })
-                    </td>
-                </tr>
-            </table>
+        <table class="invoiceTable">
+            <tr>
+                <th>
+                    Creation Date:
+                </th>
+                <td>
+                    @Html.DisplayFor(modelItem => item2.CreationDate)
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    Invoice Number:
+                </th>
+                <td>
+                    @Html.DisplayFor(modelItem => item2.InvoiceNumber)
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    Name:
+                </th>
+                <td>
+                    @Html.DisplayFor(modelItem => item2.CustomerName)
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    Address:
+                </th>
+                <td>
+                    @Html.DisplayFor(modelItem => item2.CustomerAddress)
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    Phone Number:
+                </th>
+                <td>
+                    @Html.DisplayFor(modelItem => item2.CustomerPhone)
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    Email:
+                </th>
+                <td>
+                    @Html.DisplayFor(modelItem => item2.CustomerEmail)
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    Total Cost:
+                </th>
+                <td>
+                    @Html.DisplayFor(modelItem => item2.TotalCost)
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    Notes:
+                </th>
+                <td>
+                    @Html.DisplayFor(modelItem => item2.Notes)
+                </td>
+            </tr>
+            <tr>
+                <th></th>
+                <td>
+                    @Html.ActionLink("Edit", "InvoiceEdit", new { id = item2.InvoiceNumber }) |
+                    @Html.ActionLink("Details", "InvoiceDetails", new { id = item2.InvoiceNumber }) |
+                    @Html.ActionLink("Delete", "InvoiceDelete", new { id = item2.InvoiceNumber })
+                </td>
+            </tr>
+        </table>
             <hr/>
         }
     }
