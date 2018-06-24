@@ -432,5 +432,50 @@ namespace CustomerManagementSystem.Controllers
                 return RedirectToAction("AddInvoiceItem/" + id + "/" + option, "BusinessAccount");
             }
         }
+        //POST: BusinessAccount/DeleteInvoice/id
+        public ActionResult InvoiceDelete(int id)
+        {
+            using (CustomerManagementSystemContext context = new CustomerManagementSystemContext())
+            {
+                var model = context.Invoices.Where(x => x.InvoiceNumber == id).FirstOrDefault();
+                return View(model);
+            }
+        }
+        //POST: BusinessAccount/DeleteInvoice/id
+        [HttpPost]
+        public ActionResult InvoiceDelete(int id, FormCollection collection)
+        {
+            return View();
+        }
+        //POST: BusinessAccount/EditInvoice/id
+        public ActionResult InvoiceEdit(int id)
+        {
+            using (CustomerManagementSystemContext context = new CustomerManagementSystemContext())
+            {
+                var model = context.Invoices.Where(x => x.InvoiceNumber == id).FirstOrDefault();
+                return View(model);
+            }
+        }
+        //POST: BusinessAccount/EditInvoice/id
+        [HttpPost]
+        public ActionResult InvoiceEdit(int id, FormCollection collection)
+        {
+            return View();
+        }
+        //POST: BusinessAccount/InvoiceDetails/id
+        public ActionResult InvoiceDetails(int id)
+        {
+            using (CustomerManagementSystemContext context = new CustomerManagementSystemContext())
+            {
+                var model = context.Invoices.Where(x => x.InvoiceNumber == id).FirstOrDefault();
+                return View(model);
+            }
+        }
+        //POST: BusinessAccount/InvoiceDetails/id
+        [HttpPost]
+        public ActionResult InvoiceDetails(int id, FormCollection collection)
+        {
+            return View();
+        }
     }
 }
