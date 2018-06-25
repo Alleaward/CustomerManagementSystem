@@ -445,7 +445,28 @@ namespace CustomerManagementSystem.Controllers
         [HttpPost]
         public ActionResult InvoiceDelete(int id, FormCollection collection)
         {
-            return View();
+            if (User.Identity.IsAuthenticated)
+            {
+                try
+                {
+                    using (CustomerManagementSystemContext context = new CustomerManagementSystemContext())
+                    {
+                        var invoice = new Invoice { InvoiceNumber = id };
+                        context.Invoices.Attach(invoice);
+                        context.Invoices.Remove(invoice);
+                        context.SaveChanges();
+                        return RedirectToAction("Index", "BusinessAccount");
+                    }
+                }
+                catch
+                {
+                    return RedirectToAction("Index", "BusinessAccount");
+                }
+            }
+            else
+            {
+                return RedirectToAction("Login", "Account");
+            }
         }
         //POST: BusinessAccount/EditInvoice/id
         public ActionResult InvoiceEdit(int id)

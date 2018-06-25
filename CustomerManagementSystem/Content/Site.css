@@ -85,9 +85,17 @@ textarea {
     text-align: right;
 }
 
-.invoiceTable td{
+.invoiceTable td {
     padding-left: 10px;
     width: 350px;
+    border-bottom: 1px solid black;
+    border-top: 1px solid black;
+}
+
+.invoiceTable dd {
+    padding-left: 10px;
+    width: 350px;
+    border-bottom: 1px solid black;
 }
 
 #selectCustomer{

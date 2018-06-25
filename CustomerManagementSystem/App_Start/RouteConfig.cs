@@ -18,7 +18,11 @@ namespace CustomerManagementSystem
                 url: "{controller}/{action}/{id}/{option}",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional, option = UrlParameter.Optional }
             );
-
+            routes.MapRoute(
+                name: "PageNotFound",
+                url: "{*url}",
+                defaults: new { controller = "Home", action = "Index" }
+            );
         }
     }
 }
