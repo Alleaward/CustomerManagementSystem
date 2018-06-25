@@ -4,6 +4,15 @@
     <h4>Invoice</h4>
     <hr />
     <dl class="dl-horizontal invoiceTable">
+
+        <dt>
+            @Html.DisplayNameFor(model => model.InvoiceNumber)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.InvoiceNumber)
+        </dd>
+
         <dt>
             @Html.DisplayNameFor(model => model.CreationDate)
         </dt>
@@ -156,17 +165,9 @@
             @Html.DisplayFor(model => model.TotalCost)
         </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.InvoiceNumber)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.InvoiceNumber)
-        </dd>
-
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "InvoiceEdit", new { id = Model.InvoiceNumber }) |
+    @Html.ActionLink("Convert to PDF / Send", "InvoiceToPDF", new { id = Model.InvoiceNumber }) |
     @Html.ActionLink("Back to List", "Index")
 </p>

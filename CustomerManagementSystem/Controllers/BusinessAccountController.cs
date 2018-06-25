@@ -455,7 +455,9 @@ namespace CustomerManagementSystem.Controllers
                         context.Invoices.Attach(invoice);
                         context.Invoices.Remove(invoice);
                         context.SaveChanges();
-                        return RedirectToAction("Index", "BusinessAccount");
+
+                        var model = context.Invoices.Where(x => x.InvoiceNumber == id).FirstOrDefault();
+                        return RedirectToAction("Manage/" + model.BusinessNumber, "BusinessAccount");
                     }
                 }
                 catch
@@ -468,21 +470,7 @@ namespace CustomerManagementSystem.Controllers
                 return RedirectToAction("Login", "Account");
             }
         }
-        //POST: BusinessAccount/EditInvoice/id
-        public ActionResult InvoiceEdit(int id)
-        {
-            using (CustomerManagementSystemContext context = new CustomerManagementSystemContext())
-            {
-                var model = context.Invoices.Where(x => x.InvoiceNumber == id).FirstOrDefault();
-                return View(model);
-            }
-        }
-        //POST: BusinessAccount/EditInvoice/id
-        [HttpPost]
-        public ActionResult InvoiceEdit(int id, FormCollection collection)
-        {
-            return View();
-        }
+        
         //POST: BusinessAccount/InvoiceDetails/id
         public ActionResult InvoiceDetails(int id)
         {
@@ -491,12 +479,6 @@ namespace CustomerManagementSystem.Controllers
                 var model = context.Invoices.Where(x => x.InvoiceNumber == id).FirstOrDefault();
                 return View(model);
             }
-        }
-        //POST: BusinessAccount/InvoiceDetails/id
-        [HttpPost]
-        public ActionResult InvoiceDetails(int id, FormCollection collection)
-        {
-            return View();
         }
     }
 }

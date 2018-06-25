@@ -331,7 +331,6 @@
     <Content Include="Views\BusinessAccount\AddItem.cshtml" />
     <Content Include="Views\Shared\_AddInvoiceItem.cshtml" />
     <Content Include="Views\BusinessAccount\InvoiceDelete.cshtml" />
-    <Content Include="Views\BusinessAccount\InvoiceEdit.cshtml" />
     <Content Include="Views\BusinessAccount\InvoiceDetails.cshtml" />
   </ItemGroup>
   <ItemGroup>
