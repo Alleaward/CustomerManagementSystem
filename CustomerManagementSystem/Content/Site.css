@@ -76,10 +76,6 @@ textarea {
     -webkit-transition: all ease-in-out .3s;
 }
 
-.invoiceTable{
-
-}
-
 .invoiceTable th{
     width: 150px;
     text-align: right;
@@ -103,6 +99,4 @@ textarea {
     display: flex;
     flex-flow: row nowrap;
     justify-content: space-around;
-}
-#returnCustomer{
 }

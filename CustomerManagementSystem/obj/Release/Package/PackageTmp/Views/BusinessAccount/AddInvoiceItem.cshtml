@@ -1,0 +1,78 @@
+﻿@model CustomerManagementSystem.ViewModels.InvoiceItemVM
+
+@{
+    ViewBag.Title = "AddInvoiceItem";
+    var businessNumber = ViewBag.BusinessNumber;
+    var invoiceNumber = ViewBag.InvoiceNumber;
+    var subtotal = Math.Round(Convert.ToDecimal(ViewData["Subtotal"]), 2);
+    var total = Math.Round(Convert.ToDecimal(ViewData["Total"]), 2);
+}
+
+<h2>AddInvoiceItem</h2>
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+<div class="form-horizontal">
+    <h4>InvoiceItem</h4>
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @if (Model.Ordered.Count() != 0)
+    {
+        <h5>Ordered Items:</h5>
+        <ol>
+            @foreach (var item in Model.Ordered)
+            {
+                <li>@item.ItemQuantity x @item.ItemName</li>
+            }
+        </ol>
+    }
+
+    <select name="ItemNumber">
+        @foreach (var item in Model.Items)
+        {
+            <option value=@item.ItemNumber>@item.ItemName</option>
+        }
+    </select>
+
+    <p>
+        <a href="@Url.Action("AddItem/" + @businessNumber + "/" + invoiceNumber, "BusinessAccount")" class="">Add a new item to your database.</a>
+    </p>
+
+    <div class="form-group">
+        <div class="col-md-10">
+            <p>Quantity / Hours:</p>
+            <input name="ItemQuantity" type="number" />
+        </div>
+    </div>
+
+    <p>Subtotal: $@subtotal</p>
+
+    <p>Total: $@total (with Tax)</p>
+
+    <p>GST:</p>
+    <input type="number" name="taxRate" value="3" placeholder="3" />
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input name="submit" type="submit" value="Add Item to Order." class="btn btn-default" />
+        </div>
+    </div>
+
+    <p>Notes: </p>
+    <textarea name="Notes" value=""></textarea>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input name="submit" type="submit" value="Create" class="btn btn-default" />
+        </div>
+    </div>
+
+</div>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

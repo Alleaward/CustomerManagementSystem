@@ -1,0 +1,51 @@
+﻿@model CustomerManagementSystem.ViewModels.InvoiceDisplay
+
+@{
+    ViewBag.Title = "AddInvoice";
+}
+
+<h2>Choose a customer.</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+<div class="form-horizontal">
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+    <!-- Get the business number from the URL and display it as readonly  "Business Number: # (Business Name here)" -->
+    <p>Business Number: #@Html.DisplayFor(model => model.BusinessNumber) (@Html.DisplayFor(model => model.BusinessName))</p>
+    <div id="selectCustomer">
+        <div id="returnCustomer">
+            @if (Model.Customers.Count() > 0)
+            {
+                <select name="CustomerNumber" id="item-list">
+                    @foreach (var item in Model.Customers)
+                    {
+                        <option value="@item.CustomerId">@item.CustomerName | @item.CustomerAddress</option>
+                    }
+                </select>
+             }
+        </div>
+        <p>OR</p>
+        <p>
+            <a href="@Url.Action("AddCustomer/" + @Model.BusinessNumber, "BusinessAccount")" class="">Add a new customer</a>
+        </p>
+    </div>
+    
+    <div class="form-group">
+        <div class="col-md-10">
+            <input type="submit" value="Create" class="btn btn-default" />
+        </div>
+    </div>
+</div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

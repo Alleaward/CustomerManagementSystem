@@ -1,0 +1,151 @@
+﻿@model IEnumerable<CustomerManagementSystem.Models.Invoice>
+
+@{
+    /**/
+
+    ViewBag.Title = "Manage";
+    var businessNumber = ViewBag.BusinessNumber;
+}
+
+<h2>Manage</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    if (Model != null && Model.Count() != 0)
+    {
+        <div class="business">
+            <p class="options">
+                <a href="@Url.Action("Edit/" + @Model.First().BusinessNumber, "BusinessAccount")" class="select">Edit Business Details</a>
+                <a href="@Url.Action("Manage/" + @Model.First().BusinessNumber, "BusinessAccount")" class="select">Manage Invoices</a>
+                <a href="@Url.Action("Delete/" + @Model.First().BusinessNumber, "BusinessAccount")" class="remove">Delete Business</a>
+            </p>
+            <p class="business-title">
+                @Html.DisplayFor(modelItem => Model.First().BusinessName)
+            </p>
+            <p>
+                ABN:
+                @Html.DisplayFor(modelItem => Model.First().ABN)
+            </p>
+            <p>
+                <i class="fa fa-user" aria-hidden="true"></i>
+                @Html.DisplayFor(modelItem => Model.First().BusinessOwner)
+            </p>
+            <p>
+                <i class="fa fa-phone-square" aria-hidden="true"></i>
+                @Html.DisplayFor(modelItem => Model.First().PhoneNumber)
+            </p>
+            <p>
+                <i class="fa fa-envelope" aria-hidden="true"></i>
+                @Html.DisplayFor(modelItem => Model.First().Email)
+            </p>
+            <p>
+                <i class="fa fa-external-link-square" aria-hidden="true"></i>
+                <a href="@Model.First().Website">@Html.DisplayFor(modelItem => Model.First().Website)</a>
+            </p>
+        </div>
+
+        <hr />
+
+        <!-- Insert Invoice management here-->
+        <div id="invoices">
+            @Html.ActionLink("Add an invoice", "AddInvoice/" + Model.First().BusinessNumber)
+        </div>
+        <hr/>
+
+        foreach (var item2 in Model)
+        {
+        <table class="invoiceTable">
+            <tr>
+                <th>
+                    Creation Date:
+                </th>
+                <td>
+                    @Html.DisplayFor(modelItem => item2.CreationDate)
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    Invoice Number:
+                </th>
+                <td>
+                    @Html.DisplayFor(modelItem => item2.InvoiceNumber)
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    Name:
+                </th>
+                <td>
+                    @Html.DisplayFor(modelItem => item2.CustomerName)
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    Address:
+                </th>
+                <td>
+                    @Html.DisplayFor(modelItem => item2.CustomerAddress)
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    Phone Number:
+                </th>
+                <td>
+                    @Html.DisplayFor(modelItem => item2.CustomerPhone)
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    Email:
+                </th>
+                <td>
+                    @Html.DisplayFor(modelItem => item2.CustomerEmail)
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    Total Cost:
+                </th>
+                <td>
+                    @Html.DisplayFor(modelItem => item2.TotalCost)
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    Notes:
+                </th>
+                <td>
+                    @Html.DisplayFor(modelItem => item2.Notes)
+                </td>
+            </tr>
+            <tr>
+                <th></th>
+                <td>
+                    @Html.ActionLink("Convert to PDF / Send", "InvoiceToPDF", new { id = item2.InvoiceNumber }) |
+                    @Html.ActionLink("Details", "InvoiceDetails", new { id = item2.InvoiceNumber }) |
+                    @Html.ActionLink("Delete", "InvoiceDelete", new { id = item2.InvoiceNumber })
+                </td>
+            </tr>
+        </table>
+            <hr/>
+        }
+    }
+    else
+    {
+        <h3>You do not have any invoices.</h3>
+        <!-- Insert Invoice management here-->
+        <a href="@Url.Action("AddInvoice/" + businessNumber, "BusinessAccount")">Add an invoice.</a>
+    }
+}
+
+<hr />
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
