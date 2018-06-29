@@ -50,7 +50,7 @@ namespace CustomerManagementSystem.Controllers
                 using (CustomerManagementSystemContext context = new CustomerManagementSystemContext())
                 {
                     var userId = User.Identity.GetUserId();
-                    var newBusinessAccount = new BusinessAccount
+                    var newBusinessAccount = new BusinessAccount()
                     {
                         BusinessName = Request.Form["BusinessName"],
                         BusinessOwner = Request.Form["BusinessOwner"],
@@ -168,7 +168,7 @@ namespace CustomerManagementSystem.Controllers
                 {
                     using (CustomerManagementSystemContext context = new CustomerManagementSystemContext())
                     {
-                        var business = new BusinessAccount { BusinessNumber = id };
+                        var business = new BusinessAccount(id);
                         context.BusinessAccounts.Attach(business);
                         context.BusinessAccounts.Remove(business);
                         context.SaveChanges();
@@ -192,14 +192,14 @@ namespace CustomerManagementSystem.Controllers
             if (User.Identity.IsAuthenticated)
             {
                 try
-                {
-                    CustomerManagementSystemContext context = new CustomerManagementSystemContext();
-                    
+                {                    
                         ViewBag.BusinessNumber = id;
 
-                        var business = context.BusinessAccounts.Where(x => x.BusinessNumber == id).First();
-                        return View(business);
+                        //var business = context.BusinessAccounts.Where(x => x.BusinessNumber == id).First();
+                        //return View(business);
 
+                        var model = new BusinessAccount(id);
+                        return View(model);
                     
                 }
                 catch
