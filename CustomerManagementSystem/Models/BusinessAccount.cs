@@ -8,6 +8,10 @@ namespace CustomerManagementSystem.Models
 {
     public class BusinessAccount
     {
+        public BusinessAccount()
+        {
+            this.Invoices = new List<Invoice>();
+        }
         [Key]
         public int BusinessNumber { get; set; }
         [Required]
@@ -24,6 +28,7 @@ namespace CustomerManagementSystem.Models
         public string Logo { get; set; }
         [Required]
         public string ABN { get; set; }
+
         public virtual ICollection<Invoice> Invoices { get; set; }
     }
 }

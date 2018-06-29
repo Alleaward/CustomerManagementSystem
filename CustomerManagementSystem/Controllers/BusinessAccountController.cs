@@ -193,12 +193,14 @@ namespace CustomerManagementSystem.Controllers
             {
                 try
                 {
-                    using (CustomerManagementSystemContext context = new CustomerManagementSystemContext())
-                    {
+                    CustomerManagementSystemContext context = new CustomerManagementSystemContext();
+                    
                         ViewBag.BusinessNumber = id;
-                        var item = context.Invoices.Where(x => x.BusinessNumber == id && x.invoiceComplete == true).ToList();
-                        return View(item);
-                    }
+
+                        var business = context.BusinessAccounts.Where(x => x.BusinessNumber == id).First();
+                        return View(business);
+
+                    
                 }
                 catch
                 {
