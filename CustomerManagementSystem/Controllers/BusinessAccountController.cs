@@ -213,10 +213,8 @@ namespace CustomerManagementSystem.Controllers
             {
                 var userId = User.Identity.GetUserId();
                 var invoice = new InvoiceDisplay();
-
-                //Get the right business
-
-                var business = context.BusinessAccounts.Where(x => x.BusinessNumber == id).FirstOrDefault();
+                var business = new BusinessAccount(id);
+                //var business = context.BusinessAccounts.Where(x => x.BusinessNumber == id).FirstOrDefault();
                 invoice.BusinessNumber = business.BusinessNumber;
                 invoice.BusinessName = business.BusinessName;
                 invoice.BusinessOwner = business.BusinessOwner;
@@ -228,10 +226,6 @@ namespace CustomerManagementSystem.Controllers
                 
                 //Fill Customers up
                 invoice.Customers = context.Customers.Where(x => x.BusinessNumber == id).ToList();
-
-                //invoice.Items = context.Items.Where(x => x.BusinessNumber == id).ToList();
-
-                var item = context.BusinessAccounts.Where(x => x.BusinessNumber == id).FirstOrDefault();
 
                 return View(invoice);
             }
