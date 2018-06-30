@@ -1,4 +1,4 @@
-﻿@model IEnumerable<CustomerManagementSystem.Models.Invoice>
+﻿@model CustomerManagementSystem.Models.BusinessAccount
 
 @{
     /**/
@@ -12,36 +12,36 @@
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    if (Model != null && Model.Count() != 0)
+    if (Model != null )
     {
         <div class="business">
             <p class="options">
-                <a href="@Url.Action("Edit/" + @Model.First().BusinessNumber, "BusinessAccount")" class="select">Edit Business Details</a>
-                <a href="@Url.Action("Manage/" + @Model.First().BusinessNumber, "BusinessAccount")" class="select">Manage Invoices</a>
-                <a href="@Url.Action("Delete/" + @Model.First().BusinessNumber, "BusinessAccount")" class="remove">Delete Business</a>
+                <a href="@Url.Action("Edit/" + @Model.BusinessNumber, "BusinessAccount")" class="select">Edit Business Details</a>
+                <a href="@Url.Action("Manage/" + @Model.BusinessNumber, "BusinessAccount")" class="select">Manage Invoices</a>
+                <a href="@Url.Action("Delete/" + @Model.BusinessNumber, "BusinessAccount")" class="remove">Delete Business</a>
             </p>
             <p class="business-title">
-                @Html.DisplayFor(modelItem => Model.First().BusinessName)
+                @Html.DisplayFor(modelItem => Model.BusinessName)
             </p>
             <p>
                 ABN:
-                @Html.DisplayFor(modelItem => Model.First().ABN)
+                @Html.DisplayFor(modelItem => Model.ABN)
             </p>
             <p>
                 <i class="fa fa-user" aria-hidden="true"></i>
-                @Html.DisplayFor(modelItem => Model.First().BusinessOwner)
+                @Html.DisplayFor(modelItem => Model.BusinessOwner)
             </p>
             <p>
                 <i class="fa fa-phone-square" aria-hidden="true"></i>
-                @Html.DisplayFor(modelItem => Model.First().PhoneNumber)
+                @Html.DisplayFor(modelItem => Model.PhoneNumber)
             </p>
             <p>
                 <i class="fa fa-envelope" aria-hidden="true"></i>
-                @Html.DisplayFor(modelItem => Model.First().Email)
+                @Html.DisplayFor(modelItem => Model.Email)
             </p>
             <p>
                 <i class="fa fa-external-link-square" aria-hidden="true"></i>
-                <a href="@Model.First().Website">@Html.DisplayFor(modelItem => Model.First().Website)</a>
+                <a href="@Model.Website">@Html.DisplayFor(modelItem => Model.Website)</a>
             </p>
         </div>
 
@@ -49,11 +49,11 @@
 
         <!-- Insert Invoice management here-->
         <div id="invoices">
-            @Html.ActionLink("Add an invoice", "AddInvoice/" + Model.First().BusinessNumber)
+            @Html.ActionLink("Add an invoice", "AddInvoice/" + Model.BusinessNumber)
         </div>
         <hr/>
 
-        foreach (var item2 in Model)
+        foreach (var item2 in Model.Invoices)
         {
         <table class="invoiceTable">
             <tr>

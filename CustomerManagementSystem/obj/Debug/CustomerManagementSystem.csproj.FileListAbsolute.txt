@@ -83,3 +83,4 @@ C:\xampp\htdocs\~Development\Misc\C# Display App\CustomerManagementSystem\obj\De
 C:\xampp\htdocs\~Development\Misc\C# Display App\CustomerManagementSystem\obj\Debug\CustomerManagementSystem.Migrations.Addedcompletedflagforinvoice.resources
 C:\xampp\htdocs\~Development\Misc\C# Display App\CustomerManagementSystem\obj\Debug\CustomerManagementSystem.Migrations.Addedverificationforsomeclasses.resources
 C:\xampp\htdocs\~Development\Misc\C# Display App\CustomerManagementSystem\obj\Debug\CustomerManagementSystem.Migrations.Addednamefieldtoinvoiceitem.resources
+C:\xampp\htdocs\~Development\Misc\C# Display App\CustomerManagementSystem\obj\Debug\CustomerManagementSystem.Migrations.MovingtoaccessingDBfromclass.resources
