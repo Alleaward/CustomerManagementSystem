@@ -20,11 +20,11 @@ namespace CustomerManagementSystem.Controllers
             {
                 using (CustomerManagementSystemContext context = new CustomerManagementSystemContext())
                 {
+                    //retrieve businesses associated with this user account
                     var userId = User.Identity.GetUserId();
                     ViewBag.userId = userId;
-                    //retrieve only businesses associated with this user account
-                    var list = context.BusinessAccounts.Where(x => x.UserAccount == userId).OrderBy(x => x.BusinessName).ToList();
-                    return View(list);
+                    var businesses = context.BusinessAccounts.Where(x => x.UserAccount == userId).OrderBy(x => x.BusinessName).ToList();
+                    return View(businesses);
                 }
             }
             else
@@ -37,8 +37,15 @@ namespace CustomerManagementSystem.Controllers
         // GET: BusinessAccount/Create~
         public ActionResult Create()
         {
-            ViewBag.userId = User.Identity.GetUserId();
-            return View();
+            if (User.Identity.IsAuthenticated)
+            {
+                ViewBag.userId = User.Identity.GetUserId();
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("Login", "Account");
+            }
         }
 
         // POST: BusinessAccount/Create~
@@ -49,7 +56,6 @@ namespace CustomerManagementSystem.Controllers
             {
                 using (CustomerManagementSystemContext context = new CustomerManagementSystemContext())
                 {
-                    var userId = User.Identity.GetUserId();
                     var newBusinessAccount = new BusinessAccount()
                     {
                         BusinessName = Request.Form["BusinessName"],
@@ -59,7 +65,7 @@ namespace CustomerManagementSystem.Controllers
                         Website = Request.Form["Website"],
                         Logo = Request.Form["Logo"],
                         ABN = Request.Form["ABN"],
-                        UserAccount = userId,
+                        UserAccount = User.Identity.GetUserId(),
                     };
                     context.BusinessAccounts.Add(newBusinessAccount);
                     context.SaveChanges();
@@ -80,8 +86,13 @@ namespace CustomerManagementSystem.Controllers
                 using (CustomerManagementSystemContext context = new CustomerManagementSystemContext())
                 {
                     var userId = User.Identity.GetUserId();
-                    var item = context.BusinessAccounts.Where(x => x.BusinessNumber == id && x.UserAccount == userId).ToList();
-                    return View(item);
+                    var business = new BusinessAccount(id);
+                    if (userId == business.UserAccount)
+                    {
+                        return View(business);
+                    }else{
+                        return RedirectToAction("Index", "BusinessAccount");
+                    }
                 }
             }
             else
@@ -90,7 +101,7 @@ namespace CustomerManagementSystem.Controllers
             }
         }
 
-        // POST: BusinessAccount/Edit/5
+        // POST: BusinessAccount/Edit/5~
         [HttpPost]
         public ActionResult Edit(int id, FormCollection collection)
         {
@@ -99,37 +110,15 @@ namespace CustomerManagementSystem.Controllers
                 using (CustomerManagementSystemContext context = new CustomerManagementSystemContext())
                 {
                     var userId = User.Identity.GetUserId();
-                    var item = context.BusinessAccounts.Where(x => x.BusinessNumber == id && x.UserAccount == userId).FirstOrDefault();
+                    var business = context.BusinessAccounts.Where(x => x.BusinessNumber == id && x.UserAccount == userId).FirstOrDefault();
 
-                    if (Request.Form["item.BusinessName"] != null)
-                    {
-                        item.BusinessName = Request.Form["item.BusinessName"];
-                    }
-                    if (Request.Form["item.BusinessOwner"] != null)
-                    {
-                        item.BusinessOwner = Request.Form["item.BusinessOwner"];
-                    }
-                    if (Request.Form["item.PhoneNumber"] != null)
-                    {
-                        item.PhoneNumber = Request.Form["item.PhoneNumber"];
-                    }
-                    if (Request.Form["item.Email"] != null)
-                    {
-                        item.Email = Request.Form["item.Email"];
-                    }
-                    if (Request.Form["item.Website"] != null)
-                    {
-                        item.Website = Request.Form["item.Website"];
-                    }
-                    if (Request.Form["item.Logo"] != null)
-                    {
-                        item.Logo = Request.Form["item.Logo"];
-                    }
-                    if (Request.Form["item.ABN"] != null)
-                    {
-                        item.ABN = Request.Form["item.ABN"];
-                    }
-
+                    if (Request.Form["BusinessName"] != null){business.BusinessName = Request.Form["BusinessName"];}
+                    if (Request.Form["BusinessOwner"] != null){business.BusinessOwner = Request.Form["BusinessOwner"];}
+                    if (Request.Form["PhoneNumber"] != null){business.PhoneNumber = Request.Form["PhoneNumber"];}
+                    if (Request.Form["Email"] != null){business.Email = Request.Form["Email"];}
+                    if (Request.Form["Website"] != null){business.Website = Request.Form["Website"];}
+                    if (Request.Form["Logo"] != null){business.Logo = Request.Form["Logo"];}
+                    if (Request.Form["ABN"] != null){business.ABN = Request.Form["ABN"];}
                     context.SaveChanges();
                 }
                 return RedirectToAction("Index");
@@ -148,8 +137,12 @@ namespace CustomerManagementSystem.Controllers
                 using (CustomerManagementSystemContext context = new CustomerManagementSystemContext())
                 {
                     var userId = User.Identity.GetUserId();
-                    var item = context.BusinessAccounts.Where(x => x.BusinessNumber == id && x.UserAccount == userId).ToList();
-                    return View(item);
+                    var business = new BusinessAccount(id);
+                    if(userId == business.UserAccount){
+                        return View(business);
+                    }else{
+                        return RedirectToAction("Index", "BusinessAccount");
+                    }
                 }
             }
             else
@@ -169,10 +162,15 @@ namespace CustomerManagementSystem.Controllers
                     using (CustomerManagementSystemContext context = new CustomerManagementSystemContext())
                     {
                         var business = new BusinessAccount(id);
-                        context.BusinessAccounts.Attach(business);
-                        context.BusinessAccounts.Remove(business);
-                        context.SaveChanges();
-                        return RedirectToAction("Index", "BusinessAccount");
+                        if (User.Identity.GetUserId() == business.UserAccount)
+                        {
+                            context.BusinessAccounts.Attach(business);
+                            context.BusinessAccounts.Remove(business);
+                            context.SaveChanges();
+                            return RedirectToAction("Index", "BusinessAccount");
+                        }else{
+                            return RedirectToAction("Index", "BusinessAccount");
+                        }
                     }
                 }
                 catch
@@ -193,11 +191,6 @@ namespace CustomerManagementSystem.Controllers
             {
                 try
                 {                    
-                        ViewBag.BusinessNumber = id;
-
-                        //var business = context.BusinessAccounts.Where(x => x.BusinessNumber == id).First();
-                        //return View(business);
-
                         var model = new BusinessAccount(id);
                         return View(model);
                     
@@ -211,13 +204,6 @@ namespace CustomerManagementSystem.Controllers
             {
                 return RedirectToAction("Login", "Account");
             }
-        }
-
-        // POST: BusinessAccount/Manage/5
-        [HttpPost]
-        public ActionResult Manage(int id, FormCollection collection)
-        {
-            return RedirectToAction("Login", "Account");
         }
 
         //GET: BusinessAccount/AddInvoice

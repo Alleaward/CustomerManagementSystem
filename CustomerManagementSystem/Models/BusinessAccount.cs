@@ -28,6 +28,7 @@ namespace CustomerManagementSystem.Models
                 this.Logo = business.Logo;
                 this.ABN = business.ABN;
                 this.Invoices = business.Invoices.Where(x => x.invoiceComplete == true).ToList();
+                this.Customers = business.Customers.Where(x => x.BusinessNumber == id).ToList();
             }
         }
 
@@ -49,5 +50,6 @@ namespace CustomerManagementSystem.Models
         public string ABN { get; set; }
 
         public virtual ICollection<Invoice> Invoices { get; set; }
+        public virtual ICollection<Customer> Customers { get; set; }
     }
 }

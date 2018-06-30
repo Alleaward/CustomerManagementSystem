@@ -1,4 +1,4 @@
-﻿@model IEnumerable<CustomerManagementSystem.Models.BusinessAccount>
+﻿@model CustomerManagementSystem.Models.BusinessAccount
 
 @{
     ViewBag.Title = "Delete";
@@ -12,68 +12,67 @@
     <hr />
     @if (Model != null)
     {
-        foreach (var item in Model)
-        {
+
             <dl class="dl-horizontal">
 
                 <dt>
-                    @Html.DisplayNameFor(model => model.BusinessName)
+                    @Html.DisplayNameFor(model => Model.BusinessName)
                 </dt>
 
                 <dd>
-                    @Html.DisplayFor(model => item.BusinessName)
+                    @Html.DisplayFor(model => Model.BusinessName)
                 </dd>
 
                 <dt>
-                    @Html.DisplayNameFor(model => model.BusinessOwner)
+                    @Html.DisplayNameFor(model => Model.BusinessOwner)
                 </dt>
 
                 <dd>
-                    @Html.DisplayFor(model => item.BusinessOwner)
+                    @Html.DisplayFor(model => Model.BusinessOwner)
                 </dd>
 
                 <dt>
-                    @Html.DisplayNameFor(model => model.PhoneNumber)
+                    @Html.DisplayNameFor(model => Model.PhoneNumber)
                 </dt>
 
                 <dd>
-                    @Html.DisplayFor(model => item.PhoneNumber)
+                    @Html.DisplayFor(model => Model.PhoneNumber)
                 </dd>
 
                 <dt>
-                    @Html.DisplayNameFor(model => model.Email)
+                    @Html.DisplayNameFor(model => Model.Email)
                 </dt>
 
                 <dd>
-                    @Html.DisplayFor(model => item.Email)
+                    @Html.DisplayFor(model => Model.Email)
                 </dd>
 
                 <dt>
-                    @Html.DisplayNameFor(model => model.Website)
+                    @Html.DisplayNameFor(model => Model.Website)
                 </dt>
 
                 <dd>
-                    @Html.DisplayFor(model => item.Website)
+                    @Html.DisplayFor(model => Model.Website)
                 </dd>
 
                 <dt>
-                    @Html.DisplayNameFor(model => model.Logo)
+                    @Html.DisplayNameFor(model => Model.Logo)
                 </dt>
 
                 <dd>
-                    @Html.DisplayFor(model => item.Logo)
+                    @Html.DisplayFor(model => Model.Logo)
                 </dd>
 
                 <dt>
-                    @Html.DisplayNameFor(model => model.ABN)
+                    @Html.DisplayNameFor(model => Model.ABN)
                 </dt>
 
                 <dd>
-                    @Html.DisplayFor(model => item.ABN)
+                    @Html.DisplayFor(model => Model.ABN)
                 </dd>
 
             </dl>
-        }
+        
     }
     @using (Html.BeginForm())
     {
