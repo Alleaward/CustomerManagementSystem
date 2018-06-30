@@ -254,6 +254,14 @@
     <Compile Include="Migrations\201806300242200_Moving to accessing DB from class.Designer.cs">
       <DependentUpon>201806300242200_Moving to accessing DB from class.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201806300519411_After merge.cs" />
+    <Compile Include="Migrations\201806300519411_After merge.Designer.cs">
+      <DependentUpon>201806300519411_After merge.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201806300521162_Testing post merge database access.cs" />
+    <Compile Include="Migrations\201806300521162_Testing post merge database access.Designer.cs">
+      <DependentUpon>201806300521162_Testing post merge database access.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\BusinessAccount.cs" />
@@ -398,6 +406,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201806300242200_Moving to accessing DB from class.resx">
       <DependentUpon>201806300242200_Moving to accessing DB from class.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201806300519411_After merge.resx">
+      <DependentUpon>201806300519411_After merge.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201806300521162_Testing post merge database access.resx">
+      <DependentUpon>201806300521162_Testing post merge database access.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -84,3 +84,5 @@ C:\xampp\htdocs\~Development\Misc\C# Display App\CustomerManagementSystem\obj\De
 C:\xampp\htdocs\~Development\Misc\C# Display App\CustomerManagementSystem\obj\Debug\CustomerManagementSystem.Migrations.Addedverificationforsomeclasses.resources
 C:\xampp\htdocs\~Development\Misc\C# Display App\CustomerManagementSystem\obj\Debug\CustomerManagementSystem.Migrations.Addednamefieldtoinvoiceitem.resources
 C:\xampp\htdocs\~Development\Misc\C# Display App\CustomerManagementSystem\obj\Debug\CustomerManagementSystem.Migrations.MovingtoaccessingDBfromclass.resources
+C:\xampp\htdocs\~Development\Misc\C# Display App\CustomerManagementSystem\obj\Debug\CustomerManagementSystem.Migrations.Aftermerge.resources
+C:\xampp\htdocs\~Development\Misc\C# Display App\CustomerManagementSystem\obj\Debug\CustomerManagementSystem.Migrations.Testingpostmergedatabaseaccess.resources
