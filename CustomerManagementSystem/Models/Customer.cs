@@ -11,6 +11,21 @@ namespace CustomerManagementSystem.Models
 
     public class Customer
     {
+        public Customer(int BusinessNumber, string CustomerName, string CustomerAddress, string CustomerPhoneNumber, string CustomerEmail)
+        {
+            using (CustomerManagementSystemContext context = new CustomerManagementSystemContext())
+            {
+                var customer = new Customer();
+                this.BusinessNumber = BusinessNumber;
+                this.CustomerName = CustomerName;
+                this.CustomerAddress = CustomerAddress;
+                this.CustomerPhoneNumber = CustomerPhoneNumber;
+                this.CustomerEmail = CustomerEmail;
+
+                context.Customers.Add(this);
+                context.SaveChanges();
+            }
+        }
         public Customer()
         {
 

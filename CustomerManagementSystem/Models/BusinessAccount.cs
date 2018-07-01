@@ -13,6 +13,24 @@ namespace CustomerManagementSystem.Models
         {
 
         }
+        public BusinessAccount(string UserAccount, string BusinessName, string BusinessOwner,
+            string PhoneNumber, string Email, string Website, string Logo, string ABN)
+        {
+            using (CustomerManagementSystemContext context = new CustomerManagementSystemContext())
+            {
+                this.UserAccount = UserAccount;
+                this.BusinessName = BusinessName;
+                this.BusinessOwner = BusinessOwner;
+                this.PhoneNumber = PhoneNumber;
+                this.Email = Email;
+                this.Website = Website;
+                this.Logo = Logo;
+                this.ABN = ABN;
+
+                context.BusinessAccounts.Add(this);
+                context.SaveChanges();
+            }
+        }
         public BusinessAccount([Optional]int id)
         {
             this.BusinessNumber = id;

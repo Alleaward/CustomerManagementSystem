@@ -56,21 +56,18 @@ namespace CustomerManagementSystem.Controllers
             {
                 using (CustomerManagementSystemContext context = new CustomerManagementSystemContext())
                 {
-                    var newBusinessAccount = new BusinessAccount()
-                    {
-                        BusinessName = Request.Form["BusinessName"],
-                        BusinessOwner = Request.Form["BusinessOwner"],
-                        PhoneNumber = Request.Form["PhoneNumber"],
-                        Email = Request.Form["Email"],
-                        Website = Request.Form["Website"],
-                        Logo = Request.Form["Logo"],
-                        ABN = Request.Form["ABN"],
-                        UserAccount = User.Identity.GetUserId(),
-                    };
-                    context.BusinessAccounts.Add(newBusinessAccount);
-                    context.SaveChanges();
+                    var newBusinessAccount = new BusinessAccount(
+                            BusinessName: Request.Form["BusinessName"],
+                            BusinessOwner: Request.Form["BusinessOwner"],
+                            PhoneNumber: Request.Form["PhoneNumber"],
+                            Email: Request.Form["Email"],
+                            Website: Request.Form["Website"],
+                            Logo: Request.Form["Logo"],
+                            ABN: Request.Form["ABN"],
+                            UserAccount: User.Identity.GetUserId()
+                        );
+                    return RedirectToAction("Index");
                 }
-                return RedirectToAction("Index");
             }
             else
             {
@@ -245,6 +242,7 @@ namespace CustomerManagementSystem.Controllers
                 var customer = new Customer(CustomerId);
                 //var customer = context.Customers.Where(x => x.CustomerId == CustomerId).FirstOrDefault();
 
+                //make a new constructor that takes in business number and customer number and creates and saves  new invoice to db
                 var newInvoice = new Invoice
                 {
                     CreationDate = DateTime.Now,
@@ -285,22 +283,19 @@ namespace CustomerManagementSystem.Controllers
             return View();
         }
 
-        //POST: BusinessAccount/AddCustomer
+        //POST: BusinessAccount/AddCustomer~~~
         [HttpPost]
         public ActionResult AddCustomer(int id, FormCollection collection)
         {
             using (CustomerManagementSystemContext context = new CustomerManagementSystemContext())
             {
-                var newCustomer = new Customer
-                {
-                    BusinessNumber = id,
-                    CustomerName = Request.Form["CustomerName"],
-                    CustomerAddress = Request.Form["CustomerAddress"],
-                    CustomerPhoneNumber = Request.Form["CustomerPhoneNumber"],
-                    CustomerEmail = Request.Form["CustomerEmail"],
-                };
-                context.Customers.Add(newCustomer);
-                context.SaveChanges();
+                var customer = new Customer(
+                    BusinessNumber: id, 
+                    CustomerName: Request.Form["CustomerName"], 
+                    CustomerAddress: Request.Form["CustomerAddress"], 
+                    CustomerPhoneNumber: Request.Form["CustomerPhoneNumber"], 
+                    CustomerEmail: Request.Form["CustomerEmail"]);
+
                 return RedirectToAction("AddInvoice/" + id, "BusinessAccount");
             }
         }
