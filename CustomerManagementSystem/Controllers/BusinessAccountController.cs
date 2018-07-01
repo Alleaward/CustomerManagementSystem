@@ -12,15 +12,13 @@ namespace CustomerManagementSystem.Controllers
 {
     public class BusinessAccountController : Controller
     {
-        // GET: BusinessAccount~
+        // GET: BusinessAccount~~~
         public ActionResult Index()
         {
-            //check user is logged in
             if (User.Identity.IsAuthenticated)
             {
                 using (CustomerManagementSystemContext context = new CustomerManagementSystemContext())
                 {
-                    //retrieve businesses associated with this user account
                     var userId = User.Identity.GetUserId();
                     ViewBag.userId = userId;
                     var businesses = context.BusinessAccounts.Where(x => x.UserAccount == userId).OrderBy(x => x.BusinessName).ToList();
@@ -29,12 +27,11 @@ namespace CustomerManagementSystem.Controllers
             }
             else
             {
-                //Upon failure redirect to home page
                 return RedirectToAction("Login", "Account");
             }
         }
 
-        // GET: BusinessAccount/Create~
+        // GET: BusinessAccount/Create~~~
         public ActionResult Create()
         {
             if (User.Identity.IsAuthenticated)
@@ -48,7 +45,7 @@ namespace CustomerManagementSystem.Controllers
             }
         }
 
-        // POST: BusinessAccount/Create~
+        // POST: BusinessAccount/Create~~~
         [HttpPost]
         public ActionResult Create(FormCollection collection)
         {
@@ -75,7 +72,7 @@ namespace CustomerManagementSystem.Controllers
             }
         }
 
-        // GET: BusinessAccount/Edit/5~
+        // GET: BusinessAccount/Edit/5~~~
         public ActionResult Edit(int id)
         {
             if (User.Identity.IsAuthenticated)
@@ -108,7 +105,7 @@ namespace CustomerManagementSystem.Controllers
                 {
                     var userId = User.Identity.GetUserId();
                     var business = context.BusinessAccounts.Where(x => x.BusinessNumber == id && x.UserAccount == userId).FirstOrDefault();
-
+                    //THIS CAN BE REWORKED
                     if (Request.Form["BusinessName"] != null){business.BusinessName = Request.Form["BusinessName"];}
                     if (Request.Form["BusinessOwner"] != null){business.BusinessOwner = Request.Form["BusinessOwner"];}
                     if (Request.Form["PhoneNumber"] != null){business.PhoneNumber = Request.Form["PhoneNumber"];}
@@ -126,7 +123,7 @@ namespace CustomerManagementSystem.Controllers
             }
         }
 
-        // GET: BusinessAccount/Delete/5~
+        // GET: BusinessAccount/Delete/5~~~
         public ActionResult Delete(int id)
         {
             if (User.Identity.IsAuthenticated)
@@ -186,16 +183,8 @@ namespace CustomerManagementSystem.Controllers
         {
             if (User.Identity.IsAuthenticated)
             {
-                try
-                {                    
-                        var model = new BusinessAccount(id);
-                        return View(model);
-                    
-                }
-                catch
-                {
-                    return RedirectToAction("Index", "BusinessAccount");
-                }
+                try { return View(new BusinessAccount(id)); }
+                catch { return RedirectToAction("Index", "BusinessAccount"); }
             }
             else
             {
@@ -203,7 +192,7 @@ namespace CustomerManagementSystem.Controllers
             }
         }
 
-        //GET: BusinessAccount/AddInvoice
+        //GET: BusinessAccount/AddInvoice--------------REWORK THIS
         public ActionResult AddInvoice(int id)
         {
             using (CustomerManagementSystemContext context = new CustomerManagementSystemContext())
@@ -228,7 +217,7 @@ namespace CustomerManagementSystem.Controllers
             }
         }
 
-        //POST: BusinessAccount/AddInvoice
+        //POST: BusinessAccount/AddInvoice--------------REWORK THIS
         [HttpPost]
         public ActionResult AddInvoice(int id, FormCollection collection)
         {
@@ -299,7 +288,7 @@ namespace CustomerManagementSystem.Controllers
                 return RedirectToAction("AddInvoice/" + id, "BusinessAccount");
             }
         }
-        //GET: BusinessAccount/AddInvoiceItem/id
+        //GET: BusinessAccount/AddInvoiceItem/id--------------REWORK THIS
         public ActionResult AddInvoiceItem(int id, int option)
         {
             using (CustomerManagementSystemContext context = new CustomerManagementSystemContext())
@@ -324,7 +313,7 @@ namespace CustomerManagementSystem.Controllers
                 return View(vm);
             }
         }
-        //Post: BusinessAccount/AddInvoiceItem/id
+        //Post: BusinessAccount/AddInvoiceItem/id--------------REWORK THIS
         [HttpPost]
         public ActionResult AddInvoiceItem(int id, int option, FormCollection collection)
         {
@@ -396,7 +385,7 @@ namespace CustomerManagementSystem.Controllers
             return View();
         }
 
-        //POST: BusinessAccount/AddItem/id
+        //POST: BusinessAccount/AddItem/id--------------REWORK THIS
         [HttpPost]
         public ActionResult AddItem(int id, int option, FormCollection collection)
         {
@@ -413,7 +402,7 @@ namespace CustomerManagementSystem.Controllers
                 return RedirectToAction("AddInvoiceItem/" + id + "/" + option, "BusinessAccount");
             }
         }
-        //POST: BusinessAccount/DeleteInvoice/id
+        //POST: BusinessAccount/DeleteInvoice/id--------------REWORK THIS
         public ActionResult InvoiceDelete(int id)
         {
             using (CustomerManagementSystemContext context = new CustomerManagementSystemContext())
@@ -422,7 +411,7 @@ namespace CustomerManagementSystem.Controllers
                 return View(model);
             }
         }
-        //POST: BusinessAccount/DeleteInvoice/id
+        //POST: BusinessAccount/DeleteInvoice/id--------------REWORK THIS
         [HttpPost]
         public ActionResult InvoiceDelete(int id, FormCollection collection)
         {
@@ -451,8 +440,8 @@ namespace CustomerManagementSystem.Controllers
                 return RedirectToAction("Login", "Account");
             }
         }
-        
-        //POST: BusinessAccount/InvoiceDetails/id
+
+        //POST: BusinessAccount/InvoiceDetails/id--------------REWORK THIS
         public ActionResult InvoiceDetails(int id)
         {
             using (CustomerManagementSystemContext context = new CustomerManagementSystemContext())
