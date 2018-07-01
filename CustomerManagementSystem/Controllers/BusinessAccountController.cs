@@ -237,9 +237,13 @@ namespace CustomerManagementSystem.Controllers
         {
             using (CustomerManagementSystemContext context = new CustomerManagementSystemContext())
             {
-                var business = context.BusinessAccounts.Where(x => x.BusinessNumber == id).FirstOrDefault();
+                //change to class declaration
+                var business = new BusinessAccount(id);
+                //var business = context.BusinessAccounts.Where(x => x.BusinessNumber == id).FirstOrDefault();
                 var CustomerId = Int32.Parse(Request.Form["CustomerNumber"]);
-                var customer = context.Customers.Where(x => x.CustomerId == CustomerId).FirstOrDefault();
+                //change to class declaration
+                var customer = new Customer(CustomerId);
+                //var customer = context.Customers.Where(x => x.CustomerId == CustomerId).FirstOrDefault();
 
                 var newInvoice = new Invoice
                 {

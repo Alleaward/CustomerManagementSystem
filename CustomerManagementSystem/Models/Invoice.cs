@@ -13,6 +13,7 @@ namespace CustomerManagementSystem.Models
         {
 
         }
+        //make a constructor that takes in a businessnumber and customernumber and constructs invoice
         public Invoice([Optional]int id)
         {
             this.InvoiceNumber = id;
