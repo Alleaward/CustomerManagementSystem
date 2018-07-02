@@ -19,5 +19,29 @@ namespace CustomerManagementSystem.Controllers
                 return RedirectToAction("Login", "Account");
             }
         }
+
+        public ActionResult About()
+        {
+            if (User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction("Index", "BusinessAccount");
+            }
+            else
+            {
+                return RedirectToAction("Login", "Account");
+            }
+        }
+
+        public ActionResult Contact()
+        {
+            if (User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction("Index", "BusinessAccount");
+            }
+            else
+            {
+                return RedirectToAction("Login", "Account");
+            }
+        }
     }
 }

@@ -230,10 +230,6 @@
     <Compile Include="Migrations\.Designer.cs">
       <DependentUpon>.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201806181047318_Changed money values to decimals.cs" />
-    <Compile Include="Migrations\201806181047318_Changed money values to decimals.Designer.cs">
-      <DependentUpon>201806181047318_Changed money values to decimals.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\201806201033126_Adjusting models for invoicing.cs" />
     <Compile Include="Migrations\201806201033126_Adjusting models for invoicing.Designer.cs">
       <DependentUpon>201806201033126_Adjusting models for invoicing.cs</DependentUpon>
@@ -388,9 +384,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\.resx">
       <DependentUpon>.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201806181047318_Changed money values to decimals.resx">
-      <DependentUpon>201806181047318_Changed money values to decimals.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201806201033126_Adjusting models for invoicing.resx">
       <DependentUpon>201806201033126_Adjusting models for invoicing.cs</DependentUpon>

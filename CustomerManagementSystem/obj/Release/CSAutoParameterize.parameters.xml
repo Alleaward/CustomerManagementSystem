@@ -6,4 +6,7 @@
   <parameter name="CustomerManagementSystemContext-Web.config Connection String" description="CustomerManagementSystemContext Connection String used in web.config by the application to access the database." defaultValue="data source=ALLEA-PC\SQLEXPRESS;initial catalog=CustomerManagementSystem;integrated security=True;MultipleActiveResultSets=True;App=EntityFramework" tags="SqlConnectionString">
     <parameterEntry kind="XmlFile" scope="C:\\xampp\\htdocs\\~Development\\Misc\\C\#\ Display\ App\\CustomerManagementSystem\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='CustomerManagementSystemContext']/@connectionString" />
   </parameter>
+  <parameter name="CustomerManagementSystemContext_DatabasePublish-Web.config Connection String" description="CustomerManagementSystemContext_DatabasePublish Connection String used in web.config by the application to access the database." defaultValue="CustomerManagementSystemContext_DatabasePublish.ConnetionString" tags="SqlConnectionString">
+    <parameterEntry kind="XmlFile" scope="C:\\xampp\\htdocs\\~Development\\Misc\\C\#\ Display\ App\\CustomerManagementSystem\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='CustomerManagementSystemContext_DatabasePublish']/@connectionString" />
+  </parameter>
 </parameters>

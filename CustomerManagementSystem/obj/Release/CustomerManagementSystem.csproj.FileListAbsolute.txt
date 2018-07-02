@@ -74,7 +74,6 @@ C:\xampp\htdocs\~Development\Misc\C# Display App\CustomerManagementSystem\obj\Re
 C:\xampp\htdocs\~Development\Misc\C# Display App\CustomerManagementSystem\obj\Release\CustomerManagementSystem.Migrations.AddingCustomerEmailandPhone.resources
 C:\xampp\htdocs\~Development\Misc\C# Display App\CustomerManagementSystem\obj\Release\CustomerManagementSystem.Migrations.Begundatabasenormalisation.resources
 C:\xampp\htdocs\~Development\Misc\C# Display App\CustomerManagementSystem\obj\Release\CustomerManagementSystem.Migrations.Begundatabasenormalisation2.resources
-C:\xampp\htdocs\~Development\Misc\C# Display App\CustomerManagementSystem\obj\Release\CustomerManagementSystem.Migrations.Changedmoneyvaluestodecimals.resources
 C:\xampp\htdocs\~Development\Misc\C# Display App\CustomerManagementSystem\obj\Release\CustomerManagementSystem.Migrations.Adjustingmodelsforinvoicing.resources
 C:\xampp\htdocs\~Development\Misc\C# Display App\CustomerManagementSystem\obj\Release\CustomerManagementSystem.Migrations.Addedcompletedflagforinvoice.resources
 C:\xampp\htdocs\~Development\Misc\C# Display App\CustomerManagementSystem\obj\Release\CustomerManagementSystem.Migrations.Addedverificationforsomeclasses.resources
@@ -83,3 +82,6 @@ C:\xampp\htdocs\~Development\Misc\C# Display App\CustomerManagementSystem\obj\Re
 C:\xampp\htdocs\~Development\Misc\C# Display App\CustomerManagementSystem\obj\Release\CustomerManagementSystem.csproj.CoreCompileInputs.cache
 C:\xampp\htdocs\~Development\Misc\C# Display App\CustomerManagementSystem\obj\Release\CustomerManagementSystem.dll
 C:\xampp\htdocs\~Development\Misc\C# Display App\CustomerManagementSystem\obj\Release\CustomerManagementSystem.pdb
+C:\xampp\htdocs\~Development\Misc\C# Display App\CustomerManagementSystem\obj\Release\CustomerManagementSystem.Migrations.MovingtoaccessingDBfromclass.resources
+C:\xampp\htdocs\~Development\Misc\C# Display App\CustomerManagementSystem\obj\Release\CustomerManagementSystem.Migrations.Aftermerge.resources
+C:\xampp\htdocs\~Development\Misc\C# Display App\CustomerManagementSystem\obj\Release\CustomerManagementSystem.Migrations.Testingpostmergedatabaseaccess.resources
