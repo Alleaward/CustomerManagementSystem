@@ -258,6 +258,10 @@
     <Compile Include="Migrations\201806300521162_Testing post merge database access.Designer.cs">
       <DependentUpon>201806300521162_Testing post merge database access.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201807021140230_Add decimals to currency.cs" />
+    <Compile Include="Migrations\201807021140230_Add decimals to currency.Designer.cs">
+      <DependentUpon>201807021140230_Add decimals to currency.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\BusinessAccount.cs" />
@@ -405,6 +409,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201806300521162_Testing post merge database access.resx">
       <DependentUpon>201806300521162_Testing post merge database access.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201807021140230_Add decimals to currency.resx">
+      <DependentUpon>201807021140230_Add decimals to currency.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -13,186 +13,130 @@ namespace CustomerManagementSystem.Controllers
     public class BusinessAccountController : Controller
     {
         // GET: BusinessAccount~~~
+        [Authorize]
         public ActionResult Index()
         {
-            if (User.Identity.IsAuthenticated)
+            using (CustomerManagementSystemContext context = new CustomerManagementSystemContext())
             {
-                using (CustomerManagementSystemContext context = new CustomerManagementSystemContext())
-                {
-                    var userId = User.Identity.GetUserId();
-                    ViewBag.userId = userId;
-                    var businesses = context.BusinessAccounts.Where(x => x.UserAccount == userId).OrderBy(x => x.BusinessName).ToList();
-                    return View(businesses);
-                }
-            }
-            else
-            {
-                return RedirectToAction("Login", "Account");
+                var userId = User.Identity.GetUserId();
+                ViewBag.userId = userId;
+                var businesses = context.BusinessAccounts.Where(x => x.UserAccount == userId).OrderBy(x => x.BusinessName).ToList();
+                return View(businesses);
             }
         }
 
         // GET: BusinessAccount/Create~~~
+        [Authorize]
         public ActionResult Create()
         {
-            if (User.Identity.IsAuthenticated)
-            {
-                ViewBag.userId = User.Identity.GetUserId();
-                return View();
-            }
-            else
-            {
-                return RedirectToAction("Login", "Account");
-            }
+            ViewBag.userId = User.Identity.GetUserId();
+            return View();
         }
 
         // POST: BusinessAccount/Create~~~
         [HttpPost]
+        [Authorize]
         public ActionResult Create(FormCollection collection)
         {
-            if (User.Identity.IsAuthenticated)
+            using (CustomerManagementSystemContext context = new CustomerManagementSystemContext())
             {
-                using (CustomerManagementSystemContext context = new CustomerManagementSystemContext())
-                {
-                    var newBusinessAccount = new BusinessAccount(
-                            BusinessName: Request.Form["BusinessName"],
-                            BusinessOwner: Request.Form["BusinessOwner"],
-                            PhoneNumber: Request.Form["PhoneNumber"],
-                            Email: Request.Form["Email"],
-                            Website: Request.Form["Website"],
-                            Logo: Request.Form["Logo"],
-                            ABN: Request.Form["ABN"],
-                            UserAccount: User.Identity.GetUserId()
-                        );
-                    return RedirectToAction("Index");
-                }
-            }
-            else
-            {
-                return RedirectToAction("Login", "Account");
+                var newBusinessAccount = new BusinessAccount(
+                        BusinessName: Request.Form["BusinessName"],
+                        BusinessOwner: Request.Form["BusinessOwner"],
+                        PhoneNumber: Request.Form["PhoneNumber"],
+                        Email: Request.Form["Email"],
+                        Website: Request.Form["Website"],
+                        Logo: Request.Form["Logo"],
+                        ABN: Request.Form["ABN"],
+                        UserAccount: User.Identity.GetUserId()
+                    );
+                return RedirectToAction("Index");
             }
         }
 
         // GET: BusinessAccount/Edit/5~~~
+        [Authorize]
         public ActionResult Edit(int id)
         {
-            if (User.Identity.IsAuthenticated)
+            using (CustomerManagementSystemContext context = new CustomerManagementSystemContext())
             {
-                using (CustomerManagementSystemContext context = new CustomerManagementSystemContext())
+                var userId = User.Identity.GetUserId();
+                var business = new BusinessAccount(id);
+                if (userId == business.UserAccount)
                 {
-                    var userId = User.Identity.GetUserId();
-                    var business = new BusinessAccount(id);
-                    if (userId == business.UserAccount)
-                    {
-                        return View(business);
-                    }else{
-                        return RedirectToAction("Index", "BusinessAccount");
-                    }
+                    return View(business);
+                }else{
+                    return RedirectToAction("Index", "BusinessAccount");
                 }
-            }
-            else
-            {
-                return RedirectToAction("Login", "Account");
             }
         }
 
         // POST: BusinessAccount/Edit/5~
         [HttpPost]
+        [Authorize]
         public ActionResult Edit(int id, FormCollection collection)
         {
-            if (User.Identity.IsAuthenticated)
+            using (CustomerManagementSystemContext context = new CustomerManagementSystemContext())
             {
-                using (CustomerManagementSystemContext context = new CustomerManagementSystemContext())
-                {
-                    var userId = User.Identity.GetUserId();
-                    var business = context.BusinessAccounts.Where(x => x.BusinessNumber == id && x.UserAccount == userId).FirstOrDefault();
-                    //THIS CAN BE REWORKED
-                    if (Request.Form["BusinessName"] != null){business.BusinessName = Request.Form["BusinessName"];}
-                    if (Request.Form["BusinessOwner"] != null){business.BusinessOwner = Request.Form["BusinessOwner"];}
-                    if (Request.Form["PhoneNumber"] != null){business.PhoneNumber = Request.Form["PhoneNumber"];}
-                    if (Request.Form["Email"] != null){business.Email = Request.Form["Email"];}
-                    if (Request.Form["Website"] != null){business.Website = Request.Form["Website"];}
-                    if (Request.Form["Logo"] != null){business.Logo = Request.Form["Logo"];}
-                    if (Request.Form["ABN"] != null){business.ABN = Request.Form["ABN"];}
-                    context.SaveChanges();
-                }
-                return RedirectToAction("Index");
+                var userId = User.Identity.GetUserId();
+                var business = context.BusinessAccounts.Where(x => x.BusinessNumber == id && x.UserAccount == userId).FirstOrDefault();
+                //THIS CAN BE REWORKED
+                if (Request.Form["BusinessName"] != null){business.BusinessName = Request.Form["BusinessName"];}
+                if (Request.Form["BusinessOwner"] != null){business.BusinessOwner = Request.Form["BusinessOwner"];}
+                if (Request.Form["PhoneNumber"] != null){business.PhoneNumber = Request.Form["PhoneNumber"];}
+                if (Request.Form["Email"] != null){business.Email = Request.Form["Email"];}
+                if (Request.Form["Website"] != null){business.Website = Request.Form["Website"];}
+                if (Request.Form["Logo"] != null){business.Logo = Request.Form["Logo"];}
+                if (Request.Form["ABN"] != null){business.ABN = Request.Form["ABN"];}
+                context.SaveChanges();
             }
-            else
-            {
-                return RedirectToAction("Login", "Account");
-            }
+            return RedirectToAction("Index");
         }
 
         // GET: BusinessAccount/Delete/5~~~
+        [Authorize]
         public ActionResult Delete(int id)
         {
-            if (User.Identity.IsAuthenticated)
+            using (CustomerManagementSystemContext context = new CustomerManagementSystemContext())
             {
-                using (CustomerManagementSystemContext context = new CustomerManagementSystemContext())
-                {
-                    var userId = User.Identity.GetUserId();
-                    var business = new BusinessAccount(id);
-                    if(userId == business.UserAccount){
-                        return View(business);
-                    }else{
-                        return RedirectToAction("Index", "BusinessAccount");
-                    }
+                var userId = User.Identity.GetUserId();
+                var business = new BusinessAccount(id);
+                if(userId == business.UserAccount){
+                    return View(business);
+                }else{
+                    return RedirectToAction("Index", "BusinessAccount");
                 }
-            }
-            else
-            {
-                return RedirectToAction("Login", "Account");
             }
         }
 
         // POST: BusinessAccount/Delete/5~
         [HttpPost]
+        [Authorize]
         public ActionResult Delete(int id, FormCollection collection)
         {
-            if (User.Identity.IsAuthenticated)
+            using (CustomerManagementSystemContext context = new CustomerManagementSystemContext())
             {
-                try
+                var business = new BusinessAccount(id);
+                if (User.Identity.GetUserId() == business.UserAccount)
                 {
-                    using (CustomerManagementSystemContext context = new CustomerManagementSystemContext())
-                    {
-                        var business = new BusinessAccount(id);
-                        if (User.Identity.GetUserId() == business.UserAccount)
-                        {
-                            context.BusinessAccounts.Attach(business);
-                            context.BusinessAccounts.Remove(business);
-                            context.SaveChanges();
-                            return RedirectToAction("Index", "BusinessAccount");
-                        }else{
-                            return RedirectToAction("Index", "BusinessAccount");
-                        }
-                    }
+                    context.BusinessAccounts.Attach(business);
+                    context.BusinessAccounts.Remove(business);
+                    context.SaveChanges();
                 }
-                catch
-                {
-                    return RedirectToAction("Index", "BusinessAccount");
-                }
-            }
-            else
-            {
-                return RedirectToAction("Login", "Account");
+                return RedirectToAction("Index", "BusinessAccount");
             }
         }
 
         // GET: BusinessAccount/Manage/5
+        [Authorize]
         public ActionResult Manage(int id)
         {
-            if (User.Identity.IsAuthenticated)
-            {
-                try { return View(new BusinessAccount(id)); }
-                catch { return RedirectToAction("Index", "BusinessAccount"); }
-            }
-            else
-            {
-                return RedirectToAction("Login", "Account");
-            }
+            try { return View(new BusinessAccount(id)); }
+            catch { return RedirectToAction("Index", "BusinessAccount"); }
         }
 
         //GET: BusinessAccount/AddInvoice--------------REWORK THIS
+        [Authorize]
         public ActionResult AddInvoice(int id)
         {
             using (CustomerManagementSystemContext context = new CustomerManagementSystemContext())
@@ -219,6 +163,7 @@ namespace CustomerManagementSystem.Controllers
 
         //POST: BusinessAccount/AddInvoice--------------REWORK THIS
         [HttpPost]
+        [Authorize]
         public ActionResult AddInvoice(int id, FormCollection collection)
         {
             using (CustomerManagementSystemContext context = new CustomerManagementSystemContext())
@@ -267,6 +212,7 @@ namespace CustomerManagementSystem.Controllers
         }
 
         //GET: BusinessAccount/AddCustomer
+        [Authorize]
         public ActionResult AddCustomer(int id)
         {
             return View();
@@ -274,6 +220,7 @@ namespace CustomerManagementSystem.Controllers
 
         //POST: BusinessAccount/AddCustomer~~~
         [HttpPost]
+        [Authorize]
         public ActionResult AddCustomer(int id, FormCollection collection)
         {
             using (CustomerManagementSystemContext context = new CustomerManagementSystemContext())
@@ -289,6 +236,7 @@ namespace CustomerManagementSystem.Controllers
             }
         }
         //GET: BusinessAccount/AddInvoiceItem/id--------------REWORK THIS
+        [Authorize]
         public ActionResult AddInvoiceItem(int id, int option)
         {
             using (CustomerManagementSystemContext context = new CustomerManagementSystemContext())
@@ -315,6 +263,7 @@ namespace CustomerManagementSystem.Controllers
         }
         //Post: BusinessAccount/AddInvoiceItem/id--------------REWORK THIS
         [HttpPost]
+        [Authorize]
         public ActionResult AddInvoiceItem(int id, int option, FormCollection collection)
         {
             using (CustomerManagementSystemContext context = new CustomerManagementSystemContext())
@@ -380,6 +329,7 @@ namespace CustomerManagementSystem.Controllers
             }
         }
         //GET: BusinessAccount/AddItem/id
+        [Authorize]
         public ActionResult AddItem(int id, int option)
         {
             return View();
@@ -387,6 +337,7 @@ namespace CustomerManagementSystem.Controllers
 
         //POST: BusinessAccount/AddItem/id--------------REWORK THIS
         [HttpPost]
+        [Authorize]
         public ActionResult AddItem(int id, int option, FormCollection collection)
         {
             using (CustomerManagementSystemContext context = new CustomerManagementSystemContext())
@@ -402,7 +353,9 @@ namespace CustomerManagementSystem.Controllers
                 return RedirectToAction("AddInvoiceItem/" + id + "/" + option, "BusinessAccount");
             }
         }
+
         //POST: BusinessAccount/DeleteInvoice/id--------------REWORK THIS
+        [Authorize]
         public ActionResult InvoiceDelete(int id)
         {
             using (CustomerManagementSystemContext context = new CustomerManagementSystemContext())
@@ -411,37 +364,26 @@ namespace CustomerManagementSystem.Controllers
                 return View(model);
             }
         }
+
         //POST: BusinessAccount/DeleteInvoice/id--------------REWORK THIS
         [HttpPost]
+        [Authorize]
         public ActionResult InvoiceDelete(int id, FormCollection collection)
         {
-            if (User.Identity.IsAuthenticated)
+            using (CustomerManagementSystemContext context = new CustomerManagementSystemContext())
             {
-                try
-                {
-                    using (CustomerManagementSystemContext context = new CustomerManagementSystemContext())
-                    {
-                        var invoice = new Invoice { InvoiceNumber = id };
-                        context.Invoices.Attach(invoice);
-                        context.Invoices.Remove(invoice);
-                        context.SaveChanges();
+                var invoice = new Invoice { InvoiceNumber = id };
+                context.Invoices.Attach(invoice);
+                context.Invoices.Remove(invoice);
+                context.SaveChanges();
 
-                        var model = context.Invoices.Where(x => x.InvoiceNumber == id).FirstOrDefault();
-                        return RedirectToAction("Manage/" + model.BusinessNumber, "BusinessAccount");
-                    }
-                }
-                catch
-                {
-                    return RedirectToAction("Index", "BusinessAccount");
-                }
-            }
-            else
-            {
-                return RedirectToAction("Login", "Account");
+                var model = context.Invoices.Where(x => x.InvoiceNumber == id).FirstOrDefault();
+                return RedirectToAction("Manage/" + model.BusinessNumber, "BusinessAccount");
             }
         }
 
         //POST: BusinessAccount/InvoiceDetails/id--------------REWORK THIS
+        [Authorize]
         public ActionResult InvoiceDetails(int id)
         {
             using (CustomerManagementSystemContext context = new CustomerManagementSystemContext())
