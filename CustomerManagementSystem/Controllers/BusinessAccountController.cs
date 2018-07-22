@@ -10,10 +10,10 @@ using System.Globalization;
 
 namespace CustomerManagementSystem.Controllers
 {
+    [Authorize]
     public class BusinessAccountController : Controller
     {
         // GET: BusinessAccount~~~
-        [Authorize]
         public ActionResult Index()
         {
             using (CustomerManagementSystemContext context = new CustomerManagementSystemContext())
@@ -26,7 +26,6 @@ namespace CustomerManagementSystem.Controllers
         }
 
         // GET: BusinessAccount/Create~~~
-        [Authorize]
         public ActionResult Create()
         {
             ViewBag.userId = User.Identity.GetUserId();
@@ -35,7 +34,6 @@ namespace CustomerManagementSystem.Controllers
 
         // POST: BusinessAccount/Create~~~
         [HttpPost]
-        [Authorize]
         public ActionResult Create(FormCollection collection)
         {
             using (CustomerManagementSystemContext context = new CustomerManagementSystemContext())
@@ -55,7 +53,6 @@ namespace CustomerManagementSystem.Controllers
         }
 
         // GET: BusinessAccount/Edit/5~~~
-        [Authorize]
         public ActionResult Edit(int id)
         {
             using (CustomerManagementSystemContext context = new CustomerManagementSystemContext())
@@ -73,7 +70,6 @@ namespace CustomerManagementSystem.Controllers
 
         // POST: BusinessAccount/Edit/5~
         [HttpPost]
-        [Authorize]
         public ActionResult Edit(int id, FormCollection collection)
         {
             using (CustomerManagementSystemContext context = new CustomerManagementSystemContext())
@@ -94,7 +90,6 @@ namespace CustomerManagementSystem.Controllers
         }
 
         // GET: BusinessAccount/Delete/5~~~
-        [Authorize]
         public ActionResult Delete(int id)
         {
             using (CustomerManagementSystemContext context = new CustomerManagementSystemContext())
@@ -111,7 +106,6 @@ namespace CustomerManagementSystem.Controllers
 
         // POST: BusinessAccount/Delete/5~
         [HttpPost]
-        [Authorize]
         public ActionResult Delete(int id, FormCollection collection)
         {
             using (CustomerManagementSystemContext context = new CustomerManagementSystemContext())
@@ -128,7 +122,6 @@ namespace CustomerManagementSystem.Controllers
         }
 
         // GET: BusinessAccount/Manage/5
-        [Authorize]
         public ActionResult Manage(int id)
         {
             try { return View(new BusinessAccount(id)); }
@@ -136,7 +129,6 @@ namespace CustomerManagementSystem.Controllers
         }
 
         //GET: BusinessAccount/AddInvoice--------------REWORK THIS
-        [Authorize]
         public ActionResult AddInvoice(int id)
         {
             using (CustomerManagementSystemContext context = new CustomerManagementSystemContext())
@@ -163,7 +155,6 @@ namespace CustomerManagementSystem.Controllers
 
         //POST: BusinessAccount/AddInvoice--------------REWORK THIS
         [HttpPost]
-        [Authorize]
         public ActionResult AddInvoice(int id, FormCollection collection)
         {
             using (CustomerManagementSystemContext context = new CustomerManagementSystemContext())
@@ -212,7 +203,6 @@ namespace CustomerManagementSystem.Controllers
         }
 
         //GET: BusinessAccount/AddCustomer
-        [Authorize]
         public ActionResult AddCustomer(int id)
         {
             return View();
@@ -220,7 +210,6 @@ namespace CustomerManagementSystem.Controllers
 
         //POST: BusinessAccount/AddCustomer~~~
         [HttpPost]
-        [Authorize]
         public ActionResult AddCustomer(int id, FormCollection collection)
         {
             using (CustomerManagementSystemContext context = new CustomerManagementSystemContext())
@@ -236,7 +225,6 @@ namespace CustomerManagementSystem.Controllers
             }
         }
         //GET: BusinessAccount/AddInvoiceItem/id--------------REWORK THIS
-        [Authorize]
         public ActionResult AddInvoiceItem(int id, int option)
         {
             using (CustomerManagementSystemContext context = new CustomerManagementSystemContext())
@@ -263,7 +251,6 @@ namespace CustomerManagementSystem.Controllers
         }
         //Post: BusinessAccount/AddInvoiceItem/id--------------REWORK THIS
         [HttpPost]
-        [Authorize]
         public ActionResult AddInvoiceItem(int id, int option, FormCollection collection)
         {
             using (CustomerManagementSystemContext context = new CustomerManagementSystemContext())
@@ -329,7 +316,6 @@ namespace CustomerManagementSystem.Controllers
             }
         }
         //GET: BusinessAccount/AddItem/id
-        [Authorize]
         public ActionResult AddItem(int id, int option)
         {
             return View();
@@ -337,7 +323,6 @@ namespace CustomerManagementSystem.Controllers
 
         //POST: BusinessAccount/AddItem/id--------------REWORK THIS
         [HttpPost]
-        [Authorize]
         public ActionResult AddItem(int id, int option, FormCollection collection)
         {
             using (CustomerManagementSystemContext context = new CustomerManagementSystemContext())
@@ -355,7 +340,6 @@ namespace CustomerManagementSystem.Controllers
         }
 
         //POST: BusinessAccount/DeleteInvoice/id--------------REWORK THIS
-        [Authorize]
         public ActionResult InvoiceDelete(int id)
         {
             using (CustomerManagementSystemContext context = new CustomerManagementSystemContext())
@@ -367,7 +351,6 @@ namespace CustomerManagementSystem.Controllers
 
         //POST: BusinessAccount/DeleteInvoice/id--------------REWORK THIS
         [HttpPost]
-        [Authorize]
         public ActionResult InvoiceDelete(int id, FormCollection collection)
         {
             using (CustomerManagementSystemContext context = new CustomerManagementSystemContext())
@@ -383,7 +366,6 @@ namespace CustomerManagementSystem.Controllers
         }
 
         //POST: BusinessAccount/InvoiceDetails/id--------------REWORK THIS
-        [Authorize]
         public ActionResult InvoiceDetails(int id)
         {
             using (CustomerManagementSystemContext context = new CustomerManagementSystemContext())

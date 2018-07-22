@@ -26,10 +26,12 @@ namespace CustomerManagementSystem.Models
                 context.SaveChanges();
             }
         }
+
         public Customer()
         {
 
         }
+
         public Customer([Optional]int id)
         {
             this.CustomerId = id;
@@ -44,6 +46,7 @@ namespace CustomerManagementSystem.Models
                 this.CustomerEmail = customer.CustomerEmail;
             }
         }
+
         //Foreign Key from "BusinessAccounts"
         public int BusinessNumber { get; set; }
 

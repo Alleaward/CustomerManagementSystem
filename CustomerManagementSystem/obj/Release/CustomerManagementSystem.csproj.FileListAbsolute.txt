@@ -85,3 +85,4 @@ C:\xampp\htdocs\~Development\Misc\C# Display App\CustomerManagementSystem\obj\Re
 C:\xampp\htdocs\~Development\Misc\C# Display App\CustomerManagementSystem\obj\Release\CustomerManagementSystem.Migrations.MovingtoaccessingDBfromclass.resources
 C:\xampp\htdocs\~Development\Misc\C# Display App\CustomerManagementSystem\obj\Release\CustomerManagementSystem.Migrations.Aftermerge.resources
 C:\xampp\htdocs\~Development\Misc\C# Display App\CustomerManagementSystem\obj\Release\CustomerManagementSystem.Migrations.Testingpostmergedatabaseaccess.resources
+C:\xampp\htdocs\~Development\Misc\C# Display App\CustomerManagementSystem\obj\Release\CustomerManagementSystem.Migrations.Adddecimalstocurrency.resources

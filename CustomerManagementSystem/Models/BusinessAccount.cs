@@ -13,8 +13,9 @@ namespace CustomerManagementSystem.Models
         {
 
         }
+
         public BusinessAccount(string UserAccount, string BusinessName, string BusinessOwner,
-            string PhoneNumber, string Email, string Website, string Logo, string ABN)
+                string PhoneNumber, string Email, string Website, string Logo, string ABN)
         {
             using (CustomerManagementSystemContext context = new CustomerManagementSystemContext())
             {
@@ -31,6 +32,7 @@ namespace CustomerManagementSystem.Models
                 context.SaveChanges();
             }
         }
+
         public BusinessAccount([Optional]int id)
         {
             this.BusinessNumber = id;
