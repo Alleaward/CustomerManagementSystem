@@ -21,21 +21,11 @@
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
 
-    @if (Model.Ordered.Count() != 0)
-    {
-        <h5>Ordered Items:</h5>
-        <ol>
-            @foreach (var item in Model.Ordered)
-            {
-                <li>@item.ItemQuantity x @item.ItemName</li>
-            }
-        </ol>
-    }
     <p>
         <select name="ItemNumber">
             @foreach (var item in Model.Items)
             {
-                <option value=@item.ItemNumber>@item.ItemName</option>
+                <option value=@item.ItemNumber>@item.ItemName - @item.Cost</option>
             }
         </select>
         <a href="@Url.Action("AddItem/" + @businessNumber + "/" + invoiceNumber, "BusinessAccount")" class="">Create a new item.</a>
@@ -49,8 +39,18 @@
             </p>
         </div>
     </div>
-        <p>Subtotal: $@subtotal</p>
-        <p>Total: $@total (with <input id="tax-rate" type="number" name="taxRate" value="3" placeholder="3" />% GST.)</p>
+    @if (Model.Ordered.Count() != 0)
+    {
+        <h5>Ordered Items:</h5>
+        <ol>
+            @foreach (var item in Model.Ordered)
+            {
+                <li>@item.ItemQuantity x @item.ItemName (REMOVE BUTTON)</li>
+            }
+        </ol>
+    }
+    <p>Subtotal: $@subtotal</p>
+    <p>Total: $@total (with <input id="tax-rate" type="number" name="taxRate" value="3" placeholder="3" />% GST.)</p>
 
 
     <p>Notes: </p>

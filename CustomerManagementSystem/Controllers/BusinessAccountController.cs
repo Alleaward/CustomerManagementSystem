@@ -68,7 +68,7 @@ namespace CustomerManagementSystem.Controllers
             }
         }
 
-        // POST: BusinessAccount/Edit/5~
+        // POST: BusinessAccount/Edit/5~~~
         [HttpPost]
         public ActionResult Edit(int id, FormCollection collection)
         {
@@ -76,14 +76,36 @@ namespace CustomerManagementSystem.Controllers
             {
                 var userId = User.Identity.GetUserId();
                 var business = context.BusinessAccounts.Where(x => x.BusinessNumber == id && x.UserAccount == userId).FirstOrDefault();
+
                 //THIS CAN BE REWORKED
-                if (Request.Form["BusinessName"] != null){business.BusinessName = Request.Form["BusinessName"];}
-                if (Request.Form["BusinessOwner"] != null){business.BusinessOwner = Request.Form["BusinessOwner"];}
-                if (Request.Form["PhoneNumber"] != null){business.PhoneNumber = Request.Form["PhoneNumber"];}
-                if (Request.Form["Email"] != null){business.Email = Request.Form["Email"];}
-                if (Request.Form["Website"] != null){business.Website = Request.Form["Website"];}
-                if (Request.Form["Logo"] != null){business.Logo = Request.Form["Logo"];}
-                if (Request.Form["ABN"] != null){business.ABN = Request.Form["ABN"];}
+                if (Request.Form["BusinessName"] != null)
+                {
+                    business.BusinessName = Request.Form["BusinessName"];
+                }
+                if (Request.Form["BusinessOwner"] != null)
+                {
+                    business.BusinessOwner = Request.Form["BusinessOwner"];
+                }
+                if (Request.Form["PhoneNumber"] != null)
+                {
+                    business.PhoneNumber = Request.Form["PhoneNumber"];
+                }
+                if (Request.Form["Email"] != null)
+                {
+                    business.Email = Request.Form["Email"];
+                }
+                if (Request.Form["Website"] != null)
+                {
+                    business.Website = Request.Form["Website"];
+                }
+                if (Request.Form["Logo"] != null)
+                {
+                    business.Logo = Request.Form["Logo"];
+                }
+                if (Request.Form["ABN"] != null)
+                {
+                    business.ABN = Request.Form["ABN"];
+                }
                 context.SaveChanges();
             }
             return RedirectToAction("Index");
@@ -104,7 +126,7 @@ namespace CustomerManagementSystem.Controllers
             }
         }
 
-        // POST: BusinessAccount/Delete/5~
+        // POST: BusinessAccount/Delete/5~~~
         [HttpPost]
         public ActionResult Delete(int id, FormCollection collection)
         {
@@ -124,8 +146,7 @@ namespace CustomerManagementSystem.Controllers
         // GET: BusinessAccount/Manage/5
         public ActionResult Manage(int id)
         {
-            try { return View(new BusinessAccount(id)); }
-            catch { return RedirectToAction("Index", "BusinessAccount"); }
+            return View(new BusinessAccount(id)); 
         }
 
         //GET: BusinessAccount/AddInvoice--------------REWORK THIS
