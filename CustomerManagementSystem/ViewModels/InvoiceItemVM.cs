@@ -17,5 +17,7 @@ namespace CustomerManagementSystem.ViewModels
         public int InvoiceId { get; set; }
         public int ItemId { get; set; }
         public int ItemQuantity { get; set; }
+        public decimal Subtotal { get; set; }
+        public decimal Total { get; set; }
     }
 }
