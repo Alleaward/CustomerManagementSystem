@@ -53,7 +53,7 @@
         <ol>
             @foreach (var item in Model.Ordered)
             {
-                <li>@item.ItemQuantity x @item.ItemName (REMOVE BUTTON)</li>
+                <li>@item.ItemQuantity x @item.ItemName <button type="submit" name="removeItem" value="@item.InvoiceItemId">X</button></li>
             }
         </ol>
     }

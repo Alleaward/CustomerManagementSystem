@@ -333,7 +333,16 @@ namespace CustomerManagementSystem.Controllers
                     context.SaveChanges();
                     return RedirectToAction("Manage/" + id + "/" + option, "BusinessAccount");
 
-                }else{
+                }else if(Request.Form["removeItem"] != null){
+                    var invoiceID = Int32.Parse(Request.Form["removeItem"]);
+                    var invoiceItem = context.InvoiceItems.Where(x => x.InvoiceItemId == invoiceID).FirstOrDefault();
+                    context.InvoiceItems.Attach(invoiceItem);
+                    context.InvoiceItems.Remove(invoiceItem);
+                    context.SaveChanges();
+                    return RedirectToAction("AddInvoiceItem/" + id + "/" + option, "BusinessAccount");
+                }
+                else
+                {
                     return RedirectToAction("AddInvoiceItem/" + id + "/" + option, "BusinessAccount");
                 }
             }
