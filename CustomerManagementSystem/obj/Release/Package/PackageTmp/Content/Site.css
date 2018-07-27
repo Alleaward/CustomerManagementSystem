@@ -95,8 +95,27 @@ textarea {
 }
 
 #selectCustomer{
-    width: 350px;
+    width: 760px;
+    /*border: red solid 3px;*/
     display: flex;
     flex-flow: row nowrap;
-    justify-content: space-around;
+    justify-content: flex-start;
+}
+
+#selectCustomer p {
+    padding: 0px 20px;
+}
+
+#item-quantity{
+    width: 6rem;
+}
+
+#tax-rate{
+    width: 4rem;
+}
+
+#notes{
+    width: 300px;
+    height: 12rem;
+    margin-bottom: 20px;
 }

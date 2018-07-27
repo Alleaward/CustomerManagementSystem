@@ -10,7 +10,6 @@ namespace CustomerManagementSystem.Migrations
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
-            ContextKey = "CustomerManagementSystem.Models.CustomerManagementSystemContext";
         }
 
         protected override void Seed(CustomerManagementSystem.Models.CustomerManagementSystemContext context)

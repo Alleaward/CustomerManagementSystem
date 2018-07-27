@@ -19,50 +19,55 @@
     <h4>InvoiceItem</h4>
     <hr />
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+    <div>
+        @if (Model.Items.Count() != 0)
+        {
+            <select name="ItemNumber">
+                @foreach (var item in Model.Items)
+                {
+                    <option value=@item.ItemNumber>@item.ItemName - @item.Cost</option>
+                }
+            </select>
+        }
+        else
+        {
+            <p>Add a new item to your database below.</p>
+        }
+        <a href="@Url.Action("AddItem/" + @businessNumber + "/" + invoiceNumber, "BusinessAccount")" class="">Create a new item.</a>
+    </div>
+
+
+    <div class="form-group">
+        <div class="col-md-10">
+            <p>Quantity / Hours:
+                <input id="item-quantity" name="ItemQuantity" type="number" />
+                <input name="submit" type="submit" value="Add Item to Order." class="btn btn-default" />
+            </p>
+        </div>
+    </div>
+    <hr />
     @if (Model.Ordered.Count() != 0)
     {
         <h5>Ordered Items:</h5>
         <ol>
             @foreach (var item in Model.Ordered)
             {
-                <li>@item.ItemQuantity x @item.ItemName</li>
+                <li>@item.ItemQuantity x @item.ItemName (REMOVE BUTTON)</li>
             }
         </ol>
     }
-
-    <select name="ItemNumber">
-        @foreach (var item in Model.Items)
-        {
-            <option value=@item.ItemNumber>@item.ItemName</option>
-        }
-    </select>
-
-    <p>
-        <a href="@Url.Action("AddItem/" + @businessNumber + "/" + invoiceNumber, "BusinessAccount")" class="">Add a new item to your database.</a>
-    </p>
-
-    <div class="form-group">
-        <div class="col-md-10">
-            <p>Quantity / Hours:</p>
-            <input name="ItemQuantity" type="number" />
-        </div>
-    </div>
-
+    else
+    {
+        <p>You have no items selected. Select items above ^^</p>
+    }
+    <hr />
     <p>Subtotal: $@subtotal</p>
+    <p>Total: $@total (with <input id="tax-rate" type="number" name="taxRate" value="3" placeholder="3" />% GST.)</p>
 
-    <p>Total: $@total (with Tax)</p>
-
-    <p>GST:</p>
-    <input type="number" name="taxRate" value="3" placeholder="3" />
-
-    <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            <input name="submit" type="submit" value="Add Item to Order." class="btn btn-default" />
-        </div>
-    </div>
 
     <p>Notes: </p>
-    <textarea name="Notes" value=""></textarea>
+    <textarea id="notes" name="Notes" value=""></textarea>
 
     <div class="form-group">
         <div class="col-md-offset-2 col-md-10">
@@ -71,6 +76,7 @@
     </div>
 
 </div>
+@Html.ActionLink("Back to management page.", "Manage/" + (int)businessNumber)
 }
 
 @section Scripts {

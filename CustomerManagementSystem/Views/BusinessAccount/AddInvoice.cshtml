@@ -26,7 +26,11 @@
                         <option value="@item.CustomerId">@item.CustomerName | @item.CustomerAddress</option>
                     }
                 </select>
-             }
+            }
+            else
+            {
+                <p>Please enter your first customer. --> </p>
+            }
         </div>
         <p>OR</p>
         <p>
@@ -43,7 +47,7 @@
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Back to business page", "Manage/" + Model.BusinessNumber)
 </div>
 
 @section Scripts {
