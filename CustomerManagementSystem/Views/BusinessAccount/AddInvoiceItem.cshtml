@@ -39,6 +39,7 @@
             </p>
         </div>
     </div>
+    <hr />
     @if (Model.Ordered.Count() != 0)
     {
         <h5>Ordered Items:</h5>
@@ -49,6 +50,7 @@
             }
         </ol>
     }
+    <hr />
     <p>Subtotal: $@subtotal</p>
     <p>Total: $@total (with <input id="tax-rate" type="number" name="taxRate" value="3" placeholder="3" />% GST.)</p>
 
