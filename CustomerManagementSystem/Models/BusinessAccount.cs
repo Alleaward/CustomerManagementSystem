@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.ComponentModel.DataAnnotations;
 using System.Runtime.InteropServices;
+using System.Web.Mvc;
 
 namespace CustomerManagementSystem.Models
 {
@@ -12,6 +13,23 @@ namespace CustomerManagementSystem.Models
         public BusinessAccount()
         {
 
+        }
+
+        public BusinessAccount(FormCollection collection, string userID)
+        {
+            using (CustomerManagementSystemContext context = new CustomerManagementSystemContext())
+            {
+                this.BusinessName = collection["BusinessName"];
+                this.BusinessOwner = collection["BusinessOwner"];
+                this.PhoneNumber = collection["PhoneNumber"];
+                this.Email = collection["Email"];
+                this.Website = collection["Website"];
+                this.Logo = collection["Logo"];
+                this.ABN = collection["ABN"];
+                this.UserAccount = userID;
+                context.BusinessAccounts.Add(this);
+                context.SaveChanges();
+            }
         }
 
         public BusinessAccount(string UserAccount, string BusinessName, string BusinessOwner,
@@ -49,6 +67,15 @@ namespace CustomerManagementSystem.Models
                 this.ABN = business.ABN;
                 this.Invoices = business.Invoices.Where(x => x.invoiceComplete == true).ToList();
                 this.Customers = business.Customers.Where(x => x.BusinessNumber == id).ToList();
+            }
+        }
+
+        public List<BusinessAccount> RetrieveBusinessList(string userId)
+        {
+            using (CustomerManagementSystemContext context = new CustomerManagementSystemContext())
+            {
+                var businesses = context.BusinessAccounts.Where(x => x.UserAccount == userId).OrderBy(x => x.BusinessName).ToList();
+                return businesses;
             }
         }
 

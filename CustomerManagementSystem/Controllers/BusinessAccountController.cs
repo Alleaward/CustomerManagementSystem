@@ -16,13 +16,9 @@ namespace CustomerManagementSystem.Controllers
         // GET: BusinessAccount~~~
         public ActionResult Index()
         {
-            using (CustomerManagementSystemContext context = new CustomerManagementSystemContext())
-            {
-                var userId = User.Identity.GetUserId();
-                ViewBag.userId = userId;
-                var businesses = context.BusinessAccounts.Where(x => x.UserAccount == userId).OrderBy(x => x.BusinessName).ToList();
-                return View(businesses);
-            }
+            BusinessAccount business = new BusinessAccount();
+            var businesses = business.RetrieveBusinessList(User.Identity.GetUserId()).ToList();
+            return View(businesses);
         }
 
         // GET: BusinessAccount/Create~~~
@@ -36,20 +32,8 @@ namespace CustomerManagementSystem.Controllers
         [HttpPost]
         public ActionResult Create(FormCollection collection)
         {
-            using (CustomerManagementSystemContext context = new CustomerManagementSystemContext())
-            {
-                var newBusinessAccount = new BusinessAccount(
-                        BusinessName: Request.Form["BusinessName"],
-                        BusinessOwner: Request.Form["BusinessOwner"],
-                        PhoneNumber: Request.Form["PhoneNumber"],
-                        Email: Request.Form["Email"],
-                        Website: Request.Form["Website"],
-                        Logo: Request.Form["Logo"],
-                        ABN: Request.Form["ABN"],
-                        UserAccount: User.Identity.GetUserId()
-                    );
-                return RedirectToAction("Index");
-            }
+            BusinessAccount newBiz = new BusinessAccount(collection, User.Identity.GetUserId());
+            return RedirectToAction("Index");
         }
 
         // GET: BusinessAccount/Edit/5~~~

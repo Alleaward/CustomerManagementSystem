@@ -13,66 +13,66 @@
     @if (Model != null)
     {
 
-            <dl class="dl-horizontal">
+        <dl class="dl-horizontal">
 
-                <dt>
-                    @Html.DisplayNameFor(model => Model.BusinessName)
-                </dt>
+            <dt>
+                @Html.DisplayNameFor(model => Model.BusinessName)
+            </dt>
 
-                <dd>
-                    @Html.DisplayFor(model => Model.BusinessName)
-                </dd>
+            <dd>
+                @Html.DisplayFor(model => Model.BusinessName)
+            </dd>
 
-                <dt>
-                    @Html.DisplayNameFor(model => Model.BusinessOwner)
-                </dt>
+            <dt>
+                @Html.DisplayNameFor(model => Model.BusinessOwner)
+            </dt>
 
-                <dd>
-                    @Html.DisplayFor(model => Model.BusinessOwner)
-                </dd>
+            <dd>
+                @Html.DisplayFor(model => Model.BusinessOwner)
+            </dd>
 
-                <dt>
-                    @Html.DisplayNameFor(model => Model.PhoneNumber)
-                </dt>
+            <dt>
+                @Html.DisplayNameFor(model => Model.PhoneNumber)
+            </dt>
 
-                <dd>
-                    @Html.DisplayFor(model => Model.PhoneNumber)
-                </dd>
+            <dd>
+                @Html.DisplayFor(model => Model.PhoneNumber)
+            </dd>
 
-                <dt>
-                    @Html.DisplayNameFor(model => Model.Email)
-                </dt>
+            <dt>
+                @Html.DisplayNameFor(model => Model.Email)
+            </dt>
 
-                <dd>
-                    @Html.DisplayFor(model => Model.Email)
-                </dd>
+            <dd>
+                @Html.DisplayFor(model => Model.Email)
+            </dd>
 
-                <dt>
-                    @Html.DisplayNameFor(model => Model.Website)
-                </dt>
+            <dt>
+                @Html.DisplayNameFor(model => Model.Website)
+            </dt>
 
-                <dd>
-                    @Html.DisplayFor(model => Model.Website)
-                </dd>
+            <dd>
+                @Html.DisplayFor(model => Model.Website)
+            </dd>
 
-                <dt>
-                    @Html.DisplayNameFor(model => Model.Logo)
-                </dt>
+            <dt>
+                @Html.DisplayNameFor(model => Model.Logo)
+            </dt>
 
-                <dd>
-                    @Html.DisplayFor(model => Model.Logo)
-                </dd>
+            <dd>
+                @Html.DisplayFor(model => Model.Logo)
+            </dd>
 
-                <dt>
-                    @Html.DisplayNameFor(model => Model.ABN)
-                </dt>
+            <dt>
+                @Html.DisplayNameFor(model => Model.ABN)
+            </dt>
 
-                <dd>
-                    @Html.DisplayFor(model => Model.ABN)
-                </dd>
+            <dd>
+                @Html.DisplayFor(model => Model.ABN)
+            </dd>
 
-            </dl>
-        
+        </dl>
+
     }
     @using (Html.BeginForm())
     {
@@ -83,4 +83,8 @@
             @Html.ActionLink("Back to List", "Index")
         </div>
     }
+    <div>
+        <a href='javascript:history.go(-1)'>Go Back</a>
+    </div>
+
 </div>
