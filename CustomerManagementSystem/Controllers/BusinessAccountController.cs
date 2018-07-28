@@ -52,36 +52,19 @@ namespace CustomerManagementSystem.Controllers
             return RedirectToAction("Index");
         }
 
-        // GET: BusinessAccount/Delete/5~~~
+        // GET: BusinessAccount/Delete/5
         public ActionResult Delete(int id)
         {
-            using (CustomerManagementSystemContext context = new CustomerManagementSystemContext())
-            {
-                var userId = User.Identity.GetUserId();
-                var business = new BusinessAccount(id);
-                if(userId == business.UserAccount){
-                    return View(business);
-                }else{
-                    return RedirectToAction("Index", "BusinessAccount");
-                }
-            }
+            var business = new BusinessAccount(id);
+            return View(business);
         }
 
-        // POST: BusinessAccount/Delete/5~~~
+        // POST: BusinessAccount/Delete/5
         [HttpPost]
         public ActionResult Delete(int id, FormCollection collection)
         {
-            using (CustomerManagementSystemContext context = new CustomerManagementSystemContext())
-            {
-                var business = new BusinessAccount(id);
-                if (User.Identity.GetUserId() == business.UserAccount)
-                {
-                    context.BusinessAccounts.Attach(business);
-                    context.BusinessAccounts.Remove(business);
-                    context.SaveChanges();
-                }
-                return RedirectToAction("Index", "BusinessAccount");
-            }
+            BusinessAccount.DeleteBusiness(id);
+            return RedirectToAction("Index", "BusinessAccount");
         }
 
         // GET: BusinessAccount/Manage/5

@@ -32,6 +32,44 @@ namespace CustomerManagementSystem.Models
             }
         }
 
+        // public BusinessAccount(string UserAccount, string BusinessName, string BusinessOwner,
+        //         string PhoneNumber, string Email, string Website, string Logo, string ABN)
+        // {
+        //     using (CustomerManagementSystemContext context = new CustomerManagementSystemContext())
+        //     {
+        //         this.UserAccount = UserAccount;
+        //         this.BusinessName = BusinessName;
+        //         this.BusinessOwner = BusinessOwner;
+        //         this.PhoneNumber = PhoneNumber;
+        //         this.Email = Email;
+        //         this.Website = Website;
+        //         this.Logo = Logo;
+        //         this.ABN = ABN;
+
+        //         context.BusinessAccounts.Add(this);
+        //         context.SaveChanges();
+        //     }
+        // }
+
+        public BusinessAccount([Optional]int id)
+        {
+            this.BusinessNumber = id;
+            using (CustomerManagementSystemContext context = new CustomerManagementSystemContext())
+            {
+                var business = context.BusinessAccounts.Where(x => x.BusinessNumber == id).First();
+                this.UserAccount = business.UserAccount;
+                this.BusinessName = business.BusinessName;
+                this.BusinessOwner = business.BusinessOwner;
+                this.PhoneNumber = business.PhoneNumber;
+                this.Email = business.Email;
+                this.Website = business.Website;
+                this.Logo = business.Logo;
+                this.ABN = business.ABN;
+                this.Invoices = business.Invoices.Where(x => x.invoiceComplete == true).ToList();
+                this.Customers = business.Customers.Where(x => x.BusinessNumber == id).ToList();
+            }
+        }
+
         public static void UpdateBusiness(FormCollection collection, int businessNumber){
             using (CustomerManagementSystemContext context = new CustomerManagementSystemContext())
             {
@@ -69,44 +107,15 @@ namespace CustomerManagementSystem.Models
             }
         }
 
-        public BusinessAccount(string UserAccount, string BusinessName, string BusinessOwner,
-                string PhoneNumber, string Email, string Website, string Logo, string ABN)
-        {
+        public static void DeleteBusiness(int id){
             using (CustomerManagementSystemContext context = new CustomerManagementSystemContext())
             {
-                this.UserAccount = UserAccount;
-                this.BusinessName = BusinessName;
-                this.BusinessOwner = BusinessOwner;
-                this.PhoneNumber = PhoneNumber;
-                this.Email = Email;
-                this.Website = Website;
-                this.Logo = Logo;
-                this.ABN = ABN;
-
-                context.BusinessAccounts.Add(this);
+                var business = new BusinessAccount(id);
+                context.BusinessAccounts.Attach(business);
+                context.BusinessAccounts.Remove(business);
                 context.SaveChanges();
             }
         }
-
-        public BusinessAccount([Optional]int id)
-        {
-            this.BusinessNumber = id;
-            using (CustomerManagementSystemContext context = new CustomerManagementSystemContext())
-            {
-                var business = context.BusinessAccounts.Where(x => x.BusinessNumber == id).First();
-                this.UserAccount = business.UserAccount;
-                this.BusinessName = business.BusinessName;
-                this.BusinessOwner = business.BusinessOwner;
-                this.PhoneNumber = business.PhoneNumber;
-                this.Email = business.Email;
-                this.Website = business.Website;
-                this.Logo = business.Logo;
-                this.ABN = business.ABN;
-                this.Invoices = business.Invoices.Where(x => x.invoiceComplete == true).ToList();
-                this.Customers = business.Customers.Where(x => x.BusinessNumber == id).ToList();
-            }
-        }
-
         public List<BusinessAccount> RetrieveBusinessList(string userId)
         {
             using (CustomerManagementSystemContext context = new CustomerManagementSystemContext())
