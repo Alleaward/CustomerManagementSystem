@@ -32,6 +32,43 @@ namespace CustomerManagementSystem.Models
             }
         }
 
+        public static void UpdateBusiness(FormCollection collection, int businessNumber){
+            using (CustomerManagementSystemContext context = new CustomerManagementSystemContext())
+            {
+                var business = context.BusinessAccounts.Where(x => x.BusinessNumber == businessNumber).FirstOrDefault();
+                //THIS CAN BE REWORKED
+                if (collection["BusinessName"] != null)
+                {
+                    business.BusinessName = collection["BusinessName"];
+                }
+                if (collection["BusinessOwner"] != null)
+                {
+                    business.BusinessOwner = collection["BusinessOwner"];
+                }
+                if (collection["PhoneNumber"] != null)
+                {
+                    business.PhoneNumber = collection["PhoneNumber"];
+                }
+                if (collection["Email"] != null)
+                {
+                    business.Email = collection["Email"];
+                }
+                if (collection["Website"] != null)
+                {
+                    business.Website = collection["Website"];
+                }
+                if (collection["Logo"] != null)
+                {
+                    business.Logo = collection["Logo"];
+                }
+                if (collection["ABN"] != null)
+                {
+                    business.ABN = collection["ABN"];
+                }
+                context.SaveChanges();
+            }
+        }
+
         public BusinessAccount(string UserAccount, string BusinessName, string BusinessOwner,
                 string PhoneNumber, string Email, string Website, string Logo, string ABN)
         {

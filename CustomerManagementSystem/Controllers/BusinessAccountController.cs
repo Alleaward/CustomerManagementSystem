@@ -13,7 +13,7 @@ namespace CustomerManagementSystem.Controllers
     [Authorize]
     public class BusinessAccountController : Controller
     {
-        // GET: BusinessAccount~~~
+        // GET: BusinessAccount
         public ActionResult Index()
         {
             BusinessAccount business = new BusinessAccount();
@@ -21,77 +21,34 @@ namespace CustomerManagementSystem.Controllers
             return View(businesses);
         }
 
-        // GET: BusinessAccount/Create~~~
+        // GET: BusinessAccount/Create
         public ActionResult Create()
         {
             ViewBag.userId = User.Identity.GetUserId();
             return View();
         }
 
-        // POST: BusinessAccount/Create~~~
+        // POST: BusinessAccount/Create
         [HttpPost]
         public ActionResult Create(FormCollection collection)
         {
-            BusinessAccount newBiz = new BusinessAccount(collection, User.Identity.GetUserId());
+            new BusinessAccount(collection, User.Identity.GetUserId());
             return RedirectToAction("Index");
         }
 
-        // GET: BusinessAccount/Edit/5~~~
+        // GET: BusinessAccount/Edit/5
         public ActionResult Edit(int id)
         {
-            using (CustomerManagementSystemContext context = new CustomerManagementSystemContext())
-            {
-                var userId = User.Identity.GetUserId();
-                var business = new BusinessAccount(id);
-                if (userId == business.UserAccount)
-                {
-                    return View(business);
-                }else{
-                    return RedirectToAction("Index", "BusinessAccount");
-                }
-            }
+            var userId = User.Identity.GetUserId();
+            var business = new BusinessAccount(id);
+            return View(business);
         }
 
-        // POST: BusinessAccount/Edit/5~~~
+        // POST: BusinessAccount/Edit/5
         [HttpPost]
         public ActionResult Edit(int id, FormCollection collection)
         {
-            using (CustomerManagementSystemContext context = new CustomerManagementSystemContext())
-            {
-                var userId = User.Identity.GetUserId();
-                var business = context.BusinessAccounts.Where(x => x.BusinessNumber == id && x.UserAccount == userId).FirstOrDefault();
-
-                //THIS CAN BE REWORKED
-                if (Request.Form["BusinessName"] != null)
-                {
-                    business.BusinessName = Request.Form["BusinessName"];
-                }
-                if (Request.Form["BusinessOwner"] != null)
-                {
-                    business.BusinessOwner = Request.Form["BusinessOwner"];
-                }
-                if (Request.Form["PhoneNumber"] != null)
-                {
-                    business.PhoneNumber = Request.Form["PhoneNumber"];
-                }
-                if (Request.Form["Email"] != null)
-                {
-                    business.Email = Request.Form["Email"];
-                }
-                if (Request.Form["Website"] != null)
-                {
-                    business.Website = Request.Form["Website"];
-                }
-                if (Request.Form["Logo"] != null)
-                {
-                    business.Logo = Request.Form["Logo"];
-                }
-                if (Request.Form["ABN"] != null)
-                {
-                    business.ABN = Request.Form["ABN"];
-                }
-                context.SaveChanges();
-            }
+            BusinessAccount.UpdateBusiness(collection, businessNumber: id);
             return RedirectToAction("Index");
         }
 
