@@ -96,22 +96,14 @@ namespace CustomerManagementSystem.Controllers
             return View();
         }
 
-        //POST: BusinessAccount/AddCustomer~~~
+        //POST: BusinessAccount/AddCustomer
         [HttpPost]
         public ActionResult AddCustomer(int id, FormCollection collection)
         {
-            using (CustomerManagementSystemContext context = new CustomerManagementSystemContext())
-            {
-                var customer = new Customer(
-                    BusinessNumber: id, 
-                    CustomerName: Request.Form["CustomerName"], 
-                    CustomerAddress: Request.Form["CustomerAddress"], 
-                    CustomerPhoneNumber: Request.Form["CustomerPhoneNumber"], 
-                    CustomerEmail: Request.Form["CustomerEmail"]);
-
-                return RedirectToAction("AddInvoice/" + id, "BusinessAccount");
-            }
+            Customer.AddCustomer(collection, id);
+            return RedirectToAction("AddInvoice/" + id, "BusinessAccount");
         }
+        
         //GET: BusinessAccount/AddInvoiceItem/id--------------REWORK THIS
         public ActionResult AddInvoiceItem(int id, int option)
         {
