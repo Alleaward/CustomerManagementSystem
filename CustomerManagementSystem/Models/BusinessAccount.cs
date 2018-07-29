@@ -5,11 +5,32 @@ using System.Web;
 using System.ComponentModel.DataAnnotations;
 using System.Runtime.InteropServices;
 using System.Web.Mvc;
+using CustomerManagementSystem.ViewModels;
 
 namespace CustomerManagementSystem.Models
 {
     public class BusinessAccount
     {
+        [Key]
+        public int BusinessNumber { get; set; }
+        [Required]
+        public string UserAccount { get; set; }
+        [Required]
+        public string BusinessName { get; set; }
+        [Required]
+        public string BusinessOwner { get; set; }
+        [Required]
+        public string PhoneNumber { get; set; }
+        [Required]
+        public string Email { get; set; }
+        public string Website { get; set; }
+        public string Logo { get; set; }
+        [Required]
+        public string ABN { get; set; }
+
+        public virtual ICollection<Invoice> Invoices { get; set; }
+        public virtual ICollection<Customer> Customers { get; set; }
+        
         public BusinessAccount()
         {
 
@@ -32,25 +53,6 @@ namespace CustomerManagementSystem.Models
             }
         }
 
-        // public BusinessAccount(string UserAccount, string BusinessName, string BusinessOwner,
-        //         string PhoneNumber, string Email, string Website, string Logo, string ABN)
-        // {
-        //     using (CustomerManagementSystemContext context = new CustomerManagementSystemContext())
-        //     {
-        //         this.UserAccount = UserAccount;
-        //         this.BusinessName = BusinessName;
-        //         this.BusinessOwner = BusinessOwner;
-        //         this.PhoneNumber = PhoneNumber;
-        //         this.Email = Email;
-        //         this.Website = Website;
-        //         this.Logo = Logo;
-        //         this.ABN = ABN;
-
-        //         context.BusinessAccounts.Add(this);
-        //         context.SaveChanges();
-        //     }
-        // }
-
         public BusinessAccount([Optional]int id)
         {
             this.BusinessNumber = id;
@@ -70,11 +72,11 @@ namespace CustomerManagementSystem.Models
             }
         }
 
-        public static void UpdateBusiness(FormCollection collection, int businessNumber){
+        public static void UpdateBusiness(FormCollection collection, int businessNumber)
+        {
             using (CustomerManagementSystemContext context = new CustomerManagementSystemContext())
             {
                 var business = context.BusinessAccounts.Where(x => x.BusinessNumber == businessNumber).FirstOrDefault();
-                //THIS CAN BE REWORKED
                 if (collection["BusinessName"] != null)
                 {
                     business.BusinessName = collection["BusinessName"];
@@ -107,7 +109,8 @@ namespace CustomerManagementSystem.Models
             }
         }
 
-        public static void DeleteBusiness(int id){
+        public static void DeleteBusiness(int id)
+        {
             using (CustomerManagementSystemContext context = new CustomerManagementSystemContext())
             {
                 var business = new BusinessAccount(id);
@@ -125,24 +128,58 @@ namespace CustomerManagementSystem.Models
             }
         }
 
-        [Key]
-        public int BusinessNumber { get; set; }
-        [Required]
-        public string UserAccount { get; set; }
-        [Required]
-        public string BusinessName { get; set; }
-        [Required]
-        public string BusinessOwner { get; set; }
-        [Required]
-        public string PhoneNumber { get; set; }
-        [Required]
-        public string Email { get; set; }
-        public string Website { get; set; }
-        public string Logo { get; set; }
-        [Required]
-        public string ABN { get; set; }
+        public int NewInvoice(int BusinessNumber, int CustomerNumber){
+            
+            using (CustomerManagementSystemContext context = new CustomerManagementSystemContext())
+            {
+                var business = new BusinessAccount(BusinessNumber);
+                var customer = new Customer(CustomerNumber);
 
-        public virtual ICollection<Invoice> Invoices { get; set; }
-        public virtual ICollection<Customer> Customers { get; set; }
+                var newInvoice = new Invoice
+                {
+                    CreationDate = DateTime.Now,
+
+                    BusinessNumber = business.BusinessNumber,
+                    BusinessName = business.BusinessName,
+                    BusinessOwner = business.BusinessOwner,
+                    PhoneNumber = business.PhoneNumber,
+                    Email = business.Email,
+                    Website = business.Website,
+                    Logo = business.Logo,
+                    ABN = business.ABN,
+                    CustomerId = customer.CustomerId,
+
+                    CustomerName = customer.CustomerName,
+                    CustomerAddress = customer.CustomerAddress,
+                    CustomerPhone = customer.CustomerPhoneNumber,
+                    CustomerEmail = customer.CustomerEmail,
+                };
+                context.Invoices.Add(newInvoice);
+                context.SaveChanges();
+                return newInvoice.InvoiceNumber;
+            }
+        }
+
+        public InvoiceDisplay NewInvoiceDisplay(int Id)
+        {
+            using (CustomerManagementSystemContext context = new CustomerManagementSystemContext())
+            {
+                var invoice = new InvoiceDisplay();
+                var business = new BusinessAccount(Id);
+
+                invoice.BusinessNumber = business.BusinessNumber;
+                invoice.BusinessName = business.BusinessName;
+                invoice.BusinessOwner = business.BusinessOwner;
+                invoice.PhoneNumber = business.PhoneNumber;
+                invoice.Email = business.Email;
+                invoice.Website = business.Website;
+                invoice.Logo = business.Logo;
+                invoice.ABN = business.ABN;
+
+                //Fill Customers up
+                invoice.Customers = context.Customers.Where(x => x.BusinessNumber == Id).ToList();
+                return invoice;
+            }
+        }
     }
 }

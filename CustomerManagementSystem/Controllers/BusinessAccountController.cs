@@ -73,78 +73,21 @@ namespace CustomerManagementSystem.Controllers
             return View(new BusinessAccount(id)); 
         }
 
-        //GET: BusinessAccount/AddInvoice--------------REWORK THIS
+        //GET: BusinessAccount/AddInvoice
         public ActionResult AddInvoice(int id)
         {
-            using (CustomerManagementSystemContext context = new CustomerManagementSystemContext())
-            {
-                var userId = User.Identity.GetUserId();
-                var invoice = new InvoiceDisplay();
-                var business = new BusinessAccount(id);
-                //var business = context.BusinessAccounts.Where(x => x.BusinessNumber == id).FirstOrDefault();
-                invoice.BusinessNumber = business.BusinessNumber;
-                invoice.BusinessName = business.BusinessName;
-                invoice.BusinessOwner = business.BusinessOwner;
-                invoice.PhoneNumber = business.PhoneNumber;
-                invoice.Email = business.Email;
-                invoice.Website = business.Website;
-                invoice.Logo = business.Logo;
-                invoice.ABN = business.ABN;
-                
-                //Fill Customers up
-                invoice.Customers = context.Customers.Where(x => x.BusinessNumber == id).ToList();
-
-                return View(invoice);
-            }
+            var business = new BusinessAccount();
+            return View(business.NewInvoiceDisplay(id));
         }
 
-        //POST: BusinessAccount/AddInvoice--------------REWORK THIS
+        //POST: BusinessAccount/AddInvoice
         [HttpPost]
         public ActionResult AddInvoice(int id, FormCollection collection)
         {
-            using (CustomerManagementSystemContext context = new CustomerManagementSystemContext())
-            {
-                //change to class declaration
-                var business = new BusinessAccount(id);
-                //var business = context.BusinessAccounts.Where(x => x.BusinessNumber == id).FirstOrDefault();
-                var CustomerId = Int32.Parse(Request.Form["CustomerNumber"]);
-                //change to class declaration
-                var customer = new Customer(CustomerId);
-                //var customer = context.Customers.Where(x => x.CustomerId == CustomerId).FirstOrDefault();
-
-                //make a new constructor that takes in business number and customer number and creates and saves  new invoice to db
-                var newInvoice = new Invoice
-                {
-                    CreationDate = DateTime.Now,
-
-                    BusinessNumber = business.BusinessNumber,
-                    BusinessName = business.BusinessName,
-                    BusinessOwner = business.BusinessOwner,
-                    PhoneNumber = business.PhoneNumber,
-                    Email = business.Email,
-                    Website = business.Website,
-                    Logo = business.Logo,
-                    ABN = business.ABN,
-                    CustomerId = CustomerId,
-
-                    CustomerName = customer.CustomerName,
-                    CustomerAddress = customer.CustomerAddress,
-                    CustomerPhone = customer.CustomerPhoneNumber,
-                    CustomerEmail = customer.CustomerEmail,
-                    /*
-                    Notes = Request.Form["Notes"],
-                    SubTotal = Decimal.Parse(Request.Form["SubTotal"]),
-                    Tax = Decimal.Parse(Request.Form["Tax"]),
-                    TotalCost = Decimal.Parse(Request.Form["TotalCost"]),
-                     */
-                };
-                context.Invoices.Add(newInvoice);
-                context.SaveChanges();
-
-                var invoiceNumber = newInvoice.InvoiceNumber;
-
-                return RedirectToAction("AddInvoiceItem/" + business.BusinessNumber + "/" + invoiceNumber, "BusinessAccount");
-            }
+            var CustomerId = Int32.Parse(Request.Form["CustomerNumber"]);
+            BusinessAccount business = new BusinessAccount(id);
+            var invoiceId = business.NewInvoice(BusinessNumber: id, CustomerNumber: CustomerId);
+            return RedirectToAction("AddInvoiceItem/" + id + "/" + invoiceId, "BusinessAccount");
         }
 
         //GET: BusinessAccount/AddCustomer
