@@ -211,33 +211,21 @@ namespace CustomerManagementSystem.Controllers
             }
         }
 
-        //POST: BusinessAccount/DeleteInvoice/id--------------REWORK THIS
+        //POST: BusinessAccount/DeleteInvoice/id
         public ActionResult InvoiceDelete(int id)
         {
-            using (CustomerManagementSystemContext context = new CustomerManagementSystemContext())
-            {
-                var model = context.Invoices.Where(x => x.InvoiceNumber == id).FirstOrDefault();
-                return View(model);
-            }
+            return View(new Invoice(id));
         }
 
-        //POST: BusinessAccount/DeleteInvoice/id--------------REWORK THIS
+        //POST: BusinessAccount/DeleteInvoice/id
         [HttpPost]
         public ActionResult InvoiceDelete(int id, FormCollection collection)
         {
-            using (CustomerManagementSystemContext context = new CustomerManagementSystemContext())
-            {
-                var invoice = new Invoice { InvoiceNumber = id };
-                context.Invoices.Attach(invoice);
-                context.Invoices.Remove(invoice);
-                context.SaveChanges();
-
-                var model = context.Invoices.Where(x => x.InvoiceNumber == id).FirstOrDefault();
-                return RedirectToAction("Manage/" + model.BusinessNumber, "BusinessAccount");
-            }
+            Invoice.InvoiceDelete(id);
+            return RedirectToAction("Manage/" + Request.Form["BusinessNumber"]);
         }
 
-        //POST: BusinessAccount/InvoiceDetails/id--------------REWORK THIS
+        //POST: BusinessAccount/InvoiceDetails/id
         public ActionResult InvoiceDetails(int id)
         {
             return View(new InvoiceDetails(id));

@@ -14,14 +14,6 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.invoiceComplete)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.invoiceComplete)
-        </dd>
-
-        <dt>
             @Html.DisplayNameFor(model => model.BusinessNumber)
         </dt>
 
@@ -162,6 +154,8 @@
     @using (Html.BeginForm())
     {
         @Html.AntiForgeryToken()
+
+        @Html.HiddenFor(model => model.BusinessNumber, new { htmlAttributes = new { @class = "form-control", @Value = Model.BusinessNumber, placeholder = Model.BusinessNumber, @readonly = "readonly" } })
 
         <div class="form-actions no-color">
             <input type="submit" value="Delete" class="btn btn-default" /> |

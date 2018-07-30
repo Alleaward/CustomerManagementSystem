@@ -9,6 +9,35 @@ namespace CustomerManagementSystem.Models
 {
     public class Invoice
     {
+        [Key]
+        public int InvoiceNumber { get; set; }
+        public DateTime CreationDate { get; set; }
+        public bool invoiceComplete { get; set; }
+
+        //foriegn key
+        public int BusinessNumber { get; set; }
+        public string BusinessName { get; set; }
+        public string BusinessOwner { get; set; }
+        public string PhoneNumber { get; set; }
+        public string Email { get; set; }
+        public string Website { get; set; }
+        public string Logo { get; set; }
+        public string ABN { get; set; }
+
+        //foreign key
+        public int CustomerId { get; set; }
+        public string CustomerName { get; set; }
+        public string CustomerAddress { get; set; }
+        public string CustomerPhone { get; set; }
+        public string CustomerEmail { get; set; }
+        public string Notes { get; set; }
+
+        public virtual ICollection<InvoiceItem> InvoiceItem { get; set; }
+
+        public decimal Tax { get; set; }
+        public decimal SubTotal { get; set; }
+        public decimal TotalCost { get; set; }
+
         public Invoice()
         {
 
@@ -44,33 +73,18 @@ namespace CustomerManagementSystem.Models
                 this.TotalCost = invoice.TotalCost;
             }
         }
-        [Key]
-        public int InvoiceNumber { get; set; }
-        public DateTime CreationDate { get; set; }
-        public bool invoiceComplete { get; set; }
 
-        //foriegn key
-        public int BusinessNumber { get; set; }
-        public string BusinessName { get; set; }
-        public string BusinessOwner { get; set; }
-        public string PhoneNumber { get; set; }
-        public string Email { get; set; }
-        public string Website { get; set; }
-        public string Logo { get; set; }
-        public string ABN { get; set; }
+        public static void InvoiceDelete(int id)
+        {
+            using (CustomerManagementSystemContext context = new CustomerManagementSystemContext())
+            {
+                var invoice = new Invoice { InvoiceNumber = id };
+                context.Invoices.Attach(invoice);
+                context.Invoices.Remove(invoice);
+                context.SaveChanges();
 
-        //foreign key
-        public int CustomerId { get; set; }
-        public string CustomerName { get; set; }
-        public string CustomerAddress { get; set; }
-        public string CustomerPhone { get; set; }
-        public string CustomerEmail { get; set; }
-        public string Notes { get; set; }
-
-        public virtual ICollection<InvoiceItem> InvoiceItem { get; set; }
-
-        public decimal Tax { get; set; }
-        public decimal SubTotal { get; set; }
-        public decimal TotalCost { get; set; }
+                var model = context.Invoices.Where(x => x.InvoiceNumber == id).FirstOrDefault();
+            }
+        }
     }
 }
