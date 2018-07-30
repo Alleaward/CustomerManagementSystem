@@ -33,5 +33,35 @@ namespace CustomerManagementSystem.ViewModels
         public decimal Tax { get; set; }
         public decimal SubTotal { get; set; }
         public decimal TotalCost { get; set; }
+
+        public InvoiceDetails(int id)
+        {
+            using (CustomerManagementSystemContext context = new CustomerManagementSystemContext())
+            {
+                var invoice = context.Invoices.Where(x => x.InvoiceNumber == id).FirstOrDefault();
+
+                InvoiceNumber = id;
+                CreationDate = invoice.CreationDate;
+                invoiceComplete = invoice.invoiceComplete;
+                BusinessNumber = invoice.BusinessNumber;
+                BusinessName = invoice.BusinessName;
+                BusinessOwner = invoice.BusinessOwner;
+                PhoneNumber = invoice.PhoneNumber;
+                Email = invoice.Email;
+                Website = invoice.Website;
+                Logo = invoice.Logo;
+                ABN = invoice.ABN;
+                CustomerId = invoice.CustomerId;
+                CustomerName = invoice.CustomerName;
+                CustomerAddress = invoice.CustomerAddress;
+                CustomerPhone = invoice.CustomerPhone;
+                CustomerEmail = invoice.CustomerEmail;
+                Notes = invoice.Notes;
+                InvoiceItem = context.InvoiceItems.Where(x => x.InvoiceId == id).ToList();
+                Tax = invoice.Tax;
+                SubTotal = invoice.SubTotal;
+                TotalCost = invoice.TotalCost;
+            }
+        }
     }
 }

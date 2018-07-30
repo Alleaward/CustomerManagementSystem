@@ -240,36 +240,7 @@ namespace CustomerManagementSystem.Controllers
         //POST: BusinessAccount/InvoiceDetails/id--------------REWORK THIS
         public ActionResult InvoiceDetails(int id)
         {
-            using (CustomerManagementSystemContext context = new CustomerManagementSystemContext())
-            {
-                var invoice = context.Invoices.Where(x => x.InvoiceNumber == id).FirstOrDefault();
-
-                var vm = new InvoiceDetails();
-
-                    vm.InvoiceNumber = id;
-                    vm.CreationDate = invoice.CreationDate;
-                    vm.invoiceComplete = invoice.invoiceComplete;
-                    vm.BusinessNumber = invoice.BusinessNumber;
-                    vm.BusinessName = invoice.BusinessName;
-                    vm.BusinessOwner = invoice.BusinessOwner;
-                    vm.PhoneNumber = invoice.PhoneNumber;
-                    vm.Email = invoice.Email;
-                    vm.Website = invoice.Website;
-                    vm.Logo = invoice.Logo;
-                    vm.ABN = invoice.ABN;
-                    vm.CustomerId = invoice.CustomerId;
-                    vm.CustomerName = invoice.CustomerName;
-                    vm.CustomerAddress = invoice.CustomerAddress;
-                    vm.CustomerPhone = invoice.CustomerPhone;
-                    vm.CustomerEmail = invoice.CustomerEmail;
-                    vm.Notes = invoice.Notes;
-                    vm.InvoiceItem = context.InvoiceItems.Where(x => x.InvoiceId == id).ToList();
-                    vm.Tax = invoice.Tax;
-                    vm.SubTotal = invoice.SubTotal;
-                    vm.TotalCost = invoice.TotalCost;
-
-                return View(vm);
-            }
+            return View(new InvoiceDetails(id));
         }
     }
 }
