@@ -103,33 +103,14 @@ namespace CustomerManagementSystem.Controllers
             Customer.AddCustomer(collection, id);
             return RedirectToAction("AddInvoice/" + id, "BusinessAccount");
         }
-        
-        //GET: BusinessAccount/AddInvoiceItem/id--------------REWORK THIS
+
+        //GET: BusinessAccount/AddInvoiceItem/id
         public ActionResult AddInvoiceItem(int id, int option)
         {
-            using (CustomerManagementSystemContext context = new CustomerManagementSystemContext())
-            {
-                var vm = new InvoiceItemVM();
-
-                vm.Items = context.Items.Where(x => x.BusinessNumber == id).ToList();
-
-                //convert to display a list of items ordered
-                vm.Ordered = context.InvoiceItems.Where(x => x.InvoiceId == option).ToList();
-
-                foreach(var order in vm.Ordered)
-                {
-                    var item = context.Items.Where(x => x.ItemNumber == order.ItemId).First();
-                    order.ItemName = item.ItemName;
-                }
-
-                ViewBag.BusinessNumber = id;
-                ViewBag.InvoiceNumber = option;
-                ViewBag.Subtotal = TempData["Subtotal"];
-                ViewBag.Total = TempData["Total"];
-
-                return View(vm);
-            }
+            InvoiceItemVM vm = new InvoiceItemVM(BusinessNumber: id, InvoiceId: option);
+            return View(vm);
         }
+
         //Post: BusinessAccount/AddInvoiceItem/id--------------REWORK THIS
         [HttpPost]
         public ActionResult AddInvoiceItem(int id, int option, FormCollection collection)

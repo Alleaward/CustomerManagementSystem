@@ -14,5 +14,9 @@ namespace CustomerManagementSystem.Models
         public string ItemName { get; set; }
         public int ItemId { get; set; }
         public int ItemQuantity { get; set; }
+        
+        public static void AddInvoiceItem(){
+            
+        }
     }
 }

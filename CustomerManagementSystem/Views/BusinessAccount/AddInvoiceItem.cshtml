@@ -2,10 +2,6 @@
 
 @{
     ViewBag.Title = "AddInvoiceItem";
-    var businessNumber = ViewBag.BusinessNumber;
-    var invoiceNumber = ViewBag.InvoiceNumber;
-    var subtotal = Math.Round(Convert.ToDecimal(ViewData["Subtotal"]), 2);
-    var total = Math.Round(Convert.ToDecimal(ViewData["Total"]), 2);
 }
 
 <h2>AddInvoiceItem</h2>
@@ -34,7 +30,7 @@
         {
             <p>Add a new item to your database below.</p>
         }
-        <a href="@Url.Action("AddItem/" + @businessNumber + "/" + invoiceNumber, "BusinessAccount")" class="">Create a new item.</a>
+        <a href="@Url.Action("AddItem/" + Model.BusinessNumber + "/" + Model.InvoiceId, "BusinessAccount")" class="">Create a new item.</a>
     </div>
 
 
@@ -62,8 +58,8 @@
         <p>You have no items selected. Select items above ^^</p>
     }
     <hr />
-    <p>Subtotal: $@subtotal</p>
-    <p>Total: $@total (with <input id="tax-rate" type="number" name="taxRate" value="3" placeholder="3" />% GST.)</p>
+    <p>Subtotal: $@Model.Subtotal</p>
+    <p>Total: $@Model.Total.ToString("0.##") (with <input id="tax-rate" type="number" name="taxRate" value="3" placeholder="3" />% GST.)</p>
 
 
     <p>Notes: </p>
@@ -76,7 +72,7 @@
     </div>
 
 </div>
-@Html.ActionLink("Back to management page.", "Manage/" + (int)businessNumber)
+@Html.ActionLink("Back to management page.", "Manage/" + Model.BusinessNumber)
 }
 
 @section Scripts {

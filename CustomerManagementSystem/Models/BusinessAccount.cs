@@ -148,6 +148,7 @@ namespace CustomerManagementSystem.Models
                     Logo = business.Logo,
                     ABN = business.ABN,
                     CustomerId = customer.CustomerId,
+                    Tax = (decimal)3.00,
 
                     CustomerName = customer.CustomerName,
                     CustomerAddress = customer.CustomerAddress,
