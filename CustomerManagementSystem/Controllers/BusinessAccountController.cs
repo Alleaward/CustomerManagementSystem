@@ -104,112 +104,53 @@ namespace CustomerManagementSystem.Controllers
             return RedirectToAction("AddInvoice/" + id, "BusinessAccount");
         }
 
-        //GET: BusinessAccount/AddInvoiceItem/id
+        //GET: BusinessAccount/AddInvoiceItem/id/{option}
         public ActionResult AddInvoiceItem(int id, int option)
         {
             InvoiceItemVM vm = new InvoiceItemVM(BusinessNumber: id, InvoiceId: option);
             return View(vm);
         }
 
-        //Post: BusinessAccount/AddInvoiceItem/id--------------REWORK THIS
+        //Post: BusinessAccount/AddInvoiceItem/id/{option}
         [HttpPost]
         public ActionResult AddInvoiceItem(int id, int option, FormCollection collection)
         {
-            using (CustomerManagementSystemContext context = new CustomerManagementSystemContext())
+            if (Request.Form["Submit"] == "Add Item to Order.")
             {
-                if(Request.Form["Submit"] == "Add Item to Order."){
-
-                    var formItemNumber = Int32.Parse(Request.Form["ItemNumber"]);
-                    var itemForName = context.Items.Where(x => x.ItemNumber == formItemNumber).First();
-
-                    var newInvoiceItem = new InvoiceItem
-                    {
-                        InvoiceId = option,
-                        ItemId = Int32.Parse(Request.Form["ItemNumber"]),
-                        ItemQuantity = Int32.Parse(Request.Form["ItemQuantity"]),
-                        ItemName = itemForName.ItemName,
-                    };
-                    context.InvoiceItems.Add(newInvoiceItem);
-                    context.SaveChanges();
-
-                    var orderItems = context.InvoiceItems.Where(x => x.InvoiceId == option).ToList();
-
-                    var subtotal = (decimal)0.00;
-                    foreach(var item in orderItems)
-                    {
-                        //returning nothing?
-                        var itemCost = context.Items.Where(x => x.ItemNumber == item.ItemId).First();
-                        System.Diagnostics.Debug.WriteLine("Item Is:");
-                        System.Diagnostics.Debug.WriteLine(itemCost);
-                        var quantity = item.ItemQuantity;
-                        var cost = itemCost.Cost;
-                        var totalCost = cost * quantity;
-                        subtotal += totalCost;
-                    }
-                    var invoice = context.Invoices.Where(x => x.InvoiceNumber == option).FirstOrDefault();
-
-
-                    // calculate and save total/tax
-                    var tax = (decimal)0.00;
-                        tax = Decimal.Parse(Request.Form["taxRate"]);
-                    invoice.Tax = tax;
-
-                    var total = subtotal + ((subtotal/100)*tax);
-
-                    invoice.SubTotal = subtotal;
-                    invoice.TotalCost = total;
-
-                    TempData["Subtotal"] = subtotal;
-                    TempData["Total"] = total;
-
-                    context.SaveChanges();
-                    return RedirectToAction("AddInvoiceItem/" + id + "/" + option, "BusinessAccount");
-
-                }else if (Request.Form["Submit"] == "Create"){
-                    var notes = Request.Form["Notes"];
-                    var invoice = context.Invoices.Where(x => x.InvoiceNumber == option).FirstOrDefault();
-                    invoice.Notes = notes;
-                    invoice.invoiceComplete = true;
-                    context.SaveChanges();
-                    return RedirectToAction("Manage/" + id + "/" + option, "BusinessAccount");
-
-                }else if(Request.Form["removeItem"] != null){
-                    var invoiceID = Int32.Parse(Request.Form["removeItem"]);
-                    var invoiceItem = context.InvoiceItems.Where(x => x.InvoiceItemId == invoiceID).FirstOrDefault();
-                    context.InvoiceItems.Attach(invoiceItem);
-                    context.InvoiceItems.Remove(invoiceItem);
-                    context.SaveChanges();
-                    return RedirectToAction("AddInvoiceItem/" + id + "/" + option, "BusinessAccount");
-                }
-                else
-                {
-                    return RedirectToAction("AddInvoiceItem/" + id + "/" + option, "BusinessAccount");
-                }
+                InvoiceItem.AddInvoiceItem(id, option, collection);
+                return RedirectToAction("AddInvoiceItem/" + id + "/" + option, "BusinessAccount");
+            }
+            else if (Request.Form["Submit"] == "Create")
+            {
+                Invoice.InvoiceCreate(id, option, collection);
+                return RedirectToAction("Manage/" + id + "/" + option, "BusinessAccount");
+            }
+            else if (Request.Form["removeItem"] != null)
+            {
+                InvoiceItem.RemoveInvoiceItem(id, collection);
+                return RedirectToAction("AddInvoiceItem/" + id + "/" + option, "BusinessAccount");
+            }
+            else
+            {
+                return RedirectToAction("AddInvoiceItem/" + id + "/" + option, "BusinessAccount");
             }
         }
-        //GET: BusinessAccount/AddItem/id
+
+        //GET: BusinessAccount/AddItem/id/{option}
         public ActionResult AddItem(int id, int option)
         {
             return View();
         }
 
-        //POST: BusinessAccount/AddItem/id--------------REWORK THIS
+        //POST: BusinessAccount/AddItem/id/{option}
         [HttpPost]
         public ActionResult AddItem(int id, int option, FormCollection collection)
         {
-            using (CustomerManagementSystemContext context = new CustomerManagementSystemContext())
-            {
-                var newItem = new Item{
-                    BusinessNumber = id,
-                    ItemName = Request.Form["ItemName"],
-                    ItemDescription = Request.Form["ItemDescription"],
-                    Cost = Decimal.Parse(Request.Form["Cost"]),
-                };
-                context.Items.Add(newItem);
-                context.SaveChanges();
-                return RedirectToAction("AddInvoiceItem/" + id + "/" + option, "BusinessAccount");
-            }
+            new Item(id, collection);
+            return RedirectToAction("AddInvoiceItem/" + id + "/" + option, "BusinessAccount");
         }
+
+        //NEED A REMOVE ITEM OPTION<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
         //POST: BusinessAccount/DeleteInvoice/id
         public ActionResult InvoiceDelete(int id)

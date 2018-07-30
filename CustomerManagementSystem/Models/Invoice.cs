@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.ComponentModel.DataAnnotations;
 using System.Runtime.InteropServices;
+using System.Web.Mvc;
 
 namespace CustomerManagementSystem.Models
 {
@@ -71,6 +72,18 @@ namespace CustomerManagementSystem.Models
                 this.Tax = invoice.Tax;
                 this.SubTotal = invoice.SubTotal;
                 this.TotalCost = invoice.TotalCost;
+            }
+        }
+
+        public static void InvoiceCreate(int id, int option, FormCollection collection)
+        {
+            using (CustomerManagementSystemContext context = new CustomerManagementSystemContext())
+            {
+                var notes = collection["Notes"];
+                var invoice = context.Invoices.Where(x => x.InvoiceNumber == option).FirstOrDefault();
+                invoice.Notes = notes;
+                invoice.invoiceComplete = true;
+                context.SaveChanges();
             }
         }
 
